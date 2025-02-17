@@ -1,0 +1,23 @@
+version: "3.5"
+
+services:
+  book-with-python:
+    build:
+      context: ./python
+      target: python-base
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+        reservations:
+          memory: 4096M
+    container_name: book-with-python
+    volumes:
+      - ../src:/src
+      - ../resources:/resources
+      - /dev/shm:/dev/shm
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /
+    shm_size: 1gb
+    tty: true
+    restart: always

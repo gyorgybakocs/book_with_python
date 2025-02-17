@@ -1,0 +1,9 @@
+html5lib
+requests
+virtualenv
+html2text
+reportlab
+PyPDF2
+natsort
+PDFNetPython3
+ebooklib
