@@ -5,8 +5,6 @@ ENV PYTHONPATH="$PYTHONPATH:/get/"
 COPY ./ /get
 VOLUME ["/get"]
 
-RUN ls -l get
-
 # Install pip-tools and compile requirements
 RUN pip install --no-cache-dir pip-tools
 RUN pip-compile /get/requirements.in

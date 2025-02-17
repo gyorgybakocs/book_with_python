@@ -15,6 +15,7 @@ services:
     volumes:
       - ../src:/src
       - ../resources:/resources
+      - ../log:/log
       - /dev/shm:/dev/shm
       - /var/run/docker.sock:/var/run/docker.sock
     working_dir: /
