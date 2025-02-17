@@ -1,0 +1,70 @@
+{
+  "styles": {
+
+  },
+  "copyright_hu": {
+	"copyrihgt_text": "Copyright © 2025 BGDS Minden jog fenntartva. A kiadvány bármely részének újranyomása, terjesztése vagy bármilyen formában történő átvétele, beleértve a fénymásolást, felvételt vagy más elektronikus vagy mechanikus módszereket, a kiadó előzetes írásbeli engedélye nélkül tilos, kivéve rövid idézetek esetében kritikai értékelések vagy bizonyos más nem kereskedelmi felhasználások esetén, amelyeket a szerzői jog törvény megenged.",
+	"author_text": "Szerző",
+	"author": "BGDS",
+	"design_text": "Borítóterv és belső elrendezés",
+	"design": "BGDS",
+	"publish_text": "Kiadja",
+	"publish": "BGDS",
+	"ISBN": "[Insert ISBN here]",
+	"printing_text": "Nyomtatási történet",
+	"printing" : [
+		"2025 március: Első kiadás"
+	],
+	"email_text": "Engedélykérésekkel kapcsolatos információkért kérjük, keresse a BGDS-t az alábbi címen",
+	"email": "gyorgy.bakocs@transprnt.com"
+  },
+  "copyright_en": {
+	"copyrihgt_text": "Copyright © 2025 by BGDS All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.",
+	"author_text": "Author",
+	"author": "BGDS",
+	"design_text": "Cover design and interior layout",
+	"design": "BGDS",
+	"publish_text": "Published",
+	"publish": "BGDS",
+	"ISBN": "[Insert ISBN here]",
+	"printing_text": "Printing History",
+	"printing" : [
+		"March 2025: First Edition"
+	],
+	"email_text": "For permissions requests, please contact BGDS at the following address",
+	"email": "gyorgy.bakocs@transprnt.com"
+  },
+  "dedicate_hu": {
+	"to": "<span>Fiamnak, Alexandernek</span>",
+	"paragraphs": [
+		"<span>Egy éves voltál, amikor Malajziába költöztünk és alig négy és fél évesen már angol szövegeket olvastál. A te utad a többnyelvűség felé - ahogy egyszerre sajátítottad el a magyart, angolt, malájt és kínait - példaként szolgálhat minden nyelvtanuló számára, bizonyítva, hogy a fiatal elme milyen hihetetlen teljesítményekre képes.</span>",
+		"<span>A nyelvek iránti lelkesedésed inspirált engem. Kitartásod példa lehet minden nyelvtanulónak. Megmutattad, hogy a nyelvtanulás nem csupán hasznos készség, hanem egy izgalmas kaland is lehet, tele felfedezésekkel és sikerélményekkel.</span>",
+        "<span>Ez a könyv részben a te fejlődésednek köszönhető. Remélem, hogy mások is meríthetnek belőle annyi örömet és sikert a nyelvtanulásban, amennyit te találtál a nyelvek sokszínű világában.</span>",
+        "<span>Büszke vagyok rád, fiam, és köszönöm.</span>"
+    ],
+	"from": "<span>Apa</span>"
+  },
+  "preface_hu": {
+    "paragraphs": [
+      "<span>Kedves Olvasó!</span>",
+      "<span></span>",
+      "<span>Tegye fel a kezét, aki még soha nem érezte magát elveszettnek az angol igeidők dzsungelében! Volt már olyan érzése, hogy a sok szabály és kivétel között azt sem tudja, mikor használjon egy egyszerű múlt időt? Nem egyedül van ezzel - és van megoldás. De mielőtt megmutatnám, engedje meg, hogy bemutatkozzam.</span>",
+      "<span></span>",
+      "<span>Bakocs György vagyok, fejlesztőmérnökként dolgozom közel három évtizede. Munkám során csaknem egy évtizedet töltöttem Malajziában, ahol az angol nyelv iránti szenvedélyem kibontakozott. Ennek eredményeként indítottam el egy Instagram- és YouTube-csatornát @aseasyaspie2017 néven, ahol TV-sorozatokból vett példákkal szemléltettem az angol idiómákat. Az Instagram oldalam gyorsan népszerűvé vált, több mint 100 ezer követőt szereztem. Egy technikai malőr miatt elvesztettem a hozzáférésemet a fiókhoz, de @aseasyaspie2021 néven újraindítottam a projektet. Az évek során megszereztem a TEFL (Teaching English as a Foreign Language) tanári képesítést is, mert tudtam: ez az én utam.</span>",
+      "<span></span>",
+      "<span>Tehát akkor miért írtam ezt a könyvet, hiszen már annyi kiadvány foglalkozik az angol igeidőkkel? A válasz egyszerű: szeretném, hogy e könyv elolvasása és megértése után képes legyen használni az igeidőket anélkül, hogy a szabályokon rágódna. Nem célom nyelvtani szabályokat sulykolni.</span>",
+      "<span></span>",
+      "<span>Fiatal koromban két nagyon eltérő megközelítéssel találkoztam. Volt egy kiváló tanárom, aki hosszú éveket élt Amerikában. Az óráin dalokat fordítottunk, szerepjátékokat játszottunk, és bár néha megemlített egy-egy nyelvtani érdekességet, a lényeg mindig a beszéden volt. Az órák hatékonyak és kötetlenek voltak, tudásunk pedig folyamatosan fejlődött. Szerettem az angolt, és még többet akartam tudni. Beiratkoztam az IHLS-be, ahol anyanyelvi tanárok oktattak, és a nyelvi akadályok miatt szó sem lehetett arról, hogy nyelvtani magyarázatokkal terheljenek minket; ehelyett beszéltünk, hallgattunk, és a hibáinkból tanultunk.</span>",
+      "<span>Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. \"Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály a listáról?\" Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került.</span>",
+      "<span></span>",
+      "<span>A brit iskolákban a nyelvtan oktatása jelentősen eltér a magyar rendszertől. Míg Magyarországon a gyerekek már általános iskolában megismerik az olyan nyelvtani fogalmakat, mint az alany és az állítmány, valamint rendszeresen gyakorolják a mondatértelmezést, addig az angol oktatásban a nyelvtani szabályok tanítása kevésbé kap hangsúlyt.</span>",
+      "<span>A Speak Blog (2023) szerint az angol iskolákban gyakorlatilag nincs hagyományos értelemben vett nyelvtanoktatás. A diákok irodalmat és fogalmazást tanulnak, de a nyelvtani szabályok részletes magyarázata ritkán kap helyet az oktatásban. A tanárok inkább csak kijavítják a hibákat, de nem tanítják meg a szabályok hátterét. A Wyse, Aarts, Anders, de Gennaro, Dockrell, Manyukhina, Sing és Torgerson (2022) által készített tanulmány rámutat, hogy az angol nemzeti tanterv tartalmaz bizonyos nyelvtani elemeket, amelyeket integráltan, szövegalkotás és olvasás közben tanítanak. A kutatás azonban azt is megállapítja, hogy ezek az elemek kevésbé strukturáltak, mint például a magyar rendszerben megszokott nyelvtani elemzések. A tanárok inkább implicit módon segítik a diákok helyes nyelvhasználatát, mintsem hogy átfogó szabályrendszert tanítsanak.</span>",
+      "<span>A gyerekek nyelvhasználata egy teljesen természetes folyamat: ahogy a magyar első osztályosok is hibátlanul használják a ragokat, jeleket és képzőket anélkül, hogy tudnák, mik ezek, úgy az angol gyerekek is ösztönösen alkalmazzák az igeidőket. A fiam például magabiztosan használja a present perfect igeidőt, de amikor megkérdezem tőle, hogy el tudná-e magyarázni, mikor kell használni, csak értetlenül néz rám.</span>",
+      "<span>Meglepő módon az „angol módszer\" hátrányokkal is járhat. Brit nyelvtanárok szerint ez megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs, mi az a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban érti az angol nyelvtant, mint maguk a britek. Mégis minden brit folyékonyan beszél és ír angolul, míg mi csak küszködünk a szabályokkal, és gyakran még egy egyszerű mondatot sem merünk kimondani, mert attól félünk, hogy nyelvtanilag hibás lesz. Nem kellene ezen elgondolkodnunk?</span>",
+      "<span></span>",
+      "<span>Ez a felismerés arra ösztönzött, hogy olyan módszert keressek, amely a szabályok magolása helyett a nyelvhasználatot segíti elő. Egy olyan megközelítést találtam, amely új nézőpontból közelíti meg a kérdést, és nem a rengeteg igeidőre, nem a száraz szabályokra fókuszál. Nem egy forradalmi újításról van szó - inkább a már létező elméletek leegyszerűsített, gyakorlati változatáról. Hidat épít a nyelvtani szabályok és azok gyakorlati használata között, így az igeidők használata olyan természetessé válik majd az Ön számára, mint egy anyanyelvi beszélőnek.</span>",
+      "<span></span>",
+      "<span>Készen áll, hogy együtt fedezzük fel az angol nyelv e gyakran rettegett területét? Ígérem, amikor végzünk, magabiztosan fogja használni az igeidőket - szabálylisták nélkül is! Vágjunk bele!</span>"
+    ]
+  }
+}

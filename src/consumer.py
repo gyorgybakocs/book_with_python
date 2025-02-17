@@ -1,9 +1,9 @@
 import argparse
 
-# from src.Builders.Idioms.PdfBuilder import PdfBuilder
-# from src.Builders.Idioms.EpubBuilder import EpubBuilder
-
 # Setup argument parser
+from src.builders.epub_builder import EpubBuilder
+from src.builders.pdf_builder import PdfBuilder
+
 parser = argparse.ArgumentParser(description='Process EPUB or PDF pages.')
 
 parser.add_argument('--format',
@@ -11,6 +11,11 @@ parser.add_argument('--format',
                     required=True,
                     choices=['pdf', 'epub'],
                     help='Specify output format: pdf or epub'
+                    )
+parser.add_argument('--json',
+                    type=str,
+                    required=True,
+                    help='Specify the source json file'
                     )
 
 # PDF Arguments
@@ -43,7 +48,7 @@ parser.add_argument('--et',
                     )
 
 args = parser.parse_args()
-
+json_file = args.json
 # Determine processing mode
 if args.format == 'pdf':
     if not all([args.pb, args.bw, args.s, args.l]):
@@ -53,14 +58,12 @@ if args.format == 'pdf':
     short = args.s == '1'
     paper_book = args.pb == '1' and not short
     black_and_white = args.bw == '1' and not short
-    print('PDF')
-    # builder = PdfBuilder(json='0', paper_book=paper_book, black_and_white=black_and_white, short=short, language=language)
-
+    builder = PdfBuilder(json_file=json_file, paper_book=paper_book, black_and_white=black_and_white, short=short, language=language)
 elif args.format == 'epub':
     if not args.et:
         parser.error("EPUB format requires --et argument.")
-    print('EPUB')
-    # builder = EpubBuilder(json='0', epub_type=args.et)
 
-# Run the builder
-# builder.run()
+    builder = EpubBuilder(json_file=json_file, epub_type=args.et)
+
+if builder.valid:
+    builder.run()
