@@ -2,6 +2,14 @@
   "styles": {
 
   },
+  "book_hu": {
+    "title": "Az igazság az angol igeidőkről",
+    "subtitle": "A \"két igeidő\" módszer"
+  },
+  "book_en": {
+    "title": "The Truth About English Tenses",
+    "subtitle": "The Two Tenses Magic"
+  },
   "copyright_hu": {
 	"copyrihgt_text": "Copyright © 2025 BGDS Minden jog fenntartva. A kiadvány bármely részének újranyomása, terjesztése vagy bármilyen formában történő átvétele, beleértve a fénymásolást, felvételt vagy más elektronikus vagy mechanikus módszereket, a kiadó előzetes írásbeli engedélye nélkül tilos, kivéve rövid idézetek esetében kritikai értékelések vagy bizonyos más nem kereskedelmi felhasználások esetén, amelyeket a szerzői jog törvény megenged.",
 	"author_text": "Szerző",

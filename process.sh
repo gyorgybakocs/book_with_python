@@ -30,7 +30,8 @@ Create a PDF or EPUB page.
 
 Usage:
   --format [pdf|epub]  -> Specify output format
-  --json [relative path]  -> Specify the source file
+  --data [relative path]  -> Specify the source file
+  --config [relative path]  -> Specify the config file
   --pb [0|1]           -> Paperbook (PDF only)
   --bw [0|1]           -> Black and white (PDF only)
   --s  [0|1]           -> Short version (PDF only)
@@ -69,11 +70,11 @@ if [[ -z $format ]]; then
 fi
 
 if [[ $format == "pdf" ]]; then
-  [[ -z $json || -z $pb || -z $bw || -z $s || -z $l ]] && usage && die "PDF requires --json --pb, --bw, --s, --l"
-  command="python3 /src/consumer.py --format pdf --json \"$json\" --pb \"$pb\" --bw \"$bw\" --s \"$s\" --l \"$l\""
+  [[ -z $data || -z $config || -z $pb || -z $bw || -z $s || -z $l ]] && usage && die "PDF requires --data --config --pb, --bw, --s, --l"
+  command="python3 /src/consumer.py --format pdf --data \"$data\" --config \"$config\" --pb \"$pb\" --bw \"$bw\" --s \"$s\" --l \"$l\""
 elif [[ $format == "epub" ]]; then
-  [[ -z $json || -z $et ]] && usage && die "EPUB requires --json --et"
-  command="python3 /src/consumer.py --format epub --json \"$json\" --et \"$et\""
+  [[ -z $data || -z $config || -z $et ]] && usage && die "EPUB requires --data --config --et"
+  command="python3 /src/consumer.py --format epub --data \"$data\" --config \"$config\" --et \"$et\""
 else
   usage
   die "Invalid format: $format"

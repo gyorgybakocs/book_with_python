@@ -1,2 +1,4 @@
 .idea/
 log/
+src/config/config.cfg
+resources/book/*

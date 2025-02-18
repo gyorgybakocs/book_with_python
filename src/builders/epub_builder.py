@@ -12,7 +12,3 @@ class EpubBuilder(BaseBuilder):
 
     def run(self):
         print("Running EPUB builder logic...")
-
-        print(f'epub_type {self.epub_type}')
-
-        print(f'data {self.data}')
