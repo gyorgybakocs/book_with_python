@@ -8,9 +8,9 @@ from reportlab.lib import colors
 
 from src.config.config_service import ConfigService
 from src.helpers.builder import register_fonts
-from src.service_factory import get_json
 from reportlab.platypus.paragraph import Paragraph
-from src.logger import python_logger
+from src.utils.json_utils import get_json
+from src.logger import logger
 
 
 def get_json_to_data(json_file):
@@ -18,14 +18,14 @@ def get_json_to_data(json_file):
     Loads the JSON data dynamically and handles errors.
     """
     if not os.path.exists(json_file):
-        python_logger.error(f"JSON file not found: {json_file}")
+        logger.error(f"JSON file not found: {json_file}")
         return {}
 
     try:
         json_data = get_json(json_file)
 
         if not isinstance(json_data, dict):
-            python_logger.error(f"Invalid JSON format: {json_file}")
+            logger.error(f"Invalid JSON format: {json_file}")
             return {}
 
         # Build the data dictionary dynamically
@@ -35,15 +35,15 @@ def get_json_to_data(json_file):
         if "styles" in json_data and isinstance(json_data["styles"], dict):
             data["styles"] = json_data["styles"]
 
-        python_logger.info(f"Successfully loaded JSON: {json_file}")
+        logger.info(f"Successfully loaded JSON: {json_file}")
         return data
 
     except json.JSONDecodeError as e:
-        python_logger.error(f"Invalid JSON syntax in {json_file}: {e}")
+        logger.error(f"Invalid JSON syntax in {json_file}: {e}")
     except FileNotFoundError:
-        python_logger.error(f"File not found: {json_file}")
+        logger.error(f"File not found: {json_file}")
     except Exception as e:
-        python_logger.error(f"Unexpected error while loading JSON ({json_file}): {e}")
+        logger.error(f"Unexpected error while loading JSON ({json_file}): {e}")
 
     return {}  # If there's an error, return an empty dictionary
 
@@ -100,16 +100,16 @@ class BaseBuilder(metaclass=abc.ABCMeta):
             self.json_file = json_file
             self.data = get_json_to_data(json_file)
             if not self.data:
-                python_logger.error("JSON loading failed!")
+                logger.error("JSON loading failed!")
                 self.valid = False
 
         except Exception as e:
-            python_logger.error(f"Failed to load JSON: {e}")
+            logger.error(f"Failed to load JSON: {e}")
             self.valid = False
 
         # Register fonts and check if ALL were successful
         if not self.register_fonts('/resources/fonts'):
-            python_logger.error("Font registration failed!")
+            logger.error("Font registration failed!")
             self.valid = False
 
         # Register styles
@@ -130,6 +130,8 @@ class BaseBuilder(metaclass=abc.ABCMeta):
 
         # EPUB-specific properties
         self.epub_type = kwargs.get("epub_type", None)
+
+        logger.info(f"Successfully Initialized the builder!")
 
     @abc.abstractmethod
     def run(self):
@@ -177,11 +179,11 @@ class BaseBuilder(metaclass=abc.ABCMeta):
                     setattr(self, style_name, style)
 
                 except Exception as e:
-                    python_logger.error(f"Failed to create style {style_name}: {e}")
+                    logger.error(f"Failed to create style {style_name}: {e}")
                     self.valid = False
 
         except Exception as e:
-            python_logger.error(f"Style registration failed: {e}")
+            logger.error(f"Style registration failed: {e}")
             self.valid = False
 
     def get_registered_styles(self):

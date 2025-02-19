@@ -5,6 +5,7 @@ from src.builders.base_builder import BaseBuilder
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.lib import pagesizes
+from src.logger import logger
 
 
 from src.helpers.builder import modify_paragraph_style, make_page
@@ -43,6 +44,8 @@ class PdfBuilder(BaseBuilder):
 
         # Save the PDF
         self.canvas.save()
+
+        logger.info(f"Successfully created the PDF!")
 
     def create_cover(self):
         """Creates a blank cover page."""

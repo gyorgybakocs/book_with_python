@@ -1,10 +1,9 @@
 import configparser
 import json
 import os
-
+import logging
 from src.exceptions.onfig_exceptions import ConfigurationError
-from src.logger import python_logger
-from src.service_factory import get_json
+from src.utils.json_utils import get_json
 
 
 class ConfigService:
@@ -107,7 +106,7 @@ class ConfigService:
             cfg_file (str): Path to CFG configuration file
         """
         if not os.path.exists(cfg_file):
-            python_logger.error(f"CFG file not found: {cfg_file}")
+            logging.error(f"CFG file not found: {cfg_file}")
             return
 
         config = configparser.ConfigParser()
@@ -158,5 +157,5 @@ class ConfigService:
         try:
             return self._cfg_config.get(section, key, fallback=fallback)
         except Exception as e:
-            python_logger.error(f"Error reading config {section}.{key}: {e}")
+            logging.error(f"Error reading config {section}.{key}: {e}")
             return fallback

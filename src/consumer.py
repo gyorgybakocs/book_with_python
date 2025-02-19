@@ -1,8 +1,9 @@
 import argparse
+import logging
 from src.builders.epub_builder import EpubBuilder
 from src.builders.pdf_builder import PdfBuilder
 from src.config.config_service import ConfigService
-from src.logger import python_logger
+from src.logger_service import LoggerService
 
 
 def main():
@@ -61,8 +62,14 @@ def main():
             json_file=args.config,
             cfg_file="/src/config/config.cfg"
         )
+        logging.info("Config loaded successfully")
+
+        # Initialize logger with config
+        LoggerService.get_instance().initialize_from_config(ConfigService.get_instance())
+        logging.info("Logger initialized from config")
+
     except Exception as e:
-        python_logger.error(f"Config initialization failed: {e}")
+        logging.error(f"Startup failed: {e}")
         return  # Exit without error, just don't create builder
 
     # 3. Builder létrehozása a config manager-rel
