@@ -8,7 +8,7 @@
             "horizontal": 51.4
         },
         "fonts": {
-            "main": "CamingoCode",
+            "main": "Roboto",
             "ipa": "lucida_sans_unicode"
         },
         "page": {
@@ -20,17 +20,17 @@
     "title_main": {
       "font_weight": "Bold",
       "font_size": 24,
-      "leading": 34
+      "leading": 30
     },
     "title_sub": {
       "font_weight": "Bold",
       "font_size": 16,
-      "leading": 16
+      "leading": 20
     },
     "paragraph_default": {
       "font_weight": "Regular",
       "font_size": 12,
-      "leading": 16,
+      "leading": 18,
       "alignment": 4
     }
   }

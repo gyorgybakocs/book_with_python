@@ -1,5 +1,3 @@
-# src/logger_service.py
-
 import logging
 import os
 

@@ -1,9 +1,10 @@
 import argparse
 import logging
+
 from src.builders.epub_builder import EpubBuilder
 from src.builders.pdf_builder import PdfBuilder
-from src.config.config_service import ConfigService
-from src.logger_service import LoggerService
+from src.services.config_service import ConfigService
+from src.services.logger_service import LoggerService
 
 
 def main():
