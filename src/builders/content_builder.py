@@ -1,9 +1,12 @@
 import copy
+import re
 
 from src.managers.style_manager import modify_paragraph_style
 from src.utils.page_utils import make_paragraph, make_header, make_footer
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus import Frame
+
+from src.utils.text_utils import strip_html_tags, split_html_text, fix_html_tags
 
 
 class ContentBuilder:
@@ -97,39 +100,30 @@ class ContentBuilder:
                       border_padding=None, header_pos=0, chapter_title=None, has_header=False, has_footer=False):
         """Add a paragraph with specific style"""
         is_empty = text == ""
+        original_text = text
+        clean_text = strip_html_tags(text)
 
         original_style = self.style_manager.get_style(style_name)
-        style_mods = {}
-        if first_line_indent:
-            style_mods['firstLineIndent'] = first_line_indent
-        if border_padding is not None:
-            style_mods['borderPadding'] = border_padding
-        style = modify_paragraph_style(original_style, **style_mods) if style_mods else original_style
+        style = self.style_manager.prepare_style(
+            style_name,
+            firstLineIndent=first_line_indent,
+            borderPadding=border_padding
+        )
 
-        # Create paragraph and check height
-        p = Paragraph(text, style)
+        p = Paragraph(clean_text, style)
         w, h = p.wrapOn(self.canvas, self.page_size[0] - 2 * self.padding_h - extra_width, 20)
 
-        # Check if fits on current page
         if self.current_pos + h + extra_spacing > self.page_size[1] - self.padding_v:
-            print(f'MUST CUT ---------------------> {text}')
             result = p.split(self.page_size[0] - 2 * self.padding_h, self.available_height)
 
             if result and len(result) == 2:
                 first_part, second_part = result
-
-                if hasattr(first_part.frags[0], 'words'):
-                    first_text = ' '.join(first_part.frags[0].words)
-                else:
-                    first_text = ''
-                    for frag in first_part.frags:
-                        first_text += frag[1][1] + ' '
-
-                print(f'???????????????????????????????? -> {first_text} <-')
+                first_html, second_html = split_html_text(original_text, first_part)
+                first_html, second_html = fix_html_tags(first_html, second_html)
 
                 self.current_pos = make_paragraph(
                     self.canvas,
-                    first_text,
+                    first_html,
                     style,
                     self.current_pos,
                     self.page_size,
@@ -138,14 +132,7 @@ class ContentBuilder:
                     extra_spacing,
                     extra_width
                 )
-                if hasattr(second_part.frags[0], 'words'):
-                    text = ' '.join(second_part.frags[0].words)
-                else:
-                    text = ''
-                    for frag in second_part.frags:
-                        text += frag[1][1] + ' '
-
-                print(f'############################ -> {text} <-')
+                text = second_html
                 style = original_style
 
             self.add_break(chapter_title, header_pos, has_header, has_footer, 6)

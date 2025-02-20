@@ -102,3 +102,20 @@ class StyleManager:
                 registered_styles[name]["alignment"] = style.alignment
 
         return registered_styles
+
+    def prepare_style(self, style_name, **args):
+        """
+        Get a style and apply modifications if needed.
+
+        Args:
+            style_name: Name of base style to modify
+            **args: Style modifications (firstLineIndent, borderPadding, fontSize, etc.)
+
+        Returns:
+            Original or modified ParagraphStyle
+        """
+        original_style = self.get_style(style_name)
+        if not args:
+            return original_style
+
+        return modify_paragraph_style(original_style, **args)
