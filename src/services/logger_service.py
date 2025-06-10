@@ -1,82 +1,68 @@
 import logging
 import os
-
+from src.services.config_service import ConfigService
 
 class LoggerService:
     """
-    Service for managing application logging through root logger.
-    Starts with basic configuration, then updates with settings from config.
+    Singleton service for managing application logging through the root logger.
+    It should be initialized once with settings from the ConfigService.
     """
     _instance = None
 
     def __init__(self):
-        """Initialize service with basic root logger configuration"""
-        self._setup_initial_logger()
+        """
+        The constructor is now empty. The service does nothing until explicitly
+        configured via initialize_from_config.
+        """
+        pass
 
     @classmethod
     def get_instance(cls):
-        """Returns singleton instance, creating it with basic logger if needed"""
+        """
+        Returns the singleton instance of the LoggerService.
+        """
         if cls._instance is None:
             cls._instance = cls()
         return cls._instance
 
-    def _setup_initial_logger(self):
-        """Sets up basic root logger for startup phase"""
-        print("Setting up initial root logger...")
+    def initialize_from_config(self, config: ConfigService):
+        """
+        Configures the root logger based on the provided configuration service.
+        This is the main setup method for the logger.
 
-        # Configure root logger
+        Args:
+            config (ConfigService): The initialized configuration service instance.
+        """
+        log_format = config.get("logger.log_format", fallback="%(asctime)s %(levelname)s: %(message)s")
+        log_dir = config.get("paths.log_dir")
+        process_log_file = config.get("logger.process_log")
+        error_log_file = config.get("logger.error_log")
+
         root_logger = logging.getLogger()
         root_logger.setLevel(logging.DEBUG)
-
-        # Clear any existing handlers
         root_logger.handlers.clear()
 
-        # Add console handler for startup phase
-        formatter = logging.Formatter("[%(asctime)s] %(levelname)s: %(message)s")
-        handler = logging.StreamHandler()
-        handler.setFormatter(formatter)
-        root_logger.addHandler(handler)
+        formatter = logging.Formatter(log_format)
 
-    def initialize_from_config(self, config):
-        """Updates root logger configuration with settings from config"""
-        # Get logger settings from config
-        logger_name = config.get_cfg("logger", "name")
-        process_log = config.get_cfg("logger", "process_log")
-        error_log = config.get_cfg("logger", "error_log")
-        log_format = config.get_cfg("logger", "log_format")
-        log_dir = config.get_cfg("paths", "log_dir")
+        if log_dir and process_log_file and error_log_file:
+            os.makedirs(log_dir, exist_ok=True)
 
-        # Configure root logger
-        root_logger = logging.getLogger()
-        root_logger.setLevel(logging.DEBUG)
+            info_path = os.path.join(log_dir, process_log_file)
+            info_handler = logging.FileHandler(info_path, mode='w')
+            info_handler.setLevel(logging.INFO)
+            info_handler.setFormatter(formatter)
+            info_handler.addFilter(lambda record: record.levelno == logging.INFO)
+            root_logger.addHandler(info_handler)
 
-        # Clear existing handlers from initial setup
-        root_logger.handlers.clear()
+            error_path = os.path.join(log_dir, error_log_file)
+            error_handler = logging.FileHandler(error_path, mode='w')
+            error_handler.setLevel(logging.ERROR)
+            error_handler.setFormatter(formatter)
+            root_logger.addHandler(error_handler)
 
-        # Create formatter
-        formatter = logging.Formatter(log_format or "[%(asctime)s] %(levelname)s: %(message)s")
-
-        # Setup handlers
-        if not os.path.exists(log_dir):
-            os.makedirs(log_dir)
-
-        # Setup info handler
-        info_path = os.path.join(log_dir, process_log)
-        info_handler = logging.FileHandler(info_path)
-        info_handler.setLevel(logging.INFO)
-        info_handler.setFormatter(formatter)
-        info_handler.addFilter(lambda record: record.levelno == logging.INFO)
-        root_logger.addHandler(info_handler)
-
-        # Setup error handler
-        error_path = os.path.join(log_dir, error_log)
-        error_handler = logging.FileHandler(error_path)
-        error_handler.setLevel(logging.ERROR)
-        error_handler.setFormatter(formatter)
-        root_logger.addHandler(error_handler)
-
-        # Add console handler for immediate feedback
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.INFO)
         console_handler.setFormatter(formatter)
         root_logger.addHandler(console_handler)
+
+        logging.info("Logging has been configured from the config file.")

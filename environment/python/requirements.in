@@ -5,5 +5,11 @@ html2text
 reportlab
 PyPDF2
 natsort
-PDFNetPython3
 ebooklib
+pydantic
+coverage
+pytest
+pytest-cov
+pytest-mock
+parameterized
+PyYAML

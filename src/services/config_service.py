@@ -1,161 +1,90 @@
-import configparser
-import json
+import yaml
 import os
-import logging
-from src.exceptions.onfig_exceptions import ConfigurationError
-from src.utils.json_utils import get_json
-
+from src.exceptions.config_exceptions import ConfigurationError
 
 class ConfigService:
     """
-    Singleton service that manages both JSON and CFG configurations.
-    Provides centralized access to application settings.
+    Singleton service that manages a unified YAML configuration.
+    Provides centralized, read-only access to all application settings.
+    This class should be initialized once at the start of the application.
     """
     _instance = None
-    _json_config = None
-    _cfg_config = None
+    _config = None
 
     @classmethod
     def get_instance(cls):
         """
-        Returns singleton instance of ConfigService.
-        Must call initialize() before first use.
-
-        Returns:
-            ConfigService: Singleton instance
+        Provides access to the singleton instance.
 
         Raises:
-            RuntimeError: If called before initialize()
+            RuntimeError: If the service has not been initialized by calling initialize() first.
+
+        Returns:
+            ConfigService: The singleton instance of the service.
         """
         if cls._instance is None:
-            raise RuntimeError("ConfigService not initialized. Call initialize() first")
+            raise RuntimeError("ConfigService not initialized. Call initialize() first.")
         return cls._instance
 
     @classmethod
-    def initialize(cls, json_file, cfg_file="src/config/config.cfg"):
+    def initialize(cls, config_file: str):
         """
-        Initialize the configuration service with both JSON and CFG files.
-        Must be called before first get_instance().
+        Initializes the singleton instance by loading the configuration from a YAML file.
+        This method must be called before get_instance() is used for the first time.
 
         Args:
-            json_file (str): Path to JSON configuration file
-            cfg_file (str): Path to CFG configuration file, defaults to src/config/config.cfg
-
-        Returns:
-            ConfigService: Initialized singleton instance
+            config_file (str): The path to the YAML configuration file.
 
         Raises:
-            RuntimeError: If service is already initialized
-            ConfigurationError: If JSON config is invalid or missing required sections
+            RuntimeError: If the service has already been initialized.
+
+        Returns:
+            ConfigService: The newly created and initialized singleton instance.
         """
         if cls._instance is not None:
-            raise RuntimeError("ConfigService already initialized")
-
+            raise RuntimeError("ConfigService already initialized.")
         cls._instance = cls()
-        cls._instance._load_configs(json_file, cfg_file)
+        cls._instance._load_config(config_file)
         return cls._instance
 
-    def _load_configs(self, json_file, cfg_file):
+    def _load_config(self, config_file: str):
         """
-        Load both configuration file types.
-        Loads CFG first, then JSON configuration.
+        Private method to load and parse the YAML configuration file.
 
         Args:
-            json_file (str): Path to JSON configuration file
-            cfg_file (str): Path to CFG configuration file
-        """
-        self._load_cfg_config(cfg_file)  # First load CFG
-        self._load_json_config(json_file)  # Then load JSON
-
-    def _load_json_config(self, json_file):
-        """
-        Load and validate JSON configuration.
-
-        Args:
-            json_file (str): Path to JSON configuration file
+            config_file (str): The path to the YAML configuration file.
 
         Raises:
-            ConfigurationError: If file not found, invalid JSON, or missing required sections
+            ConfigurationError: If the file is not found or if there's an error parsing the YAML.
         """
-        if not os.path.exists(json_file):
-            raise ConfigurationError(f"JSON config file not found: {json_file}")
-
+        if not os.path.exists(config_file):
+            raise ConfigurationError(f"Config file not found: {config_file}")
         try:
-            config_data = get_json(json_file)
-            if not isinstance(config_data, dict):
-                raise ConfigurationError("Configuration must be a JSON object")
+            with open(config_file, 'r', encoding='utf-8') as f:
+                self._config = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            raise ConfigurationError(f"Error parsing YAML file: {e}")
 
-            if "styles" not in config_data:
-                raise ConfigurationError("Missing required 'styles' section")
-            if "common" not in config_data:
-                raise ConfigurationError("Missing required 'common' section")
-
-            self._json_config = config_data
-
-        except json.JSONDecodeError as e:
-            raise ConfigurationError(f"Invalid JSON syntax: {str(e)}")
-        except Exception as e:
-            raise ConfigurationError(f"Error loading JSON configuration: {str(e)}")
-
-    def _load_cfg_config(self, cfg_file):
+    def get(self, key: str, fallback=None):
         """
-        Load CFG configuration file.
-        Logs error but does not raise exception if file not found.
+        Retrieves a value from the loaded configuration using dot notation.
+
+        Example:
+            config.get('paths.font_path')
 
         Args:
-            cfg_file (str): Path to CFG configuration file
-        """
-        if not os.path.exists(cfg_file):
-            logging.error(f"CFG file not found: {cfg_file}")
-            return
-
-        config = configparser.ConfigParser()
-        config.read(cfg_file)
-        self._cfg_config = config
-
-    def get_config(self, key=None):
-        """
-        Get value from JSON configuration.
-        Supports dot notation for nested access (e.g. 'common.padding.vertical')
-
-        Args:
-            key: String key with optional dot notation, or None for full config
+            key (str): A string representing the path to the value, with levels separated by dots.
+            fallback: The default value to return if the key is not found. Defaults to None.
 
         Returns:
-            Config value if found, None if not found
+            The requested value from the configuration, or the fallback value if not found.
         """
-        if key is None:
-            return self._json_config
-
-        # Handle dot notation
-        current = self._json_config
-        for part in key.split('.'):
-            if isinstance(current, dict):
-                current = current.get(part)
-                if current is None:
-                    return None
-            else:
-                return None
-
-        return current
-
-    def get_cfg(self, section, key, fallback=None):
-        """
-        Get value from CFG configuration.
-
-        Args:
-            section (str): Configuration section name
-            key (str): Key within section
-            fallback: Default value if section/key not found
-
-        Returns:
-            Value from config or fallback if not found
-        """
-        if self._cfg_config is None:
-            return fallback
-
+        keys = key.split('.')
+        value = self._config
         try:
-            return self._cfg_config.get(section, key, fallback=fallback)
-        except Exception as e:
-            logging.error(f"Error reading config {section}.{key}: {e}")
+            for k in keys:
+                value = value[k]
+            return value
+        except (KeyError, TypeError):
             return fallback
+

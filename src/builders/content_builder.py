@@ -1,224 +1,133 @@
-import copy
-import re
-
-from src.managers.style_manager import modify_paragraph_style
-from src.utils.page_utils import make_paragraph, make_header, make_footer
+from reportlab.lib import colors
 from reportlab.platypus.paragraph import Paragraph
-from reportlab.platypus import Frame
-
-from src.utils.text_utils import strip_html_tags, split_html_text, fix_html_tags
-
+from src.managers.style_manager import modify_paragraph_style
 
 class ContentBuilder:
+    """
+    A low-level toolbox for drawing elements onto a PDF canvas.
+    This class manages the current drawing position and provides methods
+    to add styled content to the PDF. It does not handle page breaks itself.
+    """
     def __init__(self, canvas, page_size, style_manager, padding_h, padding_v):
         self.canvas = canvas
         self.page_size = page_size
         self.style_manager = style_manager
         self.padding_h = padding_h
         self.padding_v = padding_v
-        self.current_pos = 0
-        self.page_num = 0
-        self.available_height = self.page_size[1] - 2 * self.padding_v
+        self.current_pos = 0.0
+        self.page_num = 1
 
-    def set_available_height(self, height=None):
-        self.available_height = height if height is not None else self.page_size[1] - 2 * self.padding_v
-
-    def start_from(self, pos):
-        """Set starting position"""
-        self.current_pos = pos
+    def start_from(self, pos: float):
+        """Sets the vertical starting position (from top) for the next element."""
+        self.current_pos = float(pos)
         return self
 
-    def add_spacing(self, spacing):
-        """Add vertical spacing"""
-        self.current_pos += spacing
+    def add_spacing(self, spacing: float):
+        """Adds vertical empty space."""
+        self.current_pos += float(spacing)
         return self
 
-    def add_title(self, text, alignment=1, font_size=None, leading=None, extra_spacing=0):
-        """Add a title with specific style"""
-        title_style = self.style_manager.get_style('title_main')
-        if any([font_size, alignment, leading]):
-            style_mods = {}
-            if font_size:
-                style_mods['fontSize'] = font_size
-                style_mods['leading'] = leading or font_size
-            if leading == 'default':
-                style_mods['leading'] = title_style.leading + 6
-            if alignment is not None:
-                style_mods['alignment'] = alignment
-            title_style = modify_paragraph_style(title_style, **style_mods)
+    def _draw_paragraph(self, text: str, style):
+        """Private helper to draw a styled paragraph and return its height."""
+        width = self.page_size[0] - 2 * self.padding_h
+        y_pos = self.page_size[1] - self.current_pos
 
-        self.current_pos = make_paragraph(
-            self.canvas,
-            text,
-            title_style,
-            self.current_pos,
-            self.page_size,
-            self.padding_h,
-            True,
-            extra_spacing
-        )
+        p = Paragraph(text, style)
+        w, h = p.wrap(width, 10000) # Use a large available height to get true height
+        p.drawOn(self.canvas, self.padding_h, y_pos - h)
+
+        self.current_pos += h
         return self
 
-    def add_subtitle(self, text, alignment=2, extra_spacing=0):
-        """Add a subtitle"""
-        subtitle_style = self.style_manager.get_style('title_sub')
-        if alignment is not None:
-            subtitle_style = modify_paragraph_style(subtitle_style, alignment=alignment)
+    def add_title(self, text: str, **kwargs):
+        """Adds a main title."""
+        style = self.style_manager.prepare_style('title_main', **kwargs)
+        return self._draw_paragraph(text, style)
 
-        self.current_pos = make_paragraph(
-            self.canvas,
-            text,
-            subtitle_style,
-            self.current_pos + 6,
-            self.page_size,
-            self.padding_h,
-            True,
-            extra_spacing
-        )
-        return self
+    def add_subtitle(self, text: str, **kwargs):
+        """Adds a subtitle."""
+        self.add_spacing(6)
+        style = self.style_manager.prepare_style('title_sub', **kwargs)
+        return self._draw_paragraph(text, style)
+
+    def add_paragraph(self, text: str, **kwargs):
+        """Adds a standard paragraph."""
+        extra_spacing = kwargs.pop('extra_spacing', 0)
+
+        if extra_spacing > 0:
+            self.add_spacing(extra_spacing)
+
+        style_name = kwargs.pop('style_name', 'paragraph_default')
+        style = self.style_manager.prepare_style(style_name, **kwargs)
+
+        return self._draw_paragraph(text, style)
+
+    def get_paragraph_height(self, text: str, **kwargs) -> float:
+        """Calculates the height of a paragraph without drawing it."""
+        # Kiemeljük a style_name-et a kwargs-ból, alapértelmezett a 'paragraph_default'
+        style_name = kwargs.pop('style_name', 'paragraph_default')
+        style = self.style_manager.prepare_style(style_name, **kwargs)
+        width = self.page_size[0] - 2 * self.padding_h
+        p = Paragraph(text, style)
+        _w, h = p.wrap(width, 10000)
+        return h
 
     def add_separator_line(self):
-        """Add a horizontal line"""
-        self.canvas.line(
-            self.padding_h,
-            self.page_size[1] - self.current_pos,
-            self.page_size[0] - self.padding_h,
-            self.page_size[1] - self.current_pos
-        )
+        """Adds a horizontal line at the current position."""
+        y = self.page_size[1] - self.current_pos
+        self.canvas.line(self.padding_h, y, self.page_size[0] - self.padding_h, y)
         return self
 
-    def add_break(self, chapter_title, header_pos, has_header=True, has_footer=True, spacing=6):
-        if has_footer:
-            self.add_footer(chapter_title)
-        self.new_page()
-        if has_header:
-            self.current_pos = header_pos
-            self.add_header(f'<span>{chapter_title}</span>').add_spacing(spacing)
+    def add_header(self, text: str):
+        """Adds a page header."""
+        style = self.style_manager.prepare_style('title_sub', alignment=2)
+        y = self.page_size[1] - self.padding_v
 
-    def add_paragraph(self, text, style_name='paragraph_default',
-                      first_line_indent=0, extra_spacing=0, extra_width=0,
-                      border_padding=None, header_pos=0, chapter_title=None, has_header=False, has_footer=False):
-        """Add a paragraph with specific style"""
-        is_empty = text == ""
-        original_text = text
-        clean_text = strip_html_tags(text)
-
-        original_style = self.style_manager.get_style(style_name)
-        style = self.style_manager.prepare_style(
-            style_name,
-            firstLineIndent=first_line_indent,
-            borderPadding=border_padding
-        )
-
-        p = Paragraph(clean_text, style)
-        w, h = p.wrapOn(self.canvas, self.page_size[0] - 2 * self.padding_h - extra_width, 20)
-
-        if self.current_pos + h + extra_spacing > self.page_size[1] - self.padding_v:
-            result = p.split(self.page_size[0] - 2 * self.padding_h, self.available_height)
-
-            if result and len(result) == 2:
-                first_part, second_part = result
-                first_html, second_html = split_html_text(original_text, first_part)
-                first_html, second_html = fix_html_tags(first_html, second_html)
-
-                self.current_pos = make_paragraph(
-                    self.canvas,
-                    first_html,
-                    style,
-                    self.current_pos,
-                    self.page_size,
-                    self.padding_h,
-                    True,
-                    extra_spacing,
-                    extra_width
-                )
-                text = second_html
-                style = original_style
-
-            self.add_break(chapter_title, header_pos, has_header, has_footer, 6)
-            if not is_empty:
-                self.current_pos = make_paragraph(
-                    self.canvas,
-                    text,
-                    style,
-                    self.current_pos,
-                    self.page_size,
-                    self.padding_h,
-                    True,
-                    extra_spacing,
-                    extra_width
-                )
-        else:
-            self.current_pos = make_paragraph(
-                self.canvas,
-                text,
-                style,
-                self.current_pos,
-                self.page_size,
-                self.padding_h,
-                True,
-                extra_spacing,
-                extra_width
-            )
-
-        self.available_height = self.page_size[1] - self.current_pos - self.padding_v
-
+        self.canvas.line(self.padding_h, y, self.page_size[0] - self.padding_h, y)
+        p = Paragraph(text, style)
+        p.wrapOn(self.canvas, self.page_size[0] - 2 * self.padding_h, 50)
+        p.drawOn(self.canvas, self.padding_h, y + 5)
         return self
 
-    def add_header(self, text, extra_spacing=-6):
-        """Add a right-aligned header with subtitle style"""
-        title_style = self.style_manager.get_style('title_sub')
-        header_style = modify_paragraph_style(title_style, alignment=2)
+    def add_footer(self, text: str):
+        """Adds a page footer."""
+        style = self.style_manager.get_style('paragraph_default')
+        y = self.padding_v # A vonal y pozíciója az oldal aljától
 
-        self.current_pos = make_header(
-            self.canvas,
-            text,
-            header_style,
-            self.current_pos,
-            self.page_size,
-            self.padding_h,
-            False,
-            extra_spacing,
-            True
-        )
+        self.canvas.line(self.padding_h, y, self.page_size[0] - self.padding_h, y)
+        txt_with_num = f"{self.page_num} | {text}"
+        p = Paragraph(txt_with_num, style)
+        p.wrapOn(self.canvas, self.page_size[0] - 2 * self.padding_h, 50)
 
-        return self
-
-    def add_footer(self, text, page_number=1):
-        """Add a footer to the current page"""
-        paragraph_style = self.style_manager.get_style('paragraph_default')
-        make_footer(
-            self.canvas,
-            text,
-            paragraph_style,
-            self.padding_v,
-            self.page_size,
-            self.padding_h,
-            page_number
-        )
-
-        return self
-
-    def add_chapter_paragraphs(self, paragraphs, header_pos, chapter_title="", has_header=False, has_footer=False, first_line_indent=20, extra_spacing=10):
-        """Add multiple paragraphs with indentation"""
-
-        for par in paragraphs:
-            self.add_paragraph(
-                par,
-                header_pos=header_pos,
-                chapter_title=chapter_title,
-                has_header=has_header,
-                has_footer=has_footer,
-                first_line_indent=first_line_indent,
-                extra_spacing=extra_spacing
-            )
-
+        p.drawOn(self.canvas, self.padding_h, y - 18)
         return self
 
     def new_page(self):
-        """Start a new page"""
+        """Starts a new page."""
         self.canvas.showPage()
         self.page_num += 1
-        self.current_pos = 0
+        self.current_pos = 0.0
+        return self
 
+    def add_blank_page(self):
+        """Adds a completely blank page."""
+        self.canvas.setFillColor(colors.white)
+        self.canvas.rect(0, 0, self.page_size[0], self.page_size[1], stroke=0, fill=1)
+        self.new_page()
+        return self
+
+    def create_paragraph(self, text: str, **kwargs):
+        """Létrehoz egy Paragraph objektumot anélkül, hogy kirajzolná."""
+        style_name = kwargs.pop('style_name', 'paragraph_default')
+        style = self.style_manager.prepare_style(style_name, **kwargs)
+        return Paragraph(text, style)
+
+    def draw_paragraph_object(self, p: Paragraph):
+        """Kirajzol egy már létező Paragraph objektumot az aktuális pozícióra."""
+        width = self.page_size[0] - 2 * self.padding_h
+        _w, h = p.wrap(width, 10000)
+
+        y_pos = self.page_size[1] - self.current_pos
+        p.drawOn(self.canvas, self.padding_h, y_pos - h)
+        self.current_pos += h
         return self

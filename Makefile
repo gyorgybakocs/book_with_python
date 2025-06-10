@@ -4,20 +4,17 @@ endif
 
 PROJECT_NAME=book-with-python
 
-build: dotenv
+build:
 	DOCKER_BUILDKIT=0 docker compose -f environment/$(ENV).yml build --no-cache
 
-up: dotenv
+up:
 	docker compose -f environment/$(ENV).yml up --force-recreate
 
-upd: dotenv
+upd:
 	docker compose -f environment/$(ENV).yml up -d --force-recreate
 
 down:
 	docker compose -f environment/$(ENV).yml down
-
-dotenv:
-	cp src/config/config-$(ENV).cfg src/config/config.cfg
 
 stopdockers:
 	docker stop $(docker ps -a -q)

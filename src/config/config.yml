@@ -1,0 +1,50 @@
+# ===============================================
+# Unified Configuration File for Book Generation
+# ===============================================
+
+# Paths for resources and output
+paths:
+  resources: /resources
+  log_dir: /log
+  output_dir: /resources/book
+  font_path: /resources/fonts
+
+# Default settings for the builders
+defaults:
+  language: en
+  page_size: letter
+  starting_pos: 300.0
+
+# Font definitions, using the values currently active in the code
+fonts:
+  main: CamingoCode
+  ipa: lucida_sans_unicode
+
+# Common page layout settings from the original JSON
+common:
+  padding:
+    vertical: 56.3
+    horizontal: 51.4
+
+# Paragraph styles used in the book
+styles:
+  title_main:
+    font_weight: "Bold"
+    font_size: 24
+    leading: 30
+  title_sub:
+    font_weight: "Bold"
+    font_size: 16
+    leading: 20
+  paragraph_default:
+    font_weight: "Regular"
+    font_size: 12
+    leading: 18
+    alignment: 4 # Justify
+
+# Logger configuration
+logger:
+  name: "python_logger"
+  process_log: "process.log"
+  error_log: "process-error.log"
+  log_format: "%%(asctime)s %%(levelname)s: %%(message)s"

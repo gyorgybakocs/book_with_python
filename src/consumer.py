@@ -8,6 +8,11 @@ from src.services.logger_service import LoggerService
 
 
 def main():
+    """
+    Main entry point for the book generation process.
+    Parses command-line arguments to determine the output format and
+    other settings, then initializes services and triggers the appropriate builder.
+    """
     parser = argparse.ArgumentParser(description='Process EPUB or PDF pages.')
 
     parser.add_argument('--format',
@@ -19,61 +24,59 @@ def main():
     parser.add_argument('--data',
                         type=str,
                         required=True,
-                        help='Specify the source json file'
+                        help='Specify the source json file for book content'
                         )
     parser.add_argument('--config',
                         type=str,
                         required=True,
-                        help='Specify the config json file'
+                        help='Specify the unified YAML config file'
                         )
-    # PDF Arguments
+
+    # PDF-specific arguments
     parser.add_argument('--pb',
                         type=str,
                         choices=['0', '1'],
-                        help='Paperbook (only for PDF)'
+                        help='Paperbook version (PDF only)'
                         )
     parser.add_argument('--bw',
                         type=str,
                         choices=['0', '1'],
-                        help='Black and white (only for PDF)'
+                        help='Black and white version (PDF only)'
                         )
     parser.add_argument('--s',
                         type=str,
                         choices=['0', '1'],
-                        help='Short version (only for PDF)'
+                        help='Short version (PDF only)'
                         )
     parser.add_argument('--l',
                         type=str,
                         choices=['en', 'hu'],
-                        help='Language (only for PDF)'
+                        help='Language (PDF only)'
                         )
 
-    # EPUB Arguments
+    # EPUB-specific arguments
     parser.add_argument('--et',
                         type=str,
                         choices=['kindle', 'epub', 'web'],
-                        help='EPUB type (only for EPUB)'
+                        help='EPUB type (EPUB only)'
                         )
 
     args = parser.parse_args()
-    json_file = args.data
-    # Initialize config service
+
     try:
-        ConfigService.initialize(
-            json_file=args.config,
-            cfg_file="/src/config/config.cfg"
-        )
+        ConfigService.initialize(config_file=args.config)
         logging.info("Config loaded successfully")
 
-        # Initialize logger with config
         LoggerService.get_instance().initialize_from_config(ConfigService.get_instance())
         logging.info("Logger initialized from config")
 
     except Exception as e:
         logging.error(f"Startup failed: {e}")
-        return  # Exit without error, just don't create builder
+        return
 
-    # 3. Builder létrehozása a config manager-rel
+    json_file = args.data
+    builder = None
+
     if args.format == 'pdf':
         if not all([args.pb, args.bw, args.s, args.l]):
             parser.error("PDF format requires --pb, --bw, --s, and --l arguments.")
@@ -99,9 +102,9 @@ def main():
             epub_type=args.et
         )
 
-    if builder.valid:
+    if builder and builder.valid:
         builder.run()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     main()
