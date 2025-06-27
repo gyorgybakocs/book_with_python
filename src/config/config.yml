@@ -46,6 +46,7 @@ styles:
 # Logger configuration
 logger:
   name: "python_logger"
+  level: "DEBUG"
   process_log: "process.log"
   error_log: "process-error.log"
   log_format: "%(asctime)s %(levelname)s: %(message)s"

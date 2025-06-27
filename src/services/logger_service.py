@@ -34,12 +34,18 @@ class LoggerService:
             config (ConfigService): The initialized configuration service instance.
         """
         log_format = config.get("logger.log_format", fallback="%(asctime)s %(levelname)s: %(message)s")
+        log_level = config.get("logger.level", fallback="INFO")
         log_dir = config.get("paths.log_dir")
         process_log_file = config.get("logger.process_log")
         error_log_file = config.get("logger.error_log")
 
         root_logger = logging.getLogger()
-        root_logger.setLevel(logging.DEBUG)
+
+        if hasattr(logging, log_level.upper()):
+            root_logger.setLevel(getattr(logging, log_level.upper()))
+        else:
+            root_logger.setLevel(logging.INFO)
+
         root_logger.handlers.clear()
 
         formatter = logging.Formatter(log_format)
@@ -61,7 +67,7 @@ class LoggerService:
             root_logger.addHandler(error_handler)
 
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
+        console_handler.setLevel(getattr(logging, log_level.upper()) if hasattr(logging, log_level.upper()) else logging.INFO)
         console_handler.setFormatter(formatter)
         root_logger.addHandler(console_handler)
 
