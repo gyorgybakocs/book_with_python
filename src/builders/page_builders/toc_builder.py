@@ -1,41 +1,57 @@
 from src.builders.page_builders.base_page_builder import BasePageBuilder
 from src.logger import logger
+from reportlab.platypus import Table, TableStyle
+from reportlab.platypus.paragraph import Paragraph
 
 class TOCBuilder(BasePageBuilder):
     """
-    Builds Table of Contents with dynamic page numbers.
-    Uses PageRegistryService to get accurate page numbers.
+    Builds Table of Contents with FIXED POSITION approach.
+    Uses pre-registered page numbers from PageRegistryService.
     """
 
     def __init__(self, content_builder, data_manager, language, config, page_registry):
         super().__init__(content_builder, data_manager, language, config)
         self.page_registry = page_registry
+        # Get style_manager from content_builder
+        self.style_manager = content_builder.style_manager
 
     def build(self, source_path: str = None, toc_data: dict = None, **options):
         """
-        Builds the TOC with dynamic page numbers.
+        Builds the TOC with FIXED POSITION approach.
+        Page numbers come from pre-registered sections.
         """
         if not toc_data:
-            # Try to get from data manager, but don't fail if missing
             toc_data = self.data_manager.get_data(self.language, 'toc') or {
                 'title': 'Table of Contents'
             }
 
-        # Get TOC entries from registry
+        # Get TOC entries from registry (pre-registered)
         toc_entries = self.page_registry.get_toc_entries()
 
         if not toc_entries:
-            logger.warning("No TOC entries found in registry")
+            logger.warning("No TOC entries found in registry - building basic TOC")
+            # DEBUG: Let's see what's in the registry
+            logger.debug("Registry contents: " + self.page_registry.get_sections_summary())
+            self._build_empty_toc(toc_data)
             return
 
-        logger.info(f"Building TOC with {len(toc_entries)} entries")
+        logger.info(f"Building TOC with {len(toc_entries)} pre-registered entries")
 
-        # Build the TOC without complex page calculations for now
-        self._build_simple_toc(toc_data, toc_entries)
+        # Record start page for TOC itself
+        start_page = self.content.page_num
 
-    def _build_simple_toc(self, toc_data: dict, toc_entries: list):
+        # Build the TOC
+        self._build_fixed_toc(toc_data, toc_entries)
+
+        # Record end page
+        end_page = self.content.page_num - 1
+
+        # Register TOC itself (it won't appear in its own listing)
+        self.register_section('toc', toc_data.get("title", "Table of Contents"), start_page, end_page, 'toc')
+
+    def _build_fixed_toc(self, toc_data: dict, toc_entries: list):
         """
-        Builds a simple TOC page.
+        Builds TOC with pre-calculated page numbers.
         """
         # Start TOC
         starting_pos = self.config.get("common.padding.vertical")
@@ -43,10 +59,10 @@ class TOCBuilder(BasePageBuilder):
 
         # Add TOC title
         toc_title = toc_data.get("title", "Table of Contents")
-        self.content.add_paragraph(f'<b>{toc_title}</b>', style_name='title_sub', alignment=2)
+        self.content.add_paragraph(f'<a name="toc"/><b>{toc_title}</b>', style_name='title_sub', alignment=1)
         self.content.add_spacing(30)
 
-        logger.info(f"Adding {len(toc_entries)} TOC entries")
+        logger.info(f"Adding {len(toc_entries)} TOC entries with pre-calculated page numbers")
 
         # Add each TOC entry
         for entry in toc_entries:
@@ -54,66 +70,100 @@ class TOCBuilder(BasePageBuilder):
             page = entry['page']
             anchor = entry['anchor']
 
-            # Create dots for spacing
-            dots = ' . ' * 40
+            # Create dots for spacing (adjust length based on title)
+            title_length = len(title)
+            dots_count = max(10, 50 - title_length)  # Adaptive dot count
+            dots = ' . ' * (dots_count // 3)
 
-            # Format entry based on type - WITH WORKING LINKS
-            if entry.get('is_main_chapter', False):
-                # Main chapter - indent
-                toc_line = f'&nbsp;&nbsp;&nbsp;&nbsp;<a href="#{anchor}">{title}</a>{dots}{page}'
+            # TEMPORARY: Skip problematic anchors
+            if anchor in ['tul_a_szabalyokon_az_angol_igeid_k_valos_kihivasai', 'modellezzuk_le_a_valosagot_az_igeid_k_uj_megkozelitese']:
+                # Format without links for problematic anchors
+                if entry.get('is_main_chapter', False):
+                    toc_line = f'&nbsp;&nbsp;&nbsp;&nbsp;<b>{title}</b>{dots}<b>{page}</b>'
+                else:
+                    toc_line = f'{title}{dots}{page}'
             else:
-                # Regular section
-                toc_line = f'<a href="#{anchor}">{title}</a>{dots}{page}'
+                # Format entry based on type - AS HTML STRINGS (like old code)
+                if entry.get('is_main_chapter', False):
+                    # Main chapter - indent and bold
+                    toc_line = f'&nbsp;&nbsp;&nbsp;&nbsp;<b><a href="#{anchor}">{title}</a></b>{dots}<b>{page}</b>'
+                else:
+                    # Regular section
+                    toc_line = f'<a href="#{anchor}">{title}</a>{dots}{page}'
 
-            self.content.add_paragraph(toc_line, style_name='paragraph_default')
-            self.content.add_spacing(5)
+            # Create a table for proper alignment (title left, page number right)
+            from reportlab.platypus import Table, TableStyle
+            from reportlab.platypus.paragraph import Paragraph
 
-        # End TOC page
-        self.content.add_footer("Table of Contents")
+            # Left part (title) - ALL ANCHORS ENABLED!
+            if entry.get('is_main_chapter', False):
+                left_part = f'<b><a href="#{anchor}">{title}</a></b>'  # NO INDENT, WITH LINK!
+            else:
+                left_part = f'<a href="#{anchor}">{title}</a>'  # WITH LINK!
+
+            # Right part (page number)
+            if entry.get('is_main_chapter', False):
+                right_part = f'<b>{page}</b>'
+            else:
+                right_part = str(page)
+
+            # Create table row for proper alignment
+            toc_row_data = [
+                [Paragraph(left_part, self.style_manager.get_style('paragraph_default')),
+                 Paragraph(right_part, self.style_manager.prepare_style('paragraph_default', alignment=2))]
+            ]
+
+            # Create table with proper column widths
+            available_width = self.content.page_size[0] - 2 * self.config.get("common.padding.horizontal")
+            toc_table = Table(toc_row_data, colWidths=[available_width - 40, 40])
+
+            # Table style for clean TOC
+            toc_table.setStyle(TableStyle([
+                ('LEFTPADDING', (0, 0), (-1, -1), 0),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+                ('TOPPADDING', (0, 0), (-1, -1), 0),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+                ('VALIGN', (0, 0), (-1, -1), 'TOP')
+            ]))
+
+            # Draw the table
+            width = self.content.page_size[0] - 2 * self.config.get("common.padding.horizontal")
+            w, h = toc_table.wrapOn(self.content.canvas, width, 20)
+            y_pos = self.content.page_size[1] - self.content.current_pos - h
+            toc_table.drawOn(self.content.canvas, self.config.get("common.padding.horizontal"), y_pos)
+
+            self.content.current_pos += h + 3  # Add small spacing between entries
+
+        # Add some bottom spacing
+        self.content.add_spacing(20)
+
+        # IMPORTANT: End the TOC page properly
         self.content.new_page()
 
-        logger.info("TOC built successfully")
+        logger.info("TOC content built successfully")
 
-    def _add_toc_entry(self, section: dict):
+    def _build_empty_toc(self, toc_data: dict):
         """
-        Add a single TOC entry.
+        Builds a minimal TOC when no entries are available.
         """
-        title = section['title']
-        page_num = section['start_page'] if not section['adjusted'] else section['start_page']
-        anchor = section['anchor']
+        starting_pos = self.config.get("common.padding.vertical")
+        self.content.start_from(starting_pos)
 
-        # Create entry with dots and page number
-        dots = ' . ' * 50  # Long string of dots
+        toc_title = toc_data.get("title", "Table of Contents")
+        self.content.add_paragraph(f'<a name="toc"/><b>{toc_title}</b>', style_name='title_sub', alignment=1)
+        self.content.add_spacing(30)
 
-        if section['name'].startswith('chapters.'):
-            # Main chapter - indent
-            entry_text = f'&nbsp;&nbsp;&nbsp;&nbsp;<a href="#{anchor}">{title}</a>'
-        else:
-            # Regular section
-            entry_text = f'<a href="#{anchor}">{title}</a>'
+        self.content.add_paragraph("(Content will be available in final version)", style_name='paragraph_default', alignment=1)
 
-        # Create the TOC line with dots and page number
-        self._create_toc_line(entry_text, page_num, dots)
+        # IMPORTANT: End the TOC page properly
+        self.content.new_page()
 
-    def _create_toc_line(self, title_text: str, page_num: int, dots: str):
-        """
-        Creates a TOC line with title, dots, and page number.
-        Uses a table layout to align properly.
-        """
-        # For now, use simple paragraph approach
-        # This could be enhanced with tables for better alignment
-
-        full_line = f'{title_text}{dots}{page_num}'
-
-        # Add the TOC line
-        self.content.add_paragraph(full_line, style_name='paragraph_default')
-        self.content.add_spacing(4)
+        logger.warning("Built empty TOC - no pre-registered sections found")
 
     def calculate_actual_pages_used(self) -> int:
         """
         Calculate how many pages the TOC actually used.
         This can be called after building to get accurate count.
         """
-        # This would need to be implemented based on actual content built
-        # For now, return the estimate
-        return self.page_registry.estimate_toc_pages()
+        # In the fixed approach, we'll always use the reserved space
+        return 2  # Fixed reservation

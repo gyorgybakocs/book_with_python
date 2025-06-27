@@ -1,24 +1,19 @@
+from src.logger import logger
+
 class PageRegistryService:
     """
     Service that tracks page numbers for dynamic TOC generation.
-    Each page builder registers itself here with start/end pages.
+    UPDATED for Fixed TOC Position approach.
     """
 
     def __init__(self):
         self.sections = []  # List of {'name', 'title', 'start_page', 'end_page', 'anchor'}
-        self.toc_pages = 0  # Will be calculated after TOC generation
-        self.toc_insert_position = None  # Where to insert TOC
+        self.toc_position = 5  # Fixed TOC position
+        self.toc_pages = 2     # Fixed TOC size
 
     def register_section(self, name: str, title: str, start_page: int, end_page: int, anchor: str = None):
         """
         Register a section with its page information.
-
-        Args:
-            name: Internal section name (e.g., 'dedicate', 'preface', 'chapter_1')
-            title: Display title for TOC
-            start_page: Starting page number (before TOC adjustment)
-            end_page: Ending page number (before TOC adjustment)
-            anchor: HTML anchor for linking (optional)
         """
         section = {
             'name': name,
@@ -29,57 +24,27 @@ class PageRegistryService:
             'pages_count': end_page - start_page + 1
         }
         self.sections.append(section)
-
-    def set_toc_insert_position(self, after_page: int):
-        """
-        Set where the TOC should be inserted.
-
-        Args:
-            after_page: Insert TOC after this page number
-        """
-        self.toc_insert_position = after_page
-
-    def calculate_adjusted_page_numbers(self, toc_pages: int) -> list:
-        """
-        Calculate adjusted page numbers after TOC insertion.
-
-        Args:
-            toc_pages: Number of pages the TOC will take
-
-        Returns:
-            List of sections with adjusted page numbers
-        """
-        self.toc_pages = toc_pages
-        adjusted_sections = []
-
-        for section in self.sections:
-            adjusted_section = section.copy()
-
-            # If section starts after TOC insertion point, adjust pages
-            if section['start_page'] > self.toc_insert_position:
-                adjusted_section['start_page'] = section['start_page'] + toc_pages
-                adjusted_section['end_page'] = section['end_page'] + toc_pages
-                adjusted_section['adjusted'] = True
-            else:
-                adjusted_section['adjusted'] = False
-
-            adjusted_sections.append(adjusted_section)
-
-        return adjusted_sections
+        logger.debug(f"Registered section: {name} -> {title} (pages {start_page}-{end_page})")
 
     def get_toc_entries(self) -> list:
         """
-        Get entries for TOC generation (before adjustment).
-
-        Returns:
-            List of TOC entries with original page numbers
+        Get entries for TOC generation.
+        In Fixed TOC approach, these are pre-calculated.
         """
         toc_entries = []
+        seen_sections = set()  # Track seen section names to avoid duplicates
 
         for section in self.sections:
-            # Skip cover and title pages from TOC
-            if section['name'] in ['cover', 'title', 'copyright']:
+            # Skip sections that shouldn't appear in TOC
+            if section['name'] in ['cover', 'title', 'copyright', 'toc']:
                 continue
+
+            # Skip duplicates
+            if section['name'] in seen_sections:
+                logger.debug(f"Skipping duplicate section: {section['name']}")
+                continue
+
+            seen_sections.add(section['name'])
 
             entry = {
                 'title': section['title'],
@@ -90,35 +55,37 @@ class PageRegistryService:
             }
             toc_entries.append(entry)
 
+        # Sort by page number to ensure correct order
+        toc_entries.sort(key=lambda x: x['page'])
+
+        logger.info(f"Generated {len(toc_entries)} TOC entries (duplicates removed)")
         return toc_entries
-
-    def estimate_toc_pages(self, entries_per_page: int = 25) -> int:
-        """
-        Estimate how many pages the TOC will need.
-
-        Args:
-            entries_per_page: Approximate entries that fit on one page
-
-        Returns:
-            Estimated number of TOC pages
-        """
-        toc_entries = self.get_toc_entries()
-        total_entries = len(toc_entries)
-
-        # Add some buffer for headers and spacing
-        estimated_pages = max(1, (total_entries + 5) // entries_per_page)
-
-        return estimated_pages
 
     def get_sections_summary(self) -> str:
         """Get a summary of all registered sections for debugging."""
-        summary = "REGISTERED SECTIONS:\n"
-        for section in self.sections:
+        summary = "REGISTERED SECTIONS (Fixed TOC approach):\n"
+        summary += f"TOC Position: Page {self.toc_position} (reserved {self.toc_pages} pages)\n"
+
+        # Sort sections by start page
+        sorted_sections = sorted(self.sections, key=lambda x: x['start_page'])
+
+        for section in sorted_sections:
             summary += f"  {section['name']}: '{section['title']}' (pages {section['start_page']}-{section['end_page']})\n"
         return summary
 
     def clear(self):
         """Clear all registered sections (for testing)."""
         self.sections = []
-        self.toc_pages = 0
-        self.toc_insert_position = None
+
+    # Legacy methods for compatibility (not used in Fixed approach)
+    def set_toc_insert_position(self, after_page: int):
+        """Legacy method - not used in Fixed TOC approach."""
+        pass
+
+    def calculate_adjusted_page_numbers(self, toc_pages: int) -> list:
+        """Legacy method - not needed in Fixed TOC approach."""
+        return self.sections
+
+    def estimate_toc_pages(self, entries_per_page: int = 25) -> int:
+        """Returns the fixed TOC size."""
+        return self.toc_pages
