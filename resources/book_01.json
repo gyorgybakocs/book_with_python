@@ -1,7 +1,5 @@
 {
-  "styles": {
-
-  },
+  "styles": {},
   "book_hu": {
     "title": {
       "title": "Az igazság az angol igeidőkről",
@@ -19,79 +17,237 @@
       "ISBN_epub": "ISBN 978 e...",
       "ISBN_print": "ISBN 978 pr...",
       "printing_text": "Kiadási történet",
-      "printing" : [
-          "2025 március: Első kiadás"
+      "printing": [
+        "2025 március: Első kiadás"
       ],
       "email_text": "Engedélykérésekkel kapcsolatos információkért kérjük, keresse a BGDS-t az alábbi címen",
       "email": "gyorgy.bakocs@transprnt.com"
     },
     "dedicate": {
       "title": "Fiamnak, Alexandernek",
-      "paragraphs": [
-          "Egy éves voltál, amikor Malajziába költöztünk és alig négy és fél évesen már angol szövegeket olvastál. A te utad a többnyelvűség felé - ahogy egyszerre sajátítottad el a magyart, angolt, malájt és kínait - példaként szolgálhat minden nyelvtanuló számára, bizonyítva, hogy a fiatal elme milyen hihetetlen teljesítményekre képes.",
-          "A nyelvek iránti lelkesedésed inspirált engem. Kitartásod példa lehet minden nyelvtanulónak. Megmutattad, hogy a nyelvtanulás nem csupán hasznos készség, hanem egy izgalmas kaland is lehet, tele felfedezésekkel és sikerélményekkel.",
-          "Ez a könyv részben a te fejlődésednek köszönhető. Remélem, hogy mások is meríthetnek belőle annyi örömet és sikert a nyelvtanulásban, amennyit te találtál a nyelvek sokszínű világában.",
-          "Büszke vagyok rád, fiam, és köszönöm."
-      ],
-      "from": "Apa"
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Egy éves voltál, amikor Malajziába költöztünk és alig négy és fél évesen már angol szövegeket olvastál. A te utad a többnyelvűség felé - ahogy egyszerre sajátítottad el a magyart, angolt, malájt és kínait - példaként szolgálhat minden nyelvtanuló számára, bizonyítva, hogy a fiatal elme milyen hihetetlen teljesítményekre képes."
+        },
+        {
+          "type": "paragraph",
+          "text": "A nyelvek iránti lelkesedésed inspirált engem. Kitartásod példa lehet minden nyelvtanulónak. Megmutattad, hogy a nyelvtanulás nem csupán hasznos készség, hanem egy izgalmas kaland is lehet, tele felfedezésekkel és sikerélményekkel."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ez a könyv részben a te fejlődésednek köszönhető. Remélem, hogy mások is meríthetnek belőle annyi örömet és sikert a nyelvtanulásban, amennyit te találtál a nyelvek sokszínű világában."
+        },
+        {
+          "type": "paragraph",
+          "text": "Büszke vagyok rád, fiam, és köszönöm."
+        }
+      ]
     },
     "preface": {
       "title": "Bevezetés",
-      "paragraphs": [
-        "Kedves Olvasó!",
-        "",
-        "<b>Tegye fel a kezét</b>, aki még soha nem érezte magát elveszettnek az angol igeidők dzsungelében! Volt már olyan érzése, hogy a sok szabály és kivétel között azt sem tudja, mikor használjon egy egyszerű múlt időt? Nem egyedül van ezzel - és van megoldás. De mielőtt megmutatnám, engedje meg, hogy bemutatkozzam.",
-        "Bakocs György vagyok, fejlesztőmérnökként dolgozom közel három évtizede. Munkám során csaknem egy évtizedet töltöttem Malajziában, ahol az angol nyelv iránti szenvedélyem kibontakozott. Ennek eredményeként indítottam el egy Instagram- és YouTube-csatornát @aseasyaspie2017 néven, ahol TV-sorozatokból vett példákkal szemléltettem az angol idiómákat. Az Instagram oldalam gyorsan népszerűvé vált, több mint 100 ezer követőt szereztem. Egy technikai malőr miatt elvesztettem a hozzáférésemet a fiókhoz, de @aseasyaspie2021 néven újraindítottam a projektet. Az évek során megszereztem a TEFL (Teaching English as a Foreign Language) tanári képesítést is, mert tudtam: ez az én utam.",
-        "Tehát akkor miért írtam ezt a könyvet, hiszen már annyi kiadvány foglalkozik az angol igeidőkkel? A válasz egyszerű: szeretném, hogy e könyv elolvasása és megértése után képes legyen használni az igeidőket anélkül, hogy a szabályokon rágódna. Nem célom nyelvtani szabályokat sulykolni.",
-        "Fiatal koromban két nagyon eltérő megközelítéssel találkoztam. Volt egy kiváló tanárom, aki hosszú éveket élt Amerikában. Az óráin dalokat fordítottunk, szerepjátékokat játszottunk, és bár néha megemlített egy-egy nyelvtani érdekességet, a lényeg mindig a beszéden volt. Az órák hatékonyak és kötetlenek voltak, tudásunk pedig folyamatosan fejlődött. Szerettem az angolt, és még többet akartam tudni. Beiratkoztam az IHLS-be, ahol anyanyelvi tanárok oktattak, és a nyelvi akadályok miatt szó sem lehetett arról, hogy nyelvtani magyarázatokkal terheljenek minket; ehelyett beszéltünk, hallgattunk, és a hibáinkból tanultunk.",
-        "Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. \"Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály a listáról?\" Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került.",
-        "A brit iskolákban a nyelvtan oktatása jelentősen eltér a magyar rendszertől. Míg Magyarországon a gyerekek már általános iskolában megismerik az olyan nyelvtani fogalmakat, mint az alany és az állítmány, valamint rendszeresen gyakorolják a mondatértelmezést, addig az angol oktatásban a nyelvtani szabályok tanítása kevésbé kap hangsúlyt.",
-        "A Speak Blog (2023) szerint az angol iskolákban gyakorlatilag nincs hagyományos értelemben vett nyelvtanoktatás. A diákok irodalmat és fogalmazást tanulnak, de a nyelvtani szabályok részletes magyarázata ritkán kap helyet az oktatásban. A tanárok inkább csak kijavítják a hibákat, de nem tanítják meg a szabályok hátterét. A Wyse, Aarts, Anders, de Gennaro, Dockrell, Manyukhina, Sing és Torgerson (2022) által készített tanulmány rámutat, hogy az angol nemzeti tanterv tartalmaz bizonyos nyelvtani elemeket, amelyeket integráltan, szövegalkotás és olvasás közben tanítanak. A kutatás azonban azt is megállapítja, hogy ezek az elemek kevésbé strukturáltak, mint például a magyar rendszerben megszokott nyelvtani elemzések. A tanárok inkább implicit módon segítik a diákok helyes nyelvhasználatát, mintsem hogy átfogó szabályrendszert tanítsanak.",
-        "A gyerekek nyelvhasználata egy teljesen természetes folyamat: ahogy a magyar első osztályosok is hibátlanul használják a ragokat, jeleket és képzőket anélkül, hogy tudnák, mik ezek, úgy az angol gyerekek is ösztönösen alkalmazzák az igeidőket. A fiam például magabiztosan használja a present perfect igeidőt, de amikor megkérdezem tőle, hogy el tudná-e magyarázni, mikor kell használni, csak értetlenül néz rám.",
-        "Meglepő módon az „angol módszer\" hátrányokkal is járhat. Brit nyelvtanárok szerint ez megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs, mi az a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban érti az angol nyelvtant, mint maguk a britek. Mégis minden brit folyékonyan beszél és ír angolul, míg mi csak küszködünk a szabályokkal, és gyakran még egy egyszerű mondatot sem merünk kimondani, mert attól félünk, hogy nyelvtanilag hibás lesz. Nem kellene ezen elgondolkodnunk?",
-        "Ez a felismerés arra ösztönzött, hogy olyan módszert keressek, amely a szabályok magolása helyett a nyelvhasználatot segíti elő. Egy olyan megközelítést találtam, amely új nézőpontból közelíti meg a kérdést, és nem a rengeteg igeidőre, nem a száraz szabályokra fókuszál. Nem egy forradalmi újításról van szó - inkább a már létező elméletek leegyszerűsített, gyakorlati változatáról. Hidat épít a nyelvtani szabályok és azok gyakorlati használata között, így az igeidők használata olyan természetessé válik majd az Ön számára, mint egy anyanyelvi beszélőnek.",
-        "",
-        "Készen áll, hogy együtt fedezzük fel az angol nyelv e gyakran rettegett területét? Ígérem, amikor végzünk, magabiztosan fogja használni az igeidőket - szabálylisták nélkül is! Vágjunk bele!"
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Kedves Olvasó!"
+        },
+        {
+          "type": "paragraph",
+          "text": ""
+        },
+        {
+          "type": "paragraph",
+          "text": "<b>Tegye fel a kezét</b>, aki még soha nem érezte magát elveszettnek az angol igeidők dzsungelében! Volt már olyan érzése, hogy a sok szabály és kivétel között azt sem tudja, mikor használjon egy egyszerű múlt időt? Nem egyedül van ezzel - és van megoldás. De mielőtt megmutatnám, engedje meg, hogy bemutatkozzam."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bakocs György vagyok, fejlesztőmérnökként dolgozom közel három évtizede. Munkám során csaknem egy évtizedet töltöttem Malajziában, ahol az angol nyelv iránti szenvedélyem kibontakozott. Ennek eredményeként indítottam el egy Instagram- és YouTube-csatornát @aseasyaspie2017 néven, ahol TV-sorozatokból vett példákkal szemléltettem az angol idiómákat. Az Instagram oldalam gyorsan népszerűvé vált, több mint 100 ezer követőt szereztem. Egy technikai malőr miatt elvesztettem a hozzáférésemet a fiókhoz, de @aseasyaspie2021 néven újraindítottam a projektet. Az évek során megszereztem a TEFL (Teaching English as a Foreign Language) tanári képesítést is, mert tudtam: ez az én utam."
+        },
+        {
+          "type": "paragraph",
+          "text": "Tehát akkor miért írtam ezt a könyvet, hiszen már annyi kiadvány foglalkozik az angol igeidőkkel? A válasz egyszerű: szeretném, hogy e könyv elolvasása és megértése után képes legyen használni az igeidőket anélkül, hogy a szabályokon rágódna. Nem célom nyelvtani szabályokat sulykolni."
+        },
+        {
+          "type": "paragraph",
+          "text": "Fiatal koromban két nagyon eltérő megközelítéssel találkoztam. Volt egy kiváló tanárom, aki hosszú éveket élt Amerikában. Az óráin dalokat fordítottunk, szerepjátékokat játszottunk, és bár néha megemlített egy-egy nyelvtani érdekességet, a lényeg mindig a beszéden volt. Az órák hatékonyak és kötetlenek voltak, tudásunk pedig folyamatosan fejlődött. Szerettem az angolt, és még többet akartam tudni. Beiratkoztam az IHLS-be, ahol anyanyelvi tanárok oktattak, és a nyelvi akadályok miatt szó sem lehetett arról, hogy nyelvtani magyarázatokkal terheljenek minket; ehelyett beszéltünk, hallgattunk, és a hibáinkból tanultunk."
+        },
+        {
+          "type": "paragraph",
+          "text": "Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. \"Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály a listáról?\" Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került."
+        },
+        {
+          "type": "paragraph",
+          "text": "A brit iskolákban a nyelvtan oktatása jelentősen eltér a magyar rendszertől. Míg Magyarországon a gyerekek már általános iskolában megismerik az olyan nyelvtani fogalmakat, mint az alany és az állítmány, valamint rendszeresen gyakorolják a mondatértelmezést, addig az angol oktatásban a nyelvtani szabályok tanítása kevésbé kap hangsúlyt."
+        },
+        {
+          "type": "paragraph",
+          "text": "A Speak Blog (2023) szerint az angol iskolákban gyakorlatilag nincs hagyományos értelemben vett nyelvtanoktatás. A diákok irodalmat és fogalmazást tanulnak, de a nyelvtani szabályok részletes magyarázata ritkán kap helyet az oktatásban. A tanárok inkább csak kijavítják a hibákat, de nem tanítják meg a szabályok hátterét. A Wyse, Aarts, Anders, de Gennaro, Dockrell, Manyukhina, Sing és Torgerson (2022) által készített tanulmány rámutat, hogy az angol nemzeti tanterv tartalmaz bizonyos nyelvtani elemeket, amelyeket integráltan, szövegalkotás és olvasás közben tanítanak. A kutatás azonban azt is megállapítja, hogy ezek az elemek kevésbé strukturáltak, mint például a magyar rendszerben megszokott nyelvtani elemzések. A tanárok inkább implicit módon segítik a diákok helyes nyelvhasználatát, mintsem hogy átfogó szabályrendszert tanítsanak."
+        },
+        {
+          "type": "paragraph",
+          "text": "A gyerekek nyelvhasználata egy teljesen természetes folyamat: ahogy a magyar első osztályosok is hibátlanul használják a ragokat, jeleket és képzőket anélkül, hogy tudnák, mik ezek, úgy az angol gyerekek is ösztönösen alkalmazzák az igeidőket. A fiam például magabiztosan használja a present perfect igeidőt, de amikor megkérdezem tőle, hogy el tudná-e magyarázni, mikor kell használni, csak értetlenül néz rám."
+        },
+        {
+          "type": "paragraph",
+          "text": "Meglepő módon az „angol módszer\" hátrányokkal is járhat. Brit nyelvtanárok szerint ez megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs, mi az a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban érti az angol nyelvtant, mint maguk a britek. Mégis minden brit folyékonyan beszél és ír angolul, míg mi csak küszködünk a szabályokkal, és gyakran még egy egyszerű mondatot sem merünk kimondani, mert attól félünk, hogy nyelvtanilag hibás lesz. Nem kellene ezen elgondolkodnunk?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Ez a felismerés arra ösztönzött, hogy olyan módszert keressek, amely a szabályok magolása helyett a nyelvhasználatot segíti elő. Egy olyan megközelítést találtam, amely új nézőpontból közelíti meg a kérdést, és nem a rengeteg igeidőre, nem a száraz szabályokra fókuszál. Nem egy forradalmi újításról van szó - inkább a már létező elméletek leegyszerűsített, gyakorlati változatáról. Hidat épít a nyelvtani szabályok és azok gyakorlati használata között, így az igeidők használata olyan természetessé válik majd az Ön számára, mint egy anyanyelvi beszélőnek."
+        },
+        {
+          "type": "paragraph",
+          "text": ""
+        },
+        {
+          "type": "paragraph",
+          "text": "Készen áll, hogy együtt fedezzük fel az angol nyelv e gyakran rettegett területét? Ígérem, amikor végzünk, magabiztosan fogja használni az igeidőket - szabálylisták nélkül is! Vágjunk bele!"
+        }
       ]
     },
     "chapters": {
       "ch_1": {
         "title": "Túl a szabályokon: Az angol igeidők valós kihívásai",
         "type": "simple",
-        "paragraphs": [
-          "Mielőtt fejest ugranánk az igeidők világába, beszéljünk azokról a kihívásokról, amelyekkel mindannyian szembesülünk a nyelvtanulás során. Már az első lépésnél elakadhatunk: melyik módszert válasszuk? A tanterv szerinti iskolai oktatáson kívül rengeteg különböző módszer létezik. Vannak olyanok, melyek azt ígérik, hogy mindenféle nyelvtani szabály és szavak tanulása nélkül is folyékonyan beszélhetünk majd angolul, mert úgy tanulhatunk meg mindent, „mint a kisgyerekek”. Ez valószínűleg nem igaz, de ezek a módszerek közelebb járnak az igazsághoz, mint azok, melyek szerint a nyelvtani szabályok alapos ismerete nélkül lehetetlen jól megtanulni egy nyelvet.",
-          "Meg kell találnunk az arany középutat, ahol a tanuló példák segítségével rájön a nyelvtani szabályokra, amit aztán egyszerűsített formában - mintegy megerősítésként - el is magyaráznak neki. Ezt én fontosnak tartom, mert a kisgyerek még mindent fenntartás nélkül elfogad, de később már szükség van a „miért” ismeretére is, hiszen ha a szabályok megtanulása nem is, de a megértésük hasznos lehet.",
-          "Nézzünk egy hétköznapi esetet. Amikor az anyukája megkérdezi: <b>„What did you have for lunch at kindergarten?”</b> (<b>„Mit ebédeltél az oviban?”</b>), a gyerek gondolkodás nélkül válaszol: <b>„I had some broth.”</b> (<b>„Húslevest.”</b>). A kicsi hallja, hogy a <b>„did”</b> segédigével kérdeztek és ezért a válaszában is a simple past igeidőt fogja használni. Később, amikor az anyuka a vacsoráról érdeklődik - <b>„Have you eaten dinner?”</b> (<b>„Vacsoráztál?”</b>) -, a gyerek ugyanilyen természetességgel használja a present perfect alakot: <b>„Yes, I've eaten dinner already.”</b> (<b>„Igen, már vacsoráztam.”</b>).",
-          "A kisgyerek ösztönösen érzi a különbséget: az óvodai ebéd egy lezárt múltbeli esemény, míg a vacsora a jelen szempontjából is releváns. Minderre egy nyelvtanuló is rájön magától, ha példákat mutatunk neki, de ő meg fogja kérdezni, hogy miért! Mi, felnőtt nyelvtanulók szeretjük érteni is, amit csinálunk. És ez nem hátrány - épp ellenkezőleg! A logikus gondolkodás, az összefüggések felismerésének képessége olyan előny, amelyet érdemes kihasználnunk a nyelvtanulás során.",
-          "A <b>fenti</b> példából az is látható, hogy az angol nyelv elsajátítása során a tanulók számos nyelvtani kihívással szembesülnek. Az igeidők rendszere gyakran tűnik úgy a tanulók számára, mint egy bonyolult labirintus, ahol könnyű eltévedni. A statisztikák azt mutatják, hogy még a haladó szintű nyelvtanulók is küzdenek bizonyos szerkezetek helyes használatával. <i>Listia és Febriyant (2020)</i> szerint a befejezett igeidők (perfect tenses) okozzák a legtöbb fejtörést - a tanulók több mint 60%-a hibázik a használatukkor.",
-          "De miért is olyan nehéz ez? A válasz részben a különböző anyanyelvek sajátosságaiban rejlik. <i>Watcharapunyawong és Usaha (2013)</i> thai diákokkal végzett kutatása kimutatta, hogy azokban a nyelvekben, ahol nincs az angolhoz hasonló igeidőrendszer, a tanulók különösen nagy kihívásokkal szembesülnek. A thai diákok például gyakran elhagyják a múlt idő jelölését, mivel saját nyelvükben ez nem létezik. Ez a jelenség a magyar tanulóknál is megfigyelhető, különösen a present perfect használatakor, hiszen nyelvünkben nincs pontos megfelelője ennek az igeidőnek. <i>Balogh és Kiss (2024)</i> kutatása rámutat, hogy a magyar diákok esetében az egyik leggyakoribb probléma - a perfect használatán kívül - a folyamatos és egyszerű jelen idő (present continuous vs. simple present) helytelen használata. Ez nem meglepő, hiszen a magyarban nincs ilyen megkülönböztetés - amikor azt mondjuk „Éppen tanulok”, nem használunk speciális nyelvtani szerkezetet a folyamatosság kifejezésére.",
-          "És itt érkezünk el egy igazán súlyos problémához: a nyelvtani hibák romboló hatásához. A kutatások lehangoló képet festenek erről. <i>Wahyuningtyas és Bram (2018)</i> kutatásából kiderül, hogy a nyelvtanulók többsége inkább csendben marad az órákon, mintsem hibázzon. Ez különösen aggasztó, hiszen épp a gyakorlás hiánya az, ami miatt nem fejlődik a nyelvtudásuk. A tanulmány szerint a diákok 72%-a érzi úgy, hogy a nyelvtani hibáktól való félelem akadályozza őket a szabad kommunikációban. Ahogy egy magyar középiskolás őszintén megfogalmazta: „Tudom a szabályt, de amikor beszélni kell, mindig összekeverem, mikor melyiket kell használni. A végén inkább meg sem szólalok.” Ez nem egyszerűen csak kellemetlenség - a szorongás gyakran vezet ahhoz, hogy a diákok kerülik a nyelvhasználatot, ami további hiányosságokhoz és még több hibához vezet. Ez egy ördögi kör, amelyből nehéz kitörni.",
-          "Mi áll ennek hátterében? <i>Lajtai (2020)</i> részletesen elemzi azt a jelenséget, amikor valaki kiválóan felmondja a szabályokat, mégsem tudja őket használni a gyakorlatban. Talán hívhatnánk <b>szabály-paradoxonnak</b>. Egy ismerősöm szavai tökéletesen megvilágítják ezt: „Tudom, hogy a present perfect akkor kell, ha a múltbeli cselekvésnek hatása van a jelenre. De amikor beszélgetek, fogalmam sincs, mikor van hatása és mikor nincs. Inkább használom az egyszerű múlt időt, azzal nem lehet nagyot hibázni.”",
-          "A tanárok helyzete sem könnyebb. A tanárok gyakran érzik tehetetlennek magukat, amikor ugyanazokat a hibákat látják visszatérni újra és újra. <b>İpek (2016)</b> kutatásában egy tapasztalt nyelvtanár így írta le dilemmáját: „Minden alkalommal, amikor egy diák hibázik, el kell döntenem: megállítsam-e a beszédfolyamot a javítás kedvéért, vagy hagyjam, hogy a hiba rögzüljön.” Tehát még a tapasztalt nyelvtanárok is gyakran bizonytalanok abban, hogyan kezeljék a nyelvtani hibákat. Sokan attól tartanak, hogy a túl sok javítás demotiválja a diákokat, míg a hibák figyelmen kívül hagyása rossz szokások rögzüléséhez vezethet. Ez a bizonytalanság különösen erős az igeidők tanításánál, ahol a szabályok ismerete és azok gyakorlati alkalmazása között gyakran hatalmas szakadék tátong. Ez a dilemma különösen éles a magyar oktatási rendszerben, ahol Fazekas Márta szerint a nyelvoktatás módszertana nem felel meg teljes mértékben a modern elvárásoknak.",
-          "Az angol igeidők helyes használata tehát nem egyszerűen nyelvtani szabályok kérdése - egy olyan összetett készségről van szó, amely meghatározza, mennyire magabiztosan és természetesen tudunk kommunikálni angolul. Ez a kihívás alapjaiban befolyásolja a nyelvtanulók önbizalmát és kommunikációs készségeit. A tökéletes megoldást valószínűleg senki sem ismeri - talán nem is létezik egyetlen, minden problémára választ adó módszer. Amit viszont tehetünk, hogy különböző megközelítéseket vizsgálunk meg, amelyek az angol nyelvtanulás egy-egy területén nyújthatnak segítséget. A következő fejezetekben egy ilyen módszert mutatok be, amely specifikusan az igeidők megértését és használatát célozza - nem ígérve többet, mint amit valóban nyújtani tud."
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Mielőtt fejest ugranánk az igeidők világába, beszéljünk azokról a kihívásokról, amelyekkel mindannyian szembesülünk a nyelvtanulás során. Már az első lépésnél elakadhatunk: melyik módszert válasszuk? A tanterv szerinti iskolai oktatáson kívül rengeteg különböző módszer létezik. Vannak olyanok, melyek azt ígérik, hogy mindenféle nyelvtani szabály és szavak tanulása nélkül is folyékonyan beszélhetünk majd angolul, mert úgy tanulhatunk meg mindent, „mint a kisgyerekek”. Ez valószínűleg nem igaz, de ezek a módszerek közelebb járnak az igazsághoz, mint azok, melyek szerint a nyelvtani szabályok alapos ismerete nélkül lehetetlen jól megtanulni egy nyelvet."
+          },
+          {
+            "type": "paragraph",
+            "text": "Meg kell találnunk az arany középutat, ahol a tanuló példák segítségével rájön a nyelvtani szabályokra, amit aztán egyszerűsített formában - mintegy megerősítésként - el is magyaráznak neki. Ezt én fontosnak tartom, mert a kisgyerek még mindent fenntartás nélkül elfogad, de később már szükség van a „miért” ismeretére is, hiszen ha a szabályok megtanulása nem is, de a megértésük hasznos lehet."
+          },
+          {
+            "type": "image",
+            "src": "169.png",
+            "alignment": "center",
+            "width": "auto",
+            "height": "50%",
+            "caption": "Gyerekek természetes nyelvtanulási folyamata"
+          },
+          {
+            "type": "paragraph",
+            "text": "Nézzünk egy hétköznapi esetet. Amikor az anyukája megkérdezi: <b>„What did you have for lunch at kindergarten?”</b> (<b>„Mit ebédeltél az oviban?”,</b>), a gyerek gondolkodás nélkül válaszol: <b>„I had some broth.”,</b> (<b>„Húslevest.”,</b>). A kicsi hallja, hogy a <b>„did”,</b> segédigével kérdeztek és ezért a válaszában is a simple past igeidőt fogja használni. Később, amikor az anyuka a vacsoráról érdeklődik - <b>„Have you eaten dinner?”,</b> (<b>„Vacsoráztál?”,</b>) -, a gyerek ugyanilyen természetességgel használja a present perfect alakot: <b>„Yes, I've eaten dinner already.”,</b> (<b>„Igen, már vacsoráztam.”,</b>)."
+          },
+          {
+            "type": "paragraph",
+            "text": "A kisgyerek ösztönösen érzi a különbséget: az óvodai ebéd egy lezárt múltbeli esemény, míg a vacsora a jelen szempontjából is releváns. Minderre egy nyelvtanuló is rájön magától, ha példákat mutatunk neki, de ő meg fogja kérdezni, hogy miért! Mi, felnőtt nyelvtanulók szeretjük érteni is, amit csinálunk. És ez nem hátrány - épp ellenkezőleg! A logikus gondolkodás, az összefüggések felismerésének képessége olyan előny, amelyet érdemes kihasználnunk a nyelvtanulás során."
+          },
+          {
+            "type": "paragraph",
+            "text": "A <b>fenti</b> példából az is látható, hogy az angol nyelv elsajátítása során a tanulók számos nyelvtani kihívással szembesülnek. Az igeidők rendszere gyakran tűnik úgy a tanulók számára, mint egy bonyolult labirintus, ahol könnyű eltévedni. A statisztikák azt mutatják, hogy még a haladó szintű nyelvtanulók is küzdenek bizonyos szerkezetek helyes használatával. <i>Listia és Febriyant (2020)</i> szerint a befejezett igeidők (perfect tenses) okozzák a legtöbb fejtörést - a tanulók több mint 60%-a hibázik a használatukkor."
+          },
+          {
+            "type": "paragraph",
+            "text": "De miért is olyan nehéz ez? A válasz részben a különböző anyanyelvek sajátosságaiban rejlik. <i>Watcharapunyawong és Usaha (2013)</i> thai diákokkal végzett kutatása kimutatta, hogy azokban a nyelvekben, ahol nincs az angolhoz hasonló igeidőrendszer, a tanulók különösen nagy kihívásokkal szembesülnek. A thai diákok például gyakran elhagyják a múlt idő jelölését, mivel saját nyelvükben ez nem létezik. Ez a jelenség a magyar tanulóknál is megfigyelhető, különösen a present perfect használatakor, hiszen nyelvünkben nincs pontos megfelelője ennek az igeidőnek. <i>Balogh és Kiss (2024)</i> kutatása rámutat, hogy a magyar diákok esetében az egyik leggyakoribb probléma - a perfect használatán kívül - a folyamatos és egyszerű jelen idő (present continuous vs. simple present) helytelen használata. Ez nem meglepő, hiszen a magyarban nincs ilyen megkülönböztetés - amikor azt mondjuk „Éppen tanulok”, nem használunk speciális nyelvtani szerkezetet a folyamatosság kifejezésére."
+          },
+          {
+            "type": "paragraph",
+            "text": "És itt érkezünk el egy igazán súlyos problémához: a nyelvtani hibák romboló hatásához. A kutatások lehangoló képet festenek erről. <i>Wahyuningtyas és Bram (2018)</i> kutatásából kiderül, hogy a nyelvtanulók többsége inkább csendben marad az órákon, mintsem hibázzon. Ez különösen aggasztó, hiszen épp a gyakorlás hiánya az, ami miatt nem fejlődik a nyelvtudásuk. A tanulmány szerint a diákok 72%-a érzi úgy, hogy a nyelvtani hibáktól való félelem akadályozza őket a szabad kommunikációban. Ahogy egy magyar középiskolás őszintén megfogalmazta: „Tudom a szabályt, de amikor beszélni kell, mindig összekeverem, mikor melyiket kell használni. A végén inkább meg sem szólalok.” Ez nem egyszerűen csak kellemetlenség - a szorongás gyakran vezet ahhoz, hogy a diákok kerülik a nyelvhasználatot, ami további hiányosságokhoz és még több hibához vezet. Ez egy ördögi kör, amelyből nehéz kitörni."
+          },
+          {
+            "type": "paragraph",
+            "text": "Mi áll ennek hátterében? <i>Lajtai (2020)</i> részletesen elemzi azt a jelenséget, amikor valaki kiválóan felmondja a szabályokat, mégsem tudja őket használni a gyakorlatban. Talán hívhatnánk <b>szabály-paradoxonnak</b>. Egy ismerősöm szavai tökéletesen megvilágítják ezt: „Tudom, hogy a present perfect akkor kell, ha a múltbeli cselekvésnek hatása van a jelenre. De amikor beszélgetek, fogalmam sincs, mikor van hatása és mikor nincs. Inkább használom az egyszerű múlt időt, azzal nem lehet nagyot hibázni.”"
+          },
+          {
+            "type": "paragraph",
+            "text": "A tanárok helyzete sem könnyebb. A tanárok gyakran érzik tehetetlennek magukat, amikor ugyanazokat a hibákat látják visszatérni újra és újra. <b>İpek (2016)</b> kutatásában egy tapasztalt nyelvtanár így írta le dilemmáját: „Minden alkalommal, amikor egy diák hibázik, el kell döntenem: megállítsam-e a beszédfolyamot a javítás kedvéért, vagy hagyjam, hogy a hiba rögzüljön.” Tehát még a tapasztalt nyelvtanárok is gyakran bizonytalanok abban, hogyan kezeljék a nyelvtani hibákat. Sokan attól tartanak, hogy a túl sok javítás demotiválja a diákokat, míg a hibák figyelmen kívül hagyása rossz szokások rögzüléséhez vezethet. Ez a bizonytalanság különösen erős az igeidők tanításánál, ahol a szabályok ismerete és azok gyakorlati alkalmazása között gyakran hatalmas szakadék tátong. Ez a dilemma különösen éles a magyar oktatási rendszerben, ahol Fazekas Márta szerint a nyelvoktatás módszertana nem felel meg teljes mértékben a modern elvárásoknak."
+          },
+          {
+            "type": "paragraph",
+            "text": "Az angol igeidők helyes használata tehát nem egyszerűen nyelvtani szabályok kérdése - egy olyan összetett készségről van szó, amely meghatározza, mennyire magabiztosan és természetesen tudunk kommunikálni angolul. Ez a kihívás alapjaiban befolyásolja a nyelvtanulók önbizalmát és kommunikációs készségeit. A tökéletes megoldást valószínűleg senki sem ismeri - talán nem is létezik egyetlen, minden problémára választ adó módszer. Amit viszont tehetünk, hogy különböző megközelítéseket vizsgálunk meg, amelyek az angol nyelvtanulás egy-egy területén nyújthatnak segítséget. A következő fejezetekben egy ilyen módszert mutatok be, amely specifikusan az igeidők megértését és használatát célozza - nem ígérve többet, mint amit valóban nyújtani tud."
+          }
         ]
       },
       "ch_2": {
         "title": "Modellezzük le a valóságot: Az igeidők új megközelítése",
         "type": "simple",
-        "paragraphs": [
-          "Miután elkészítettem az előző fejezetet arról, hogy milyen nehézségekkel szembesülhetünk az angol tanulása során, belevágtam a nyelvtani bevezető megírásába. Bújtam a szakkönyveket és tanulmányokat, jegyzeteltem a különböző nyelvtípusokról, a mondatszerkezetekről, az igei szóláncokról. Főigék, segédigék, aspektusok - minden apró részletet alaposan körbejártam. A végeredmény egy harminc oldalas, részletes elemzés lett. Még hivatkozásokat is tettem bele, ahogyan egy jó diplomamunkába szokták, APA 7 szabályok szerint. Mert valójában nem könyvet írtam, hanem egy tanulmányt. Szóval amikor újraolvastam ezt a hosszú, vontatott, unalmas fejezetet, hirtelen rádöbbentem, hogy ez nem fog segíteni a nyelvtanulásban.",
-          "Az előzőekben azt ígértem, hogy nem fogunk nyelvtani szabályokkal szenvedni. Azt ígértem, hogy példákon keresztül, szinte észrevétlenül fogjuk megérteni mindazt, amire szükségünk van. Megértjük a nyelvet, létrehozzuk a megfelelő egyszerűsítéseket, a saját modellünket. Tiszteletben tartjuk a többi modellt, de kicsit más úton járva jutunk el az igeidők bonyolultnak tűnő szerkezetének magjához.",
-          "Gondolkodott már azon, hány igeidő van valójában az angolban? Egyáltalán mi az az igeidő? Kétféle meghatározást is adhatunk rá. (A tankönyvekben található igeidő meghatározást nem sorolom ide, mert mint hamarosan látni fogja, alapvetően hibás az a megközelítés.)",
-          "Az egyik a tényleges idő, azaz, hogy a valóságban mikor történik az, amiről beszélünk.",
-          "A másik a tisztán nyelvtani értelemben vett igeidő.",
-          "Fontos, hogy különbséget tegyünk a nyelvtani igeidő és a valós világban érzékelt idő között. Sokszor ez nem is olyan egyszerű. Otto Jespersen, az egyik legjelentősebb angol nyelvész, egy 1924-es English Journal cikkben („The Teaching of Grammar”) megjegyezte, hogy az angol nyelvben nehéz összekapcsolni az időt és az igeidőt: „Különböző nyelvtani igeidőink vannak, de ezek csak nagyjából felelnek meg a természetes időbeli felosztásnak, és ezért sajnálatos, hogy kénytelenek vagyunk ugyanazokat a kifejezéseket használni mind az igeidőre, mind az időre.” (p. 167)",
-          "Maradjunk annyiban, hogy az igeidő (tense) csak azt határozza meg, milyen alakot vesz fel az ige. És az angol igéknek mindössze két alapvető alakjuk van. Van a jelen (present) és a múlt (past). Ennyi. A legegyszerűbb és legjobb az lenne, ha a megtévesztő past és present elnevezésektől is megszabadulnánk és mondjuk „Form 1” és „Form 2” néven említenénk őket.",
-          "Érdekes megfigyelni, hogy például a magyar nyelvben is csak a múlt időnek van jele. A jövő időt mi is segédigével képezzük. (tanul / tanult / tanulni fog) A magyarban ennek megfelelően csak három igeidő van. Illetve ha az előző definíciónk alapján nézzük, akkor nekünk is csak kettő van.",
-          "Az angol tankönyvek miért beszélnek tizenkét, esetenként tizenhat igeidőről? Fontos lenne mindenkinek megérteni, hogy amit a tankönyvek igeidőnek neveznek, azok nem igeidők, hanem igei szerkezetek. Milyen időben van például az „I sat down.”? Természetesen mindenki azonnal rávágja, hogy egyszerű múlt. És mikor azt mondjuk, hogy „I was sitting down, when…”? A legtöbben azt felelik, hogy folyamatos múlt. Pedig ha egy kicsit jobban belegondol, az idő az most is múlt, amit ebben az igei szerkezetben a „be” múlt idejű alakja a „was” mutat meg nekünk, míg a cselekvés milyenségét, az ige „ing” végződése jelzi. Hasonlóan egy befejezett folyamatos múlt (atyaeg, aki ezt kitalálta) – mondjuk az „I had been sitting down” - esetében az idő az egyszerűen csak múlt, amit a „have” múlt idejű alakja a „had” jelez. Megint csak a cselekvés szemléletmódja lesz más. Ezt pedig az igeszerkezet többi része jelöli. A befejezettséget (ami nem is az, de most maradjunk ennél) a „been” mutatja, a folyamatosságot pedig ismét az „ing” végződés.",
-          "Szóval akkor miért hívjuk ezeket az igei szerkezeteket mégis igeidőnek? A válasz egyszerű: az angol nyelvészek másként gondolkodtak, másként rendszerezték a nyelvüket, mint például a mi nyelvészeink. Az angol igeidők első jelentős rendszerezése Lindley Murray nevéhez fűződik, aki 1795-ben publikálta az „English Grammar Adapted to the Different Classes of Learners” című művét. A ma ismert tizenkét igeidős rendszer csak a 19. század végén, 20. század elején vált általánosan elfogadottá. Vagyis mindössze száz-százötven éve kezdték el használni ezt a rendszert a nyelvészek, azért hogy megértsék és lemodellezzék a nyelvet, nem pedig azért, hogy ezek alapján tanítsák. Mi mégis görcsösen ragaszkodunk ehhez a felosztáshoz az oktatásban.",
-          "Az előbb megmutattam, hogy ez a rendszer valójában csak néhány alapvető időt kombinál különböző aspektusokkal. A nyelvészek körében egyre elfogadottabb ez az új nézet. Yule (2009), valamint Depraetere és Salkie (2015) is amellett érvel, hogy az angol valójában mindössze két igeidőt használ, amelyeket különböző aspektusokkal és modális segédigékkel kombinálhatunk. Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk.",
-          "Minden igei szerkezet három alapvető nyelvtani építőköve az igeidő (tense), a mód (mood) és az aspektus (aspect). Ezek együttesen határozzák meg egy ige állapotát (state). Sajnos – mint már említettük - a nyelvtankönyvek ezt a három fogalmat egyetlen kategóriába sorolják, amelyet „igeidőnek” neveznek, majd ezt azonosítják a valós világ időfogalmával.",
-          "Nézzük meg közelebbről ezt a három összetevőt! Nem elvont elméleti konstrukciókról van szó - ezek azok az elemek, amelyekből minden igei szerkezet felépül:",
-          "Az idő a cselekvés időbeli elhelyezkedését mutatja meg. Ez a legegyszerűbb a három közül, hiszen - ahogy láttuk - valójában csak két alapvető időnk van: jelen és múlt. A jövő idő már a következő pillérünkhöz, a módhoz kapcsolódik.",
-          "Az aspektus a cselekvés lefolyását, belső időszerkezetét írja le. Folyamatban van? Befejezett? Rendszeresen ismétlődik?",
-          "A mód azt árulja el, hogyan viszonyulunk a cselekvéshez. Tény? Lehetőség? Képesség? Kötelezettség? A módot elsősorban a modális segédigék (can, must, should, would) fejezik ki. A jövő idő kifejezésére használt „will” is valójában egy modális segédige.",
-          "Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk. A következő oldalakon részletesen megvizsgáljuk őket. Nem azért, hogy újabb szabályokat tanuljunk, hanem hogy megértsük: minden igei szerkezet, amit valaha hallott vagy használt az angolban, erre a három pillérre épül. És ha ezt megérti, akkor többé nem kell azon gondolkodnia, melyik „igeidőt” használja - elég, ha végiggondolja, mit akar kifejezni az idő, a mód és az aspektus szempontjából."
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Miután elkészítettem az előző fejezetet arról, hogy milyen nehézségekkel szembesülhetünk az angol tanulása során, belevágtam a nyelvtani bevezető megírásába. Bújtam a szakkönyveket és tanulmányokat, jegyzeteltem a különböző nyelvtípusokról, a mondatszerkezetekről, az igei szóláncokról. Főigék, segédigék, aspektusok - minden apró részletet alaposan körbejártam. A végeredmény egy harminc oldalas, részletes elemzés lett. Még hivatkozásokat is tettem bele, ahogyan egy jó diplomamunkába szokták, APA 7 szabályok szerint. Mert valójában nem könyvet írtam, hanem egy tanulmányt. Szóval amikor újraolvastam ezt a hosszú, vontatott, unalmas fejezetet, hirtelen rádöbbentem, hogy ez nem fog segíteni a nyelvtanulásban."
+          },
+          {
+            "type": "paragraph",
+            "text": "Az előzőekben azt ígértem, hogy nem fogunk nyelvtani szabályokkal szenvedni. Azt ígértem, hogy példákon keresztül, szinte észrevétlenül fogjuk megérteni mindazt, amire szükségünk van. Megértjük a nyelvet, létrehozzuk a megfelelő egyszerűsítéseket, a saját modellünket. Tiszteletben tartjuk a többi modellt, de kicsit más úton járva jutunk el az igeidők bonyolultnak tűnő szerkezetének magjához."
+          },
+          {
+            "type": "paragraph",
+            "text": "Gondolkodott már azon, hány igeidő van valójában az angolban? Egyáltalán mi az az igeidő? Kétféle meghatározást is adhatunk rá. (A tankönyvekben található igeidő meghatározást nem sorolom ide, mert mint hamarosan látni fogja, alapvetően hibás az a megközelítés.)"
+          },
+          {
+            "type": "paragraph",
+            "text": "Az egyik a tényleges idő, azaz, hogy a valóságban mikor történik az, amiről beszélünk."
+          },
+          {
+            "type": "paragraph",
+            "text": "A másik a tisztán nyelvtani értelemben vett igeidő."
+          },
+          {
+            "type": "paragraph",
+            "text": "Fontos, hogy különbséget tegyünk a nyelvtani igeidő és a valós világban érzékelt idő között. Sokszor ez nem is olyan egyszerű. Otto Jespersen, az egyik legjelentősebb angol nyelvész, egy 1924-es English Journal cikkben („The Teaching of Grammar”) megjegyezte, hogy az angol nyelvben nehéz összekapcsolni az időt és az igeidőt: „Különböző nyelvtani igeidőink vannak, de ezek csak nagyjából felelnek meg a természetes időbeli felosztásnak, és ezért sajnálatos, hogy kénytelenek vagyunk ugyanazokat a kifejezéseket használni mind az igeidőre, mind az időre.”, (p. 167)"
+          },
+          {
+            "type": "paragraph",
+            "text": "Maradjunk annyiban, hogy az igeidő (tense) csak azt határozza meg, milyen alakot vesz fel az ige. És az angol igéknek mindössze két alapvető alakjuk van. Van a jelen (present) és a múlt (past). Ennyi. A legegyszerűbb és legjobb az lenne, ha a megtévesztő past és present elnevezésektől is megszabadulnánk és mondjuk „Form 1” és „Form 2”, néven említenénk őket."
+          },
+          {
+            "type": "paragraph",
+            "text": "Érdekes megfigyelni, hogy például a magyar nyelvben is csak a múlt időnek van jele. A jövő időt mi is segédigével képezzük. (tanul / tanult / tanulni fog) A magyarban ennek megfelelően csak három igeidő van. Illetve ha az előző definíciónk alapján nézzük, akkor nekünk is csak kettő van."
+          },
+          {
+            "type": "paragraph",
+            "text": "Az angol tankönyvek miért beszélnek tizenkét, esetenként tizenhat igeidőről? Fontos lenne mindenkinek megérteni, hogy amit a tankönyvek igeidőnek neveznek, azok nem igeidők, hanem igei szerkezetek. Milyen időben van például az „I sat down.”? Természetesen mindenki azonnal rávágja, hogy egyszerű múlt. És mikor azt mondjuk, hogy „I was sitting down, when…”,? A legtöbben azt felelik, hogy folyamatos múlt. Pedig ha egy kicsit jobban belegondol, az idő az most is múlt, amit ebben az igei szerkezetben a „be”, múlt idejű alakja a „was”, mutat meg nekünk, míg a cselekvés milyenségét, az ige „ing”, végződése jelzi. Hasonlóan egy befejezett folyamatos múlt (atyaeg, aki ezt kitalálta) – mondjuk az „I had been sitting down”, - esetében az idő az egyszerűen csak múlt, amit a „have”, múlt idejű alakja a „had”, jelez. Megint csak a cselekvés szemléletmódja lesz más. Ezt pedig az igeszerkezet többi része jelöli. A befejezettséget (ami nem is az, de most maradjunk ennél) a „been”, mutatja, a folyamatosságot pedig ismét az „ing”, végződés."
+          },
+          {
+            "type": "paragraph",
+            "text": "Szóval akkor miért hívjuk ezeket az igei szerkezeteket mégis igeidőnek? A válasz egyszerű: az angol nyelvészek másként gondolkodtak, másként rendszerezték a nyelvüket, mint például a mi nyelvészeink. Az angol igeidők első jelentős rendszerezése Lindley Murray nevéhez fűződik, aki 1795-ben publikálta az „English Grammar Adapted to the Different Classes of Learners” című művét. A ma ismert tizenkét igeidős rendszer csak a 19. század végén, 20. század elején vált általánosan elfogadottá. Vagyis mindössze száz-százötven éve kezdték el használni ezt a rendszert a nyelvészek, azért hogy megértsék és lemodellezzék a nyelvet, nem pedig azért, hogy ezek alapján tanítsák. Mi mégis görcsösen ragaszkodunk ehhez a felosztáshoz az oktatásban."
+          },
+          {
+            "type": "paragraph",
+            "text": "Az előbb megmutattam, hogy ez a rendszer valójában csak néhány alapvető időt kombinál különböző aspektusokkal. A nyelvészek körében egyre elfogadottabb ez az új nézet. Yule (2009), valamint Depraetere és Salkie (2015) is amellett érvel, hogy az angol valójában mindössze két igeidőt használ, amelyeket különböző aspektusokkal és modális segédigékkel kombinálhatunk. Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk."
+          },
+          {
+            "type": "paragraph",
+            "text": "Minden igei szerkezet három alapvető nyelvtani építőköve az igeidő (tense), a mód (mood) és az aspektus (aspect). Ezek együttesen határozzák meg egy ige állapotát (state). Sajnos – mint már említettük - a nyelvtankönyvek ezt a három fogalmat egyetlen kategóriába sorolják, amelyet „igeidőnek” neveznek, majd ezt azonosítják a valós világ időfogalmával."
+          },
+          {
+            "type": "paragraph",
+            "text": "Nézzük meg közelebbről ezt a három összetevőt! Nem elvont elméleti konstrukciókról van szó - ezek azok az elemek, amelyekből minden igei szerkezet felépül:"
+          },
+          {
+            "type": "paragraph",
+            "text": ""
+          },
+          {
+            "type": "paragraph",
+            "text": "<b>Az idő</b> a cselekvés időbeli elhelyezkedését mutatja meg. Ez a legegyszerűbb a három közül, hiszen - ahogy láttuk - valójában csak két alapvető időnk van: jelen és múlt. A jövő idő már a következő pillérünkhöz, a módhoz kapcsolódik."
+          },
+          {
+            "type": "paragraph",
+            "text": ""
+          },
+          {
+            "type": "paragraph",
+            "text": "<b>Az aspektus</b> a cselekvés lefolyását, belső időszerkezetét írja le. Folyamatban van? Befejezett? Rendszeresen ismétlődik?"
+          },
+          {
+            "type": "paragraph",
+            "text": ""
+          },
+          {
+            "type": "paragraph",
+            "text": "<b>A mód</b> azt árulja el, hogyan viszonyulunk a cselekvéshez. Tény? Lehetőség? Képesség? Kötelezettség? A módot elsősorban a modális segédigék (can, must, should, would) fejezik ki. A jövő idő kifejezésére használt „will” is valójában egy modális segédige."
+          },
+          {
+            "type": "paragraph",
+            "text": ""
+          },
+          {
+            "type": "paragraph",
+            "text": "Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk. A következő oldalakon részletesen megvizsgáljuk őket. Nem azért, hogy újabb szabályokat tanuljunk, hanem hogy megértsük: minden igei szerkezet, amit valaha hallott vagy használt az angolban, erre a három pillérre épül. És ha ezt megérti, akkor többé nem kell azon gondolkodnia, melyik „igeidőt” használja - elég, ha végiggondolja, mit akar kifejezni az idő, a mód és az aspektus szempontjából."
+          }
         ]
       }
     }
@@ -113,25 +269,25 @@
       "ISBN_epub": "ISBN 978 e...",
       "ISBN_print": "ISBN 978 pr...",
       "printing_text": "Release History",
-      "printing" : [
-          "March 2025: First Edition"
+      "printing": [
+        "March 2025: First Edition"
       ],
       "email_text": "For permissions requests, please contact BGDS at the following address",
       "email": "gyorgy.bakocs@transprnt.com"
     },
     "dedicate": {
       "title": "",
-      "paragraphs": []
+      "content": []
     },
     "preface": {
       "title": "",
-      "paragraphs": []
+      "content": []
     },
     "chapters": {
       "ch1": {
         "title": "",
-        "type":"simple",
-        "paragraphs": []
+        "type": "simple",
+        "content": []
       }
     }
   }
