@@ -224,33 +224,88 @@ class ContentBuilder:
 
     def add_content_items(self, content_items: list):
         """
-        Processes a list of content items (paragraphs and images).
-
+        Processes a list of content items (paragraphs and images) using existing intelligent page breaking.
         Args:
             content_items: List of content items from the new JSON structure
         """
+        # Convert content items to paragraphs list for the existing intelligent method
+        paragraphs = []
+
         for item in content_items:
             if item.get('type') == 'paragraph':
-                self.add_paragraph(item.get('text', ''), firstLineIndent=20)
-                self.add_spacing(10)
+                text = item.get('text', '')
+                if text.strip():
+                    paragraphs.append(text)
+                else:
+                    paragraphs.append("")  # Empty paragraph for spacing
 
             elif item.get('type') == 'image':
-                # Ensure width and height are passed as-is from JSON
-                width_value = item.get('width', 300)
-                height_value = item.get('height', 'auto')
+                # Handle image - check if it fits, if not do page break
+                required_height = self._estimate_image_height_simple(item)
+                available_height = self.layout_service.calculate_available_space(self.current_pos)
 
+                if required_height > available_height:
+                    # Force page break by adding current paragraphs and starting new page
+                    if paragraphs:
+                        self.add_chapter_paragraphs_with_breaks(
+                            paragraphs=paragraphs,
+                            chapter_title="",
+                            has_header=False,
+                            has_footer=False
+                        )
+                        paragraphs = []
+
+                    self.new_page()
+                    self.current_pos = self.padding_v
+
+                # Add the image
                 self.add_image(
                     src=item.get('src'),
                     alignment=item.get('alignment', 'center'),
-                    width=width_value,
-                    height=height_value,
+                    width=item.get('width', 300),
+                    height=item.get('height', 'auto'),
                     caption=item.get('caption')
                 )
 
             else:
                 logger.warning(f"Unknown content type: {item.get('type')} - skipping")
 
+        # Add remaining paragraphs with intelligent page breaking
+        if paragraphs:
+            self.add_chapter_paragraphs_with_breaks(
+                paragraphs=paragraphs,
+                chapter_title="",
+                has_header=False,
+                has_footer=False
+            )
+
         return self
+
+    def _estimate_image_height_simple(self, image_item: dict) -> float:
+        """
+        Simple image height estimation for page break decisions.
+        """
+        width = image_item.get('width', 300)
+        height = image_item.get('height', 'auto')
+        caption = image_item.get('caption')
+
+        # Quick estimation
+        if isinstance(width, str) and width.endswith('%'):
+            percentage = float(width.rstrip('%')) / 100
+            available_width = self.page_size[0] - 2 * self.padding_h
+            width_points = available_width * percentage
+            height_points = width_points * 0.6  # Rough aspect ratio
+        elif isinstance(height, str) and height.endswith('%') and height != "auto":
+            percentage = float(height.rstrip('%')) / 100
+            available_height = self.layout_service.calculate_available_space(self.current_pos + 30)
+            height_points = available_height * percentage
+        else:
+            width_points = width * 0.75 if isinstance(width, int) else 225
+            height_points = width_points * 0.6 if height == "auto" else height * 0.75
+
+        # Add space for caption and margins
+        total_height = height_points + (25 if caption else 0) + 20
+        return total_height
 
     def add_chapter_paragraphs_with_breaks(self, paragraphs: list, chapter_title: str = "",
                                            has_header: bool = False, has_footer: bool = False):

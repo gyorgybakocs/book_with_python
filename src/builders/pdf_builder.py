@@ -174,33 +174,42 @@ class PdfBuilder(BaseBuilder):
             if dedicate_data:
                 dedication_pages = page_counts.get('dedicate', 1)
                 anchor = generate_anchor_name(dedicate_data.get('title', 'Dedication'))
+
+                start_page = current_page
+                end_page = current_page + dedication_pages - 1
+
                 self.page_registry.register_section(
                     'dedicate',
                     dedicate_data.get('title', 'Fiamnak, Alexandernek'),
-                    current_page,
-                    current_page + dedication_pages - 1,
+                    start_page,
+                    end_page,
                     anchor
                 )
+                logger.info(f"Registered dedication: pages {start_page} to {end_page} ({dedication_pages} pages)")
                 current_page += dedication_pages
 
         # TOC takes next 2 pages
         current_page += page_counts.get('toc', 2)
 
-        # Preface
+        # Preface - FIXED PAGE CALCULATION
         if 'preface' in book_data:
             preface_data = self.data_manager.get_data(self.language, 'preface')
             if preface_data:
                 preface_pages = page_counts.get('preface', 1)
                 anchor = generate_anchor_name(preface_data.get('title', 'Preface'))
+
+                start_page = current_page
+                end_page = current_page + preface_pages - 1
+
                 self.page_registry.register_section(
                     'preface',
                     preface_data.get('title', 'Preface'),
-                    current_page,
-                    current_page + preface_pages - 1,
+                    start_page,
+                    end_page,
                     anchor
                 )
+                logger.info(f"Registered preface: pages {start_page} to {end_page} ({preface_pages} pages)")
                 current_page += preface_pages
-                logger.info(f"Registered preface: pages {current_page - preface_pages} to {current_page - 1} ({preface_pages} pages)")
 
         # Main chapters with REAL page counts
         if 'chapters' in book_data:
@@ -210,14 +219,18 @@ class PdfBuilder(BaseBuilder):
                 if chapter_data:
                     chapter_pages = page_counts.get(f'chapters.{chapter_key}', 1)
                     anchor = generate_anchor_name(chapter_data.get('title', f'Chapter {chapter_key}'))
+
+                    start_page = current_page
+                    end_page = current_page + chapter_pages - 1
+
                     self.page_registry.register_section(
                         f'chapters.{chapter_key}',
                         chapter_data.get('title', f'Chapter {chapter_key}'),
-                        current_page,
-                        current_page + chapter_pages - 1,
+                        start_page,
+                        end_page,
                         anchor
                     )
-                    logger.info(f"Registered chapter '{chapter_key}': pages {current_page} to {current_page + chapter_pages - 1} ({chapter_pages} pages)")
+                    logger.info(f"Registered chapter '{chapter_key}': pages {start_page} to {end_page} ({chapter_pages} pages)")
                     current_page += chapter_pages
 
     def _build_final_document(self, content_builder, book_data):
