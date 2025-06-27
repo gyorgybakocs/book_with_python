@@ -5,11 +5,13 @@ from src.builders.base_builder import BaseBuilder
 from src.builders.content_builder import ContentBuilder
 from src.utils.page_utils import make_page
 from src.logger import logger
+from src.services.page_registry_service import PageRegistryService
 
 from .page_builders.cover_builder import CoverBuilder
 from .page_builders.title_page_builder import TitlePageBuilder
 from .page_builders.copyright_page_builder import CopyrightPageBuilder
 from .page_builders.chapter_builder import ChapterBuilder
+from .page_builders.toc_builder import TOCBuilder
 
 class PdfBuilder(BaseBuilder):
     """
@@ -21,6 +23,9 @@ class PdfBuilder(BaseBuilder):
         super().__init__(json_file, paper_book=paper_book, black_and_white=black_and_white,
                          short=short, language=language)
 
+        # Initialize page registry for dynamic TOC
+        self.page_registry = PageRegistryService()
+
         self._dispatcher = {
             'title': TitlePageBuilder,
             'copyright': CopyrightPageBuilder,
@@ -31,9 +36,11 @@ class PdfBuilder(BaseBuilder):
 
     def run(self):
         """
-        Main process to generate the PDF. It iterates through the book's
-        data keys and uses the dispatcher to build each part in the order
-        they appear in the JSON file.
+        Main process with dynamic TOC generation.
+
+        PHASE 1: Build all content EXCEPT TOC
+        PHASE 2: Generate TOC with accurate page numbers
+        PHASE 3: Finalize document
         """
         book_data = self.data_manager.get_data(language=self.language)
         if not book_data:
@@ -47,248 +54,66 @@ class PdfBuilder(BaseBuilder):
             self.config.get("paths.output_dir"),
             self.paper_book, self.black_and_white, colors.black, self.short
         )
-        content_builder = ContentBuilder(
-            canvas, pagesize, self.style_manager,
-            self.config.get("common.padding.horizontal"),
-            self.config.get("common.padding.vertical")
-        )
 
-        CoverBuilder(content_builder, self.data_manager, self.language, self.config).build()
+        content_builder = ContentBuilder(canvas, pagesize, self.style_manager, self.config)
 
-        for section_key in book_data:
-            if section_key == 'chapters':
-                continue
+        # PHASE 1: Build everything except TOC
+        logger.info("=== PHASE 1: Building content (no TOC yet) ===")
 
-            builder_class = self._dispatcher.get(section_key)
-            if builder_class:
-                self._build_section(builder_class, content_builder, source_path=section_key)
-            else:
-                logger.warning(f"No builder found for section key '{section_key}'. Skipping.")
+        # Cover
+        CoverBuilder(content_builder, self.data_manager, self.language, self.config, self.page_registry).build()
 
+        # Title and Copyright (these won't appear in TOC)
+        for section_key in ['title', 'copyright']:
+            if section_key in book_data:
+                builder_class = self._dispatcher.get(section_key)
+                if builder_class:
+                    self._build_section(builder_class, content_builder, source_path=section_key)
+
+        # Remember where to insert TOC (after copyright)
+        toc_insert_after = content_builder.page_num - 1
+        self.page_registry.set_toc_insert_position(toc_insert_after)
+
+        # Build remaining sections that will appear in TOC
+        for section_key in ['dedicate', 'preface']:
+            if section_key in book_data:
+                builder_class = self._dispatcher.get(section_key)
+                if builder_class:
+                    self._build_section(builder_class, content_builder, source_path=section_key)
+
+        # PHASE 2: Generate TOC with accurate page numbers BEFORE main chapters
+        logger.info("=== PHASE 2: Generating dynamic TOC ===")
+        logger.info(self.page_registry.get_sections_summary())
+
+        # Create fake TOC data if it doesn't exist
+        toc_data = book_data.get('toc', {
+            'title': 'Table of Contents'
+        })
+
+        # Build TOC NOW (this will calculate and adjust page numbers)
+        toc_builder = TOCBuilder(content_builder, self.data_manager, self.language, self.config, self.page_registry)
+        toc_builder.build(toc_data=toc_data)  # Pass toc_data directly
+
+        # Build main chapters AFTER TOC
         if 'chapters' in book_data and book_data['chapters']:
-            logger.info("--- Building Main Chapters ---")
+            logger.info("--- Building Main Chapters AFTER TOC ---")
             chapters_data = book_data['chapters']
             for chapter_key in natsorted(chapters_data.keys()):
                 self._build_section(ChapterBuilder, content_builder, source_path=f"chapters.{chapter_key}", is_main_chapter=True)
 
         canvas.save()
-        logger.info("Successfully created the PDF!")
+        logger.info("Successfully created the PDF with dynamic TOC!")
 
     def _build_section(self, builder_class, content_builder, source_path=None, **options):
         """
         Instantiates and runs a specialized page builder.
+        Now passes page_registry to builders.
         """
         try:
             page_builder = builder_class(
-                content_builder, self.data_manager, self.language, self.config
+                content_builder, self.data_manager, self.language, self.config, self.page_registry
             )
             page_builder.build(source_path=source_path, **options)
             logger.info(f"Successfully built section from source: '{source_path or 'N/A'}'")
         except Exception as e:
             logger.error(f"Failed to build section from source '{source_path}': {e}", exc_info=True)
-
-# from reportlab.lib import colors
-# from src.builders.base_builder import BaseBuilder
-# from src.builders.content_builder import ContentBuilder
-# from src.managers.style_manager import modify_paragraph_style
-# from src.utils.page_utils import make_page, make_paragraph
-# from src.logger import logger
-# from reportlab.platypus import Frame, Paragraph, Frame
-#
-#
-# class PdfBuilder(BaseBuilder):
-#     def __init__(self, json_file, paper_book, black_and_white, short, language):
-#         """Initialize PdfBuilder with PDF-specific attributes."""
-#         super().__init__(json_file, paper_book=paper_book, black_and_white=black_and_white,
-#                          short=short, language=language)
-#         self.page_num = 0
-#
-#     def run(self):
-#         """Main process to generate the PDF."""
-#         title_data = self.data_manager.get_data(self.language, 'title')
-#
-#         # Create the initial canvas and page size
-#         self.canvas, self.PAGESIZE = make_page(
-#             title_data.get("title", "Unknown Title"),
-#             title_data.get("subtitle", ""),
-#             "/resources/book",
-#             self.paper_book,
-#             self.black_and_white,
-#             colors.black,
-#             self.short
-#         )
-#
-#         # Create content builder instance
-#         self.content = ContentBuilder(
-#             self.canvas,
-#             self.PAGESIZE,
-#             self.style_manager,
-#             self.padding_h,
-#             self.padding_v
-#         )
-#
-#         # Generate the document
-#         self.create_cover()
-#         self.create_title_page()
-#         self.create_copyright_page()
-#
-#         # Optional sections
-#         print('************************************** dedicate *****************************************')
-#         if 'dedicate' in self.data_manager.get_data(self.language):
-#             self.create_simple_chapter_page(
-#                 self.starting_pos,
-#                 self.starting_pos,
-#                 'dedicate',
-#                 has_title_page=False,
-#                 has_header=False,
-#                 has_footer=False
-#             )
-#         print('************************************** preface *****************************************')
-#         if 'preface' in self.data_manager.get_data(self.language):
-#             self.create_simple_chapter_page(
-#                 self.padding_v,
-#                 self.starting_pos,
-#                 'preface',
-#                 has_title_page=True,
-#                 has_header=True,
-#                 has_footer=True
-#             )
-#         print('************************************** chapters *****************************************')
-#         if 'chapters' in self.data_manager.get_data(self.language):
-#             for chapter_name, chapter in self.data_manager.get_data(self.language, 'chapters').items():
-#                 chapter_type = chapter.get('type', "")
-#                 self.create_simple_chapter_page(
-#                     self.padding_v,
-#                     self.starting_pos,
-#                     f'chapters.{chapter_name}',
-#                     has_title_page=True,
-#                     has_header=True,
-#                     has_footer=True
-#                 )
-#         self.print_page_numbers()
-#         self.canvas.save()
-#         logger.info(f"Successfully created the PDF!")
-#
-#     def create_cover(self):
-#         """Creates a blank cover page."""
-#         self.canvas.setFillColor(colors.white)
-#         self.canvas.rect(0, 0, *self.PAGESIZE, stroke=0, fill=1)
-#         self.content.new_page()
-#
-#     def create_title_page(self):
-#         """Creates a title page."""
-#         title_data = self.data_manager.get_data(self.language, 'title')
-#
-#         (self.content
-#          .start_from(self.starting_pos)
-#          .add_title(f'<b>{title_data.get("title", "Unknown Title")}</b>', alignment=0, leading='default')
-#          .add_separator_line()
-#          .add_subtitle(f'<b>{title_data.get("subtitle", "")}</b>')
-#          .new_page())
-#
-#     def create_copyright_page(self):
-#         """Creates the copyright page."""
-#         title_data = self.data_manager.get_data(self.language, 'title')
-#         copyright_data = self.data_manager.get_data(self.language, 'copyright')
-#
-#         # Build copyright text components
-#         title = title_data.get("title", "Unknown Title")
-#         subtitle = title_data.get("subtitle", "")
-#         author = copyright_data.get('author', "")
-#         copyright_text = copyright_data.get("copyright_text", "")
-#         author_text = copyright_data.get('author_text', "")
-#         design_text = copyright_data.get('design_text', "")
-#         design = copyright_data.get('design', "")
-#         publish_text = copyright_data.get('publish_text', "")
-#         publish = copyright_data.get('publish', "")
-#         ISBN_pdf = copyright_data.get('ISBN_pdf', "")
-#         printing_text = copyright_data.get('printing_text', "")
-#         printing = copyright_data.get('printing', [])
-#         email_text = copyright_data.get('email_text', "")
-#         email = copyright_data.get('email', "")
-#
-#         (self.content
-#         .start_from(self.starting_pos)
-#         .add_paragraph(
-#             f'<b>{title}: {subtitle}</b><br/>by {author}',
-#             border_padding=0
-#         )
-#         .add_paragraph(
-#             copyright_text,
-#             border_padding=0,
-#             extra_spacing=10
-#         )
-#         .add_paragraph(
-#             f'''<span>{author_text}: {author}</span><br/>
-#                 <span>{design_text}: {design}</span><br/>
-#                 <span>{publish_text}: {publish}</span>''' +
-#             (f'<br/><span>{ISBN_pdf}</span>' if ISBN_pdf else ''),
-#             border_padding=0,
-#             extra_spacing=10
-#         )
-#         .add_paragraph(
-#             f'<span>{printing_text}:</span>',
-#             border_padding=0,
-#             extra_spacing=10
-#         ))
-#
-#         # Add printing items
-#         printing_text = '<br/>'.join(f'<span>{item}</span>' for item in printing)
-#         (self.content
-#          .add_paragraph(
-#             printing_text,
-#             border_padding=0,
-#             extra_spacing=0,
-#             extra_width=20
-#         )
-#          .add_paragraph(
-#             f'<span>{email_text}: {email}</span>',
-#             border_padding=0,
-#             extra_spacing=10
-#         )
-#          .new_page())
-#
-#     def create_simple_chapter_page(self, pos, titlepos, chapter_name,
-#                                    has_title_page=True, has_header=True,
-#                                    has_footer=True):
-#         """Creates a chapter page with configurable options."""
-#         chapter_data = self.data_manager.get_data(self.language, chapter_name)
-#         chapter_title = chapter_data.get('title', "")
-#         chapter_paragraphs = chapter_data.get('paragraphs', [])
-#         # Title page if needed
-#         if has_title_page:
-#             self.content.set_available_height(self.PAGESIZE[1] - titlepos - self.padding_v)
-#             (self.content
-#              .start_from(titlepos)
-#              .add_title(chapter_title, alignment=1, font_size=64, leading=64)
-#              .new_page())
-#
-#         # Chapter content
-#         self.content.set_available_height(self.PAGESIZE[1] - pos - self.padding_v)
-#         self.content.start_from(pos)
-#
-#         if has_header:
-#             (self.content
-#              .add_header(f'<span>{chapter_title}</span>')
-#              .add_spacing(6))
-#         else:
-#             self.content.add_paragraph(f'<span>{chapter_title}</span>')
-#
-#         # Add chapter paragraphs
-#         self.content.add_chapter_paragraphs(
-#             chapter_paragraphs,
-#             header_pos=pos,
-#             chapter_title=chapter_title,
-#             has_header=has_header,
-#             has_footer=has_footer
-#         )
-#
-#         # Add footer if needed
-#         if has_footer:
-#             self.content.add_footer(chapter_title)
-#
-#         self.content.new_page()
-#
-#     def print_page_numbers(self):
-#         """Debug function to print page information."""
-#         print(f"Page {self.content.page_num}: Last Page")

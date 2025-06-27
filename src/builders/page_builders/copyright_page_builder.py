@@ -7,6 +7,8 @@ class CopyrightPageBuilder(BasePageBuilder):
         title_data = self.data_manager.get_data(self.language, 'title')
         copyright_data = self.data_manager.get_data(self.language, 'copyright')
 
+        start_page = self.content.page_num
+
         title = title_data.get("title", "Unknown Title")
         subtitle = title_data.get("subtitle", "")
         author = copyright_data.get('author', "")
@@ -14,7 +16,7 @@ class CopyrightPageBuilder(BasePageBuilder):
 
         (self.content
          .start_from(starting_pos)
-         .add_paragraph(f'<b>{title}: {subtitle}</b><br/>by {author}', border_padding=0)
+         .add_paragraph(f'<a name="copyright"/><b>{title}: {subtitle}</b><br/>by {author}', border_padding=0)
          .add_paragraph(copyright_data.get("copyright_text", ""), border_padding=0, extra_spacing=10)
          .add_paragraph(
             f'''<span>{copyright_data.get('author_text', '')}: {author}</span><br/>
@@ -27,3 +29,6 @@ class CopyrightPageBuilder(BasePageBuilder):
          .add_paragraph(printing_items_html, leftIndent=20)
          .add_paragraph(f'<span>{copyright_data.get("email_text", "")}: {copyright_data.get("email", "")}</span>', border_padding=0, extra_spacing=10)
          .new_page())
+
+        end_page = self.content.page_num - 1
+        self.register_section('copyright', 'Copyright', start_page, end_page, 'copyright')

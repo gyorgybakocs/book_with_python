@@ -1,100 +1,156 @@
 from reportlab.platypus import Paragraph
-from src.managers.style_manager import StyleManager
-from src.builders.content_builder import ContentBuilder
 
 class LayoutService:
-    def __init__(self, content_builder: ContentBuilder, style_manager: StyleManager, config: dict):
-        self.content = content_builder
-        self.style_manager = style_manager
+    """
+    Service responsible ONLY for layout calculations.
+    NO DRAWING! Only returns calculation results to builders.
+    """
+    def __init__(self, content_builder, config: dict):
+        self.content = content_builder  # Only for getting dimensions and creating paragraphs
         self.config = config
         self.page_size = self.content.page_size
         self.padding_h = self.content.padding_h
         self.padding_v = self.config.get("common.padding.vertical")
-        self.current_pos = 0.0
-        self.current_page_number = 1
 
-    def start_from(self, pos: float):
-        self.current_pos = float(pos)
-        return self
+    def calculate_available_space(self, current_pos: float, buffer: float = 15) -> float:
+        """Calculates available height on current page."""
+        return (self.page_size[1] - current_pos) - self.padding_v - buffer
 
-    def add_spacing(self, spacing: float):
-        self.current_pos += float(spacing)
-        return self
+    def calculate_paragraph_height(self, text: str, **kwargs) -> float:
+        """
+        Calculates height of a paragraph without drawing it.
+        """
+        paragraph = self.content.create_paragraph(text, **kwargs)
+        width = self.page_size[0] - 2 * self.padding_h
+        _w, h = paragraph.wrap(width, 10000)
+        return h
 
-    def _add_paragraph_internal(self, text: str, style: object):
-        if hasattr(style, 'spaceBefore'):
-            self.current_pos += style.spaceBefore
+    def will_paragraph_fit(self, text: str, current_pos: float, **kwargs) -> bool:
+        """Determines if a paragraph will fit on current page."""
+        required_height = self.calculate_paragraph_height(text, **kwargs)
+        available_height = self.calculate_available_space(current_pos)
+        return required_height <= available_height
 
-        p = Paragraph(text, style)
-        _w, h = p.wrapOn(self.content.canvas, self.page_size[0] - (self.padding_h * 2), 10000)
+    def calculate_paragraph_splits(self, text: str, current_pos: float, **kwargs) -> list:
+        """
+        Calculates how to split a paragraph across pages.
+        Returns list of Paragraph objects that fit on pages.
+        """
+        paragraph = self.content.create_paragraph(text, **kwargs)
+        width = self.page_size[0] - 2 * self.padding_h
+        available_height = self.calculate_available_space(current_pos)
 
-        self.content.draw_paragraph(p, self.current_pos)
-        self.current_pos += h
+        parts = paragraph.split(width, available_height)
+        return parts if parts else [paragraph]
 
-        if hasattr(style, 'spaceAfter'):
-            self.current_pos += style.spaceAfter
+    def calculate_chapter_layout(self, paragraphs: list, starting_pos: float = None) -> list:
+        """
+        Calculates the complete layout for a chapter.
+        Returns list of layout instructions - NO DRAWING!
 
-    def add_paragraph(self, text: str, **kwargs):
-        style_name = kwargs.pop('style_name', 'paragraph_default')
-        style = self.style_manager.prepare_style(style_name, **kwargs)
-        self._add_paragraph_internal(text, style)
-        return self
+        Returns:
+            List of dicts with layout instructions like:
+            [
+                {'type': 'set_position', 'position': 100},
+                {'type': 'draw_paragraph', 'paragraph': Paragraph(...), 'spacing_after': 10},
+                {'type': 'page_break'},
+                {'type': 'draw_header', 'text': 'Chapter Title'},
+                ...
+            ]
+        """
+        if starting_pos is None:
+            starting_pos = self.padding_v
 
-    def add_title(self, text: str, **kwargs):
-        kwargs['style_name'] = 'title_main'
-        self.add_paragraph(text, **kwargs)
-        return self
+        instructions = []
+        current_pos = starting_pos
 
-    def add_subtitle(self, text: str, **kwargs):
-        kwargs['style_name'] = 'title_sub'
-        self.add_paragraph(text, **kwargs)
-        return self
+        instructions.append({'type': 'set_position', 'position': current_pos})
 
-    def add_separator_line(self):
-        self.add_spacing(12)
-        self.content.draw_line(self.current_pos)
-        self.add_spacing(12)
-        return self
-
-    def flow_paragraphs(self, paragraphs: list, has_header: bool = False, has_footer: bool = False, chapter_title: str = ""):
-        page_height = self.page_size[1]
-
-        for par_text in paragraphs:
+        for i, par_text in enumerate(paragraphs):
             if not par_text.strip():
-                self.add_spacing(10)
+                instructions.append({'type': 'add_spacing', 'amount': 10})
+                current_pos += 10
                 continue
 
-            style = self.style_manager.prepare_style('paragraph_default', firstLineIndent=20)
-            par_obj = Paragraph(par_text, style)
+            # Create paragraph for calculations
+            paragraph = self.content.create_paragraph(par_text,
+                                                      style_name='paragraph_default',
+                                                      firstLineIndent=20)
 
-            self.add_spacing(10)
+            # Calculate if we need to split
+            while paragraph:
+                available_height = self.calculate_available_space(current_pos)
 
-            while par_obj:
-                avail_width = self.page_size[0] - 2 * self.padding_h
-                avail_height = (page_height - self.current_pos) - self.padding_v
+                # If no space, need page break
+                if available_height <= 0:
+                    instructions.append({'type': 'page_break'})
+                    current_pos = self.padding_v
+                    available_height = self.calculate_available_space(current_pos)
 
-                if avail_height < style.fontSize + 5: # Buffer for safety
-                    if has_footer: self.content.draw_footer(self.current_page_number, chapter_title)
-                    self.new_page()
-                    if has_header: self.content.draw_header(chapter_title)
-                    avail_height = (page_height - self.current_pos) - self.padding_v
+                # Split paragraph
+                width = self.page_size[0] - 2 * self.padding_h
+                parts = paragraph.split(width, available_height)
 
-                parts = par_obj.split(avail_width, avail_height)
-                if not parts: break
+                if not parts:
+                    # Force page break and try again
+                    instructions.append({'type': 'page_break'})
+                    current_pos = self.padding_v
+                    available_height = self.calculate_available_space(current_pos)
+                    parts = paragraph.split(width, available_height)
 
-                _w, h = parts[0].wrapOn(self.content.canvas, avail_width, avail_height)
-                self.content.draw_paragraph(parts[0], self.current_pos)
-                self.current_pos += h
+                    if not parts:
+                        break  # Give up
 
+                # Add instruction to draw the part that fits
+                part_height = parts[0].wrap(width, available_height)[1]
+                instructions.append({
+                    'type': 'draw_paragraph',
+                    'paragraph': parts[0],
+                    'spacing_after': 10
+                })
+                current_pos += part_height + 10
+
+                # Check if there's continuation
                 if len(parts) > 1:
-                    par_obj = parts[1]
-                    if has_footer: self.content.draw_footer(self.current_page_number, chapter_title)
-                    self.new_page()
-                    if has_header: self.content.draw_header(chapter_title)
+                    paragraph = parts[1]
+                    # Will need page break for continuation
                 else:
-                    par_obj = None
+                    paragraph = None
 
-    def new_page(self):
-        self.content.new_page()
-        self.start_from(self.padding_v)
-        self.current_page_number += 1
+        return instructions
+
+    def calculate_optimal_positions(self) -> dict:
+        """Returns optimal starting positions for different content types."""
+        return {
+            'title_page': self.config.get("defaults.starting_pos", 300.0),
+            'chapter_title': self.config.get("defaults.starting_pos", 300.0),
+            'chapter_content': self.padding_v,
+            'simple_content': self.padding_v
+        }
+
+    def should_start_new_page(self, content_height: float, current_pos: float) -> bool:
+        """Determines if content should start on a new page."""
+        available_space = self.calculate_available_space(current_pos)
+        return content_height > available_space
+
+    def calculate_title_layout(self, title: str, subtitle: str, starting_pos: float) -> list:
+        """
+        Calculates layout for title page.
+        Returns layout instructions.
+        """
+        instructions = []
+        instructions.append({'type': 'set_position', 'position': starting_pos})
+
+        # Calculate title
+        title_paragraph = self.content.create_title_paragraph(f'<b>{title}</b>', alignment=0)
+        instructions.append({'type': 'draw_paragraph', 'paragraph': title_paragraph, 'spacing_after': 0})
+
+        # Add separator
+        instructions.append({'type': 'draw_separator'})
+
+        # Calculate subtitle
+        subtitle_paragraph = self.content.create_subtitle_paragraph(f'<b>{subtitle}</b>')
+        instructions.append({'type': 'add_spacing', 'amount': 6})
+        instructions.append({'type': 'draw_paragraph', 'paragraph': subtitle_paragraph, 'spacing_after': 0})
+
+        return instructions

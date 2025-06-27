@@ -2,3 +2,5 @@
 log/
 src/config/config.cfg
 resources/book/*
+
+*/__pycache__/*

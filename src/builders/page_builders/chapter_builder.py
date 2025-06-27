@@ -3,9 +3,10 @@ from src.logger import logger
 
 class ChapterBuilder(BasePageBuilder):
     """
-    Builds a chapter, handling different layouts for simple vs. main chapters.
-    This class is now responsible for its own page-breaking logic.
+    Builds a chapter using ContentBuilder.
+    Doesn't know anything about LayoutService - that's internal to ContentBuilder.
     """
+
     def build(self, source_path: str = None, **options):
         if not source_path:
             logger.error("ChapterBuilder requires a 'source_path'.")
@@ -16,6 +17,9 @@ class ChapterBuilder(BasePageBuilder):
             logger.warning(f"Could not find data for source '{source_path}'. Skipping.")
             return
 
+        # Record start page
+        start_page = self.content.page_num
+
         is_main_chapter = options.get('is_main_chapter', False)
 
         if is_main_chapter:
@@ -23,82 +27,87 @@ class ChapterBuilder(BasePageBuilder):
         else:
             self._build_as_simple_chapter(chapter_data)
 
+        # Record end page and register with registry
+        end_page = self.content.page_num - 1  # -1 because we already called new_page()
+        chapter_title = chapter_data.get('title', 'Unknown Chapter')
+
+        # Create anchor name
+        anchor = self._get_anchor_name(chapter_data)
+
+        self.register_section(source_path, chapter_title, start_page, end_page, anchor)
+
     def _build_as_simple_chapter(self, chapter_data: dict):
-        """Builds a simple, single-page chapter (e.g., for dedicate/preface)."""
+        """Builds a simple chapter with proper anchor."""
         starting_pos = self.config.get("common.padding.vertical")
-        self.content.start_from(starting_pos)
 
-        self.content.add_paragraph(f'{chapter_data.get("title", "")}', style_name='title_sub')
+        chapter_title = chapter_data.get("title", "")
+        anchor = self._get_anchor_name(chapter_data)
 
-        self._draw_paragraphs_with_page_breaks(chapter_data, has_header=False, has_footer=False, continue_from_current_pos=True)
-        self.content.new_page()
-
-    def _build_as_main_chapter(self, chapter_data: dict):
-        """Builds a standard main chapter with a title page and headers/footers."""
-        starting_pos = self.config.get("defaults.starting_pos")
-
-        # Build title page for the chapter
         (self.content
          .start_from(starting_pos)
-         .add_title(chapter_data.get('title', ''), alignment=1, font_size=64, leading=64)
-         .new_page())
+         .add_paragraph(f'<a name="{anchor}"/>{chapter_title}', style_name='title_sub'))
 
-        # Build content pages
-        self._draw_paragraphs_with_page_breaks(chapter_data, has_header=True, has_footer=True)
+        self._draw_paragraphs_with_page_breaks(
+            chapter_data,
+            has_header=False,
+            has_footer=False,
+            continue_from_current_pos=True
+        )
+
         self.content.new_page()
 
+    def _get_anchor_name(self, chapter_data: dict) -> str:
+        """
+        Generate anchor name for this chapter.
+        """
+        # Use the title to create a clean anchor
+        title = chapter_data.get('title', 'chapter')
+        # Clean up title for anchor (remove spaces, special chars)
+        anchor = title.lower().replace(' ', '_').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u').replace('ű', 'u').replace('ö', 'o').replace('ü', 'u')
+        return anchor
+
     def _draw_paragraphs_with_page_breaks(self, chapter_data: dict, has_header: bool, has_footer: bool, continue_from_current_pos: bool = False):
-        """Kirajzolja a fejezet összes bekezdését, intelligens, soron belüli oldaltöréssel."""
-
-        padding_v = self.config.get("common.padding.vertical")
-        page_height = self.content.page_size[1]
-
-        if not continue_from_current_pos:
-            self.content.start_from(padding_v)
-
+        """
+        RESTORED ORIGINAL METHOD with intelligent page breaking.
+        Now uses the new ContentBuilder API.
+        """
         paragraphs = chapter_data.get('paragraphs', [])
-        for i, par_text in enumerate(paragraphs):
-            if not par_text.strip():
-                self.content.add_spacing(10)
-                continue
+        chapter_title = chapter_data.get("title", "")
 
-            par_obj = self.content.create_paragraph(par_text, firstLineIndent=20)
+        if not paragraphs:
+            return
 
-            # Ciklus, ami addig fut, amíg a teljes bekezdés kiírásra nem kerül
-            while par_obj:
-                # Elérhető hely kiszámítása az aktuális oldalon
-                avail_width = self.content.page_size[0] - 2 * self.content.padding_h
-                avail_height = (page_height - self.content.current_pos) - padding_v - 15 # Kis buffer
+        # Use ContentBuilder's intelligent paragraph breaking method
+        self.content.add_chapter_paragraphs_with_breaks(
+            paragraphs=paragraphs,
+            chapter_title=chapter_title,
+            has_header=has_header,
+            has_footer=has_footer
+        )
 
-                # Ha már egy sor sem fér el, új oldalt kezdünk
-                if avail_height <= 0:
-                    if has_footer: self.content.add_footer(chapter_data.get("title", ""))
-                    self.content.new_page()
-                    self.content.start_from(padding_v)
-                    if has_header: self.content.add_header(f'<span>{chapter_data.get("title", "")}</span>')
-                    avail_height = (page_height - self.content.current_pos) - padding_v - 15
+    def _build_as_main_chapter(self, chapter_data: dict):
+        """Builds a main chapter with title page and complex paragraph flow."""
+        starting_pos = self.config.get("defaults.starting_pos")
+        chapter_title = chapter_data.get('title', '')
 
-                # A bekezdés felosztása: ami elfér, és ami a maradék.
-                parts = par_obj.split(avail_width, avail_height)
+        # Build title page
+        (self.content
+         .start_from(starting_pos)
+         .add_title(chapter_title, alignment=1, font_size=64, leading=64)
+         .new_page())
 
-                if not parts:
-                    break # Üres vagy tördelhetetlen bekezdés, kilépünk
+        # Build content pages with intelligent page breaking
+        self.content.start_from(self.config.get("common.padding.vertical"))
+        self.content.add_header(f'<span>{chapter_title}</span>')
 
-                # Az első rész (ami elfér) kirajzolása
-                self.content.draw_paragraph_object(parts[0])
-                self.content.add_spacing(10) # Hely a bekezdések között
+        # Use ContentBuilder's intelligent paragraph flow method
+        paragraphs = chapter_data.get('paragraphs', [])
+        self.content.add_chapter_paragraphs_with_breaks(
+            paragraphs=paragraphs,
+            chapter_title=chapter_title,
+            has_header=True,
+            has_footer=True
+        )
 
-                # Megnézzük, maradt-e folytatás
-                if len(parts) > 1:
-                    par_obj = parts[1] # A maradék lesz a következő körben a kiírandó objektum
-
-                    # Új oldalt kezdünk a folytatásnak
-                    if has_footer: self.content.add_footer(chapter_data.get("title", ""))
-                    self.content.new_page()
-                    self.content.start_from(padding_v)
-                    if has_header: self.content.add_header(f'<span>{chapter_data.get("title", "")}</span>')
-                else:
-                    par_obj = None # Kész, a teljes bekezdés elfért, kilépünk a ciklusból
-
-        if has_footer and paragraphs:
-            self.content.add_footer(chapter_data.get("title", ""))
+        self.content.add_footer(chapter_title)
+        self.content.new_page()
