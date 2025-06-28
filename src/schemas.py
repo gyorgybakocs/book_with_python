@@ -1,13 +1,54 @@
 from pydantic import BaseModel, field_validator
 from typing import List, Dict, Optional, Union, Literal
 
+class TableCell(BaseModel):
+    """Enhanced table cell with merging support."""
+    text: str
+    colspan: Optional[int] = 1  # Number of columns to span
+    rowspan: Optional[int] = 1  # Number of rows to span
+    style_class: Optional[str] = None  # Reference to style in StyleManager
+
+    @field_validator('colspan', 'rowspan')
+    @classmethod
+    def validate_span(cls, v):
+        if v is not None and v < 1:
+            raise ValueError('Span values must be at least 1')
+        return v
+
+class TableRow(BaseModel):
+    """Table row with enhanced cells."""
+    cells: List[Union[str, TableCell]]  # Allow simple strings or complex cells
+    style_class: Optional[str] = None  # Reference to row style
+
+class AdvancedTableContent(BaseModel):
+    """Advanced table content with merged cells and style references."""
+    type: Literal["advanced_table"]
+    headers: List[Union[str, TableCell]]  # Headers can also be complex
+    rows: List[TableRow]  # Enhanced rows
+    caption: Optional[str] = None
+    alignment: Literal["left", "center", "right"] = "center"
+    style_preset: Optional[str] = "default"  # Reference to predefined table style
+    width: Union[int, str] = "100%"
+    column_widths: Optional[List[Union[int, str]]] = None
+    border_style: Optional[Literal["none", "thin", "thick", "double"]] = "thin"
+
+class SimpleTableContent(BaseModel):
+    """Simple table (backward compatibility)."""
+    type: Literal["table"]
+    headers: List[str]
+    rows: List[List[str]]
+    caption: Optional[str] = None
+    alignment: Literal["left", "center", "right"] = "center"
+    style_preset: Optional[str] = "default"  # Reference to table style
+    width: Union[int, str] = "100%"
+    column_widths: Optional[List[Union[int, str]]] = None
+
+# Keep all existing classes...
 class Title(BaseModel):
-    """Defines the structure for the book's title and subtitle."""
     title: str
     subtitle: str
 
 class Copyright(BaseModel):
-    """Defines the structure for all copyright page information."""
     copyright_text: str
     author_text: str
     author: str
@@ -24,97 +65,34 @@ class Copyright(BaseModel):
     email: str
 
 class ParagraphContent(BaseModel):
-    """Content item for paragraphs."""
     type: Literal["paragraph"]
     text: str
 
 class ImageContent(BaseModel):
-    """Content item for images."""
     type: Literal["image"]
-    src: str  # Image filename
+    src: str
     alignment: Literal["left", "center", "right"] = "center"
-    width: Union[int, str] = 300  # Allow both int and string (for percentages)
-    height: Union[int, Literal["auto"], str] = "auto"  # Allow int, "auto", or string (for percentages)
+    width: Union[int, str] = 300
+    height: Union[int, Literal["auto"], str] = "auto"
     caption: Optional[str] = None
 
     @field_validator('src')
     @classmethod
     def validate_image_format(cls, v):
-        """Validate that image is JPEG or PNG."""
         if not v.lower().endswith(('.jpg', '.jpeg', '.png')):
             raise ValueError('Only JPEG and PNG images are supported')
         return v
 
-    @field_validator('width')
-    @classmethod
-    def validate_width(cls, v):
-        """Validate image width - allow int, percentage string, or 'auto'."""
-        if isinstance(v, int):
-            if v <= 0 or v > 2000:
-                raise ValueError('Width must be between 1 and 2000 pixels')
-        elif isinstance(v, str):
-            if v == "auto":
-                return v  # Allow "auto" for width
-            elif v.endswith('%'):
-                try:
-                    percentage = float(v.rstrip('%'))
-                    if percentage <= 0:
-                        raise ValueError('Width percentage must be greater than 0%')
-                    # Auto-correct percentages over 100%
-                    if percentage > 100:
-                        return "100%"
-                except ValueError:
-                    raise ValueError('Invalid percentage format')
-            else:
-                raise ValueError('Width string must be "auto" or a percentage (e.g., "100%")')
-        return v
-
-    @field_validator('height')
-    @classmethod
-    def validate_height(cls, v):
-        """Validate image height - allow int, "auto", or percentage string."""
-        if v == "auto":
-            return v
-        elif isinstance(v, int):
-            if v <= 0 or v > 2000:
-                raise ValueError('Height must be "auto" or between 1 and 2000 pixels')
-        elif isinstance(v, str):
-            if v != "auto":
-                if not v.endswith('%'):
-                    raise ValueError('Height string must be "auto" or a percentage (e.g., "50%")')
-                try:
-                    percentage = float(v.rstrip('%'))
-                    if percentage <= 0:
-                        raise ValueError('Height percentage must be greater than 0%')
-                    # Auto-correct percentages over 100%
-                    if percentage > 100:
-                        return "100%"
-                except ValueError:
-                    raise ValueError('Invalid percentage format')
-        return v
-
-# Union type for content items
-ContentItem = Union[ParagraphContent, ImageContent]
+# Union type for all content items
+ContentItem = Union[ParagraphContent, ImageContent, SimpleTableContent, AdvancedTableContent]
 
 class Chapter(BaseModel):
-    """
-    Defines the structure for a generic content chapter with support for images.
-    Can use either old 'paragraphs' format or new 'content' format.
-    """
     title: str
     type: Optional[str] = "simple"
-
-    # Legacy support
     paragraphs: Optional[List[str]] = None
-
-    # New content structure with images
     content: Optional[List[ContentItem]] = None
 
 class Book(BaseModel):
-    """
-    Defines the structure for a single language version of the book.
-    It specifies which sections are mandatory and which are optional.
-    """
     title: Title
     copyright: Copyright
     chapters: Dict[str, Chapter]
@@ -124,15 +102,10 @@ class Book(BaseModel):
     @field_validator('chapters')
     @classmethod
     def chapters_must_not_be_empty(cls, v):
-        """Ensures the 'chapters' dictionary is not empty."""
         if not v:
             raise ValueError('chapters dictionary must not be empty')
         return v
 
 class BookData(BaseModel):
-    """
-    The root model for the entire book_01.json data file.
-    It expects a key for each language.
-    """
     book_hu: Book
     book_en: Book

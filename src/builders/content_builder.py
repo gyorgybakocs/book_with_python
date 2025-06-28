@@ -1,5 +1,6 @@
 from reportlab.lib import colors
 from reportlab.platypus.paragraph import Paragraph
+from reportlab.platypus import Table, TableStyle
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import inch
 import os
@@ -15,7 +16,7 @@ except ImportError:
 
 class ContentBuilder:
     """
-    Content builder with integrated layout calculations and image support.
+    Content builder with integrated layout calculations, image and table support.
     Page builders only see the ContentBuilder interface, not LayoutService.
     """
     def __init__(self, canvas, page_size, style_manager, config):
@@ -68,6 +69,413 @@ class ContentBuilder:
         style_name = kwargs.pop('style_name', 'paragraph_default')
         style = self.style_manager.prepare_style(style_name, **kwargs)
         return self._draw_paragraph(text, style)
+
+    def add_table(self, headers: list, rows: list, caption: str = None,
+                  alignment: str = "center", style: str = "default",
+                  width: str = "100%", column_widths: list = None):
+        """
+        Adds a simple table to the document with intelligent page breaking.
+
+        Args:
+            headers: List of column headers
+            rows: List of rows (each row is a list of cell values)
+            caption: Optional table caption
+            alignment: "left", "center", or "right"
+            style: Table style preset from StyleManager
+            width: Table width as percentage or pixels
+            column_widths: List of individual column widths
+        """
+        try:
+            logger.info(f"Adding simple table with {len(headers)} columns and {len(rows)} rows")
+
+            # Add spacing before table
+            self.add_spacing(10)
+
+            # Calculate available space
+            available_width = self.page_size[0] - 2 * self.padding_h
+            available_height = self.layout_service.calculate_available_space(self.current_pos + 30)
+
+            # Calculate table width
+            if isinstance(width, str) and width.endswith('%'):
+                percentage = float(width.rstrip('%')) / 100
+                table_width = available_width * percentage
+            else:
+                table_width = width * 0.75 if isinstance(width, int) else available_width
+
+            # Calculate column widths
+            col_widths = self._calculate_column_widths(column_widths, table_width, len(headers))
+
+            # Create table data with Paragraph objects for proper text wrapping
+            table_data = []
+
+            # Headers
+            header_style = self.style_manager.prepare_style('paragraph_default',
+                                                            fontSize=10,
+                                                            alignment=1)  # Center alignment
+            header_row = [Paragraph(f"<b>{header}</b>", header_style) for header in headers]
+            table_data.append(header_row)
+
+            # Data rows
+            cell_style = self.style_manager.prepare_style('paragraph_default', fontSize=9)
+            for row in rows:
+                table_row = [Paragraph(str(cell), cell_style) for cell in row]
+                table_data.append(table_row)
+
+            # Create ReportLab Table
+            table = Table(table_data, colWidths=col_widths, repeatRows=1)
+
+            # Apply table style from StyleManager
+            table_style_commands = self.style_manager.get_table_style(style)
+            table.setStyle(TableStyle(table_style_commands))
+
+            # Handle table placement and splitting
+            self._place_table_with_splitting(table, table_width, alignment, available_height)
+
+            # Add caption if provided
+            if caption:
+                self.add_spacing(5)
+                caption_style = self.style_manager.prepare_style('paragraph_default',
+                                                                 fontSize=9,
+                                                                 alignment=1)
+                self._draw_paragraph(f"<i>{caption}</i>", caption_style)
+
+            # Add spacing after table
+            self.add_spacing(15)
+
+            logger.info("Successfully added simple table")
+
+        except Exception as e:
+            logger.error(f"Failed to add simple table: {e}")
+
+        return self
+
+    def add_advanced_table(self, headers: list, rows: list, caption: str = None,
+                           alignment: str = "center", style_preset: str = "default",
+                           width: str = "100%", column_widths: list = None,
+                           border_style: str = "thin"):
+        """
+        Adds an advanced table with proper header styling and column widths.
+        """
+        try:
+            logger.info(f"Adding advanced table with {len(headers)} columns and {len(rows)} rows")
+
+            # Add spacing before table
+            self.add_spacing(10)
+
+            # Calculate available space
+            available_width = self.page_size[0] - 2 * self.padding_h
+            available_height = self.layout_service.calculate_available_space(self.current_pos + 30)
+
+            # Calculate table width
+            if isinstance(width, str) and width.endswith('%'):
+                percentage = float(width.rstrip('%')) / 100
+                table_width = available_width * percentage
+            else:
+                table_width = width * 0.75 if isinstance(width, int) else available_width
+
+            # Process headers with their styling
+            processed_headers = []
+            header_style_commands = []
+
+            header_style = self.style_manager.prepare_style('paragraph_default',
+                                                            fontSize=10,
+                                                            alignment=1)
+
+            for col_idx, header in enumerate(headers):
+                if isinstance(header, dict):  # TableCell-like object with styling
+                    text = header.get('text', '')
+                    header_style_def = header.get('style', {})
+
+                    processed_headers.append(Paragraph(f"<b>{text}</b>", header_style))
+
+                    # Apply header styling
+                    if header_style_def:
+                        self._apply_direct_cell_style(header_style_commands, header_style_def, col_idx, 0)
+                else:  # Simple string
+                    processed_headers.append(Paragraph(f"<b>{header}</b>", header_style))
+
+            # Process rows and handle merged cells
+            processed_rows, row_style_commands = self._process_table_rows(rows, len(processed_headers))
+
+            # Calculate column widths
+            col_widths = self._calculate_column_widths(column_widths, table_width, len(processed_headers))
+            logger.info(f"Column widths: {[f'{w:.1f}' for w in col_widths]}")
+
+            # Create table data
+            table_data = [processed_headers] + processed_rows
+
+            # Create ReportLab Table with proper repeat rows
+            table = Table(table_data, colWidths=col_widths, repeatRows=1)
+
+            # Get style from StyleManager and apply additional styling
+            base_style = self.style_manager.get_table_style(style_preset)
+            table_style_commands = list(base_style)  # Copy the base style
+
+            # Add border styling
+            border_commands = self._get_border_style_commands(border_style)
+            table_style_commands.extend(border_commands)
+
+            # Add header-specific styles
+            table_style_commands.extend(header_style_commands)
+
+            # Add row-specific styles
+            table_style_commands.extend(row_style_commands)
+
+            logger.info(f"Applied {len(table_style_commands)} style commands")
+            table.setStyle(TableStyle(table_style_commands))
+
+            # Handle table placement and splitting
+            self._place_table_with_splitting(table, table_width, alignment, available_height)
+
+            # Add caption if provided
+            if caption:
+                self.add_spacing(5)
+                caption_style = self.style_manager.prepare_style('paragraph_default',
+                                                                 fontSize=9,
+                                                                 alignment=1)
+                self._draw_paragraph(f"<i>{caption}</i>", caption_style)
+
+            # Add spacing after table
+            self.add_spacing(15)
+
+            logger.info("Successfully added advanced table")
+
+        except Exception as e:
+            logger.error(f"Failed to add advanced table: {e}", exc_info=True)
+
+        return self
+
+    def _process_table_headers(self, headers: list) -> list:
+        """Process headers, handling both strings and TableCell objects with styling."""
+        processed = []
+        header_style = self.style_manager.prepare_style('paragraph_default',
+                                                        fontSize=10,
+                                                        alignment=1)
+
+        for header in headers:
+            if isinstance(header, dict):  # TableCell-like object
+                text = header.get('text', '')
+                processed.append(Paragraph(f"<b>{text}</b>", header_style))
+            else:  # Simple string
+                processed.append(Paragraph(f"<b>{header}</b>", header_style))
+
+        return processed
+
+    def _process_table_rows(self, rows: list, header_count: int) -> tuple:
+        """Process rows and generate style commands for merged cells and direct styling."""
+        processed_rows = []
+        style_commands = []
+
+        cell_style = self.style_manager.prepare_style('paragraph_default', fontSize=9)
+
+        for row_idx, row in enumerate(rows):
+            if isinstance(row, dict):
+                cells = row.get('cells', [])
+            else:
+                cells = row
+
+            processed_row = []
+            col_idx = 0
+
+            for cell in cells:
+                if isinstance(cell, dict):  # TableCell object
+                    text = cell.get('text', '')
+                    cell_style_def = cell.get('style', {})
+                    colspan = cell.get('colspan', 1)
+                    rowspan = cell.get('rowspan', 1)
+
+                    # Create paragraph with cell text
+                    processed_row.append(Paragraph(str(text), cell_style))
+
+                    # Add merged cell commands if needed
+                    if colspan > 1 or rowspan > 1:
+                        end_col = col_idx + colspan - 1
+                        end_row = row_idx + 1 + rowspan - 1
+                        style_commands.append(
+                            ('SPAN', (col_idx, row_idx + 1), (end_col, end_row))
+                        )
+                        logger.debug(f"Added SPAN: ({col_idx}, {row_idx + 1}) to ({end_col}, {end_row})")
+
+                    # Apply direct cell styling if specified
+                    if cell_style_def:
+                        self._apply_direct_cell_style(style_commands, cell_style_def, col_idx, row_idx + 1)
+
+                    col_idx += colspan
+
+                else:  # Simple string
+                    processed_row.append(Paragraph(str(cell), cell_style))
+                    col_idx += 1
+
+            # Fill remaining cells if row is shorter than header
+            while len(processed_row) < header_count:
+                processed_row.append(Paragraph("", cell_style))
+
+            processed_rows.append(processed_row)
+
+        return processed_rows, style_commands
+
+    def _apply_direct_cell_style(self, style_commands: list, cell_style_def: dict, col: int, row: int):
+        """Apply direct cell styling from JSON to style commands."""
+        if cell_style_def.get('background_color'):
+            color = self._parse_color(cell_style_def['background_color'])
+            style_commands.append(
+                ('BACKGROUND', (col, row), (col, row), color)
+            )
+            logger.debug(f"Added background color {cell_style_def['background_color']} at ({col}, {row})")
+
+        if cell_style_def.get('text_color'):
+            color = self._parse_color(cell_style_def['text_color'])
+            style_commands.append(
+                ('TEXTCOLOR', (col, row), (col, row), color)
+            )
+
+        if cell_style_def.get('font_weight') == 'bold':
+            style_commands.append(
+                ('FONTNAME', (col, row), (col, row), 'Helvetica-Bold')
+            )
+
+    def _parse_color(self, color_spec: str):
+        """Parse color specification to ReportLab color."""
+        from reportlab.lib import colors
+
+        # Handle hex colors
+        if color_spec.startswith('#'):
+            return colors.HexColor(color_spec)
+
+        # Handle named colors
+        color_map = {
+            'lightblue': colors.lightblue,
+            'lightgreen': colors.lightgreen,
+            'lightyellow': colors.lightyellow,
+            'lightgrey': colors.lightgrey,
+            'lightgray': colors.lightgrey,
+            'red': colors.red,
+            'blue': colors.blue,
+            'green': colors.green,
+            'yellow': colors.yellow,
+            'white': colors.white,
+            'black': colors.black,
+            'gray': colors.gray,
+            'grey': colors.grey,
+        }
+
+        return color_map.get(color_spec.lower(), colors.white)
+
+    def _get_border_style_commands(self, border_style: str) -> list:
+        """Get border style commands."""
+        from reportlab.lib import colors
+
+        border_width = {
+            'none': 0,
+            'thin': 0.5,
+            'thick': 2.0,
+            'double': 1.0
+        }.get(border_style, 0.5)
+
+        if border_style == 'none':
+            return []
+        elif border_style == 'double':
+            return [
+                ('GRID', (0, 0), (-1, -1), 1.0, colors.black),
+                ('BOX', (0, 0), (-1, -1), 2.0, colors.black),
+            ]
+        else:
+            return [
+                ('GRID', (0, 0), (-1, -1), border_width, colors.black),
+            ]
+
+    def _calculate_column_widths(self, column_widths: list, table_width: float, header_count: int) -> list:
+        """Calculate column widths with better defaults."""
+        if column_widths:
+            col_widths = []
+            for col_width in column_widths:
+                if isinstance(col_width, str) and col_width.endswith('%'):
+                    percentage = float(col_width.rstrip('%')) / 100
+                    col_widths.append(table_width * percentage)
+                else:
+                    col_widths.append(col_width * 0.75 if isinstance(col_width, int) else table_width / header_count)
+            return col_widths
+        else:
+            # Better default column widths for the tense table
+            if header_count == 4:  # Specific for our tense table
+                return [
+                    table_width * 0.15,  # First column (Si, Co, Pe, Mo) - narrow
+                    table_width * 0.15,  # Time column - narrow
+                    table_width * 0.35,  # Form column - wider
+                    table_width * 0.35   # Example column - wider
+                ]
+            else:
+                # Equal width columns for other tables
+                return [table_width / header_count] * header_count
+
+    def _place_table_with_splitting(self, table, table_width, alignment, available_height):
+        """Handle table placement with intelligent splitting and proper header repetition."""
+        # Check if table fits on current page
+        try:
+            table_width_final, table_height = table.wrapOn(self.canvas, table_width, available_height)
+            logger.info(f"Table dimensions: {table_width_final:.1f}x{table_height:.1f}, available height: {available_height:.1f}")
+        except Exception as e:
+            logger.error(f"Error wrapping table: {e}")
+            # Force page break and try on new page
+            self.new_page()
+            self.current_pos = self.padding_v
+            available_height = self.layout_service.calculate_available_space(self.current_pos + 30)
+            table_width_final, table_height = table.wrapOn(self.canvas, table_width, available_height)
+
+        if table_height > available_height and available_height > 100:  # Only split if we have some space
+            logger.info("Table doesn't fit, attempting to split")
+            try:
+                # Try to split the table
+                split_tables = table.split(table_width, available_height)
+
+                if len(split_tables) > 1:
+                    logger.info(f"Table split into {len(split_tables)} parts")
+                    # Draw first part
+                    self._draw_table_part(split_tables[0], table_width, alignment)
+
+                    # Page break and draw remaining parts
+                    for i, table_part in enumerate(split_tables[1:], 1):
+                        self.new_page()
+                        self.current_pos = self.padding_v
+                        logger.info(f"Drawing table part {i+1} on new page")
+                        self._draw_table_part(table_part, table_width, alignment)
+                else:
+                    # Table can't be split properly, force page break
+                    logger.info("Table can't be split properly, forcing page break")
+                    self.new_page()
+                    self.current_pos = self.padding_v
+                    self._draw_table_part(table, table_width, alignment)
+            except Exception as e:
+                logger.error(f"Error splitting table: {e}")
+                # Fallback: force page break
+                self.new_page()
+                self.current_pos = self.padding_v
+                self._draw_table_part(table, table_width, alignment)
+        else:
+            # Table fits, draw it
+            self._draw_table_part(table, table_width, alignment)
+
+    def _draw_table_part(self, table, table_width, alignment):
+        """Draw a table part at current position."""
+        # Calculate table position based on alignment
+        available_width = self.page_size[0] - 2 * self.padding_h
+
+        if alignment == "center":
+            x_pos = self.padding_h + (available_width - table_width) / 2
+        elif alignment == "right":
+            x_pos = self.page_size[0] - self.padding_h - table_width
+        else:  # left
+            x_pos = self.padding_h
+
+        # Get actual table dimensions
+        actual_width, actual_height = table.wrapOn(self.canvas, table_width, 1000)
+
+        # Draw table
+        y_pos = self.page_size[1] - self.current_pos - actual_height
+        table.drawOn(self.canvas, x_pos, y_pos)
+
+        # Update current position
+        self.current_pos += actual_height + 5
 
     def add_image(self, src: str, alignment: str = "center", width = 300,
                   height = "auto", caption: str = None):
@@ -224,7 +632,7 @@ class ContentBuilder:
 
     def add_content_items(self, content_items: list):
         """
-        Processes a list of content items (paragraphs and images) using existing intelligent page breaking.
+        Processes a list of content items (paragraphs, images, simple and advanced tables).
         Args:
             content_items: List of content items from the new JSON structure
         """
@@ -265,6 +673,51 @@ class ContentBuilder:
                     width=item.get('width', 300),
                     height=item.get('height', 'auto'),
                     caption=item.get('caption')
+                )
+
+            elif item.get('type') == 'table':
+                # Handle simple table - first add any pending paragraphs
+                if paragraphs:
+                    self.add_chapter_paragraphs_with_breaks(
+                        paragraphs=paragraphs,
+                        chapter_title="",
+                        has_header=False,
+                        has_footer=False
+                    )
+                    paragraphs = []
+
+                # Add the simple table
+                self.add_table(
+                    headers=item.get('headers', []),
+                    rows=item.get('rows', []),
+                    caption=item.get('caption'),
+                    alignment=item.get('alignment', 'center'),
+                    style=item.get('style_preset', 'default'),
+                    width=item.get('width', '100%'),
+                    column_widths=item.get('column_widths')
+                )
+
+            elif item.get('type') == 'advanced_table':
+                # Handle advanced table - first add any pending paragraphs
+                if paragraphs:
+                    self.add_chapter_paragraphs_with_breaks(
+                        paragraphs=paragraphs,
+                        chapter_title="",
+                        has_header=False,
+                        has_footer=False
+                    )
+                    paragraphs = []
+
+                # Add the advanced table
+                self.add_advanced_table(
+                    headers=item.get('headers', []),
+                    rows=item.get('rows', []),
+                    caption=item.get('caption'),
+                    alignment=item.get('alignment', 'center'),
+                    style_preset=item.get('style_preset', 'default'),
+                    width=item.get('width', '100%'),
+                    column_widths=item.get('column_widths'),
+                    border_style=item.get('border_style', 'thin')
                 )
 
             else:

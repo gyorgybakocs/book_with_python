@@ -169,6 +169,258 @@
             "text": "Miután elkészítettem az előző fejezetet arról, hogy milyen nehézségekkel szembesülhetünk az angol tanulása során, belevágtam a nyelvtani bevezető megírásába. Bújtam a szakkönyveket és tanulmányokat, jegyzeteltem a különböző nyelvtípusokról, a mondatszerkezetekről, az igei szóláncokról. Főigék, segédigék, aspektusok - minden apró részletet alaposan körbejártam. A végeredmény egy harminc oldalas, részletes elemzés lett. Még hivatkozásokat is tettem bele, ahogyan egy jó diplomamunkába szokták, APA 7 szabályok szerint. Mert valójában nem könyvet írtam, hanem egy tanulmányt. Szóval amikor újraolvastam ezt a hosszú, vontatott, unalmas fejezetet, hirtelen rádöbbentem, hogy ez nem fog segíteni a nyelvtanulásban."
           },
           {
+            "type": "advanced_table",
+            "headers": [
+              {
+                "text": "",
+                "style": {
+                  "background_color": "lightgrey"
+                }
+              },
+              {
+                "text": "Time",
+                "style": {
+                  "background_color": "lightgrey"
+                }
+              },
+              {
+                "text": "Form",
+                "style": {
+                  "background_color": "lightgrey"
+                }
+              },
+              {
+                "text": "Example",
+                "style": {
+                  "background_color": "lightgrey"
+                }
+              }
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Si",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#C6E0B4",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + V1",
+                  "He studies English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + V2",
+                  "He studied English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Co",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#C6E0B4",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + am/is/are + Ving",
+                  "He is studying English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + was/were + Ving",
+                  "He was studying English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Pe",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#B4D7FF",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + has/have + V3",
+                  "He has studied English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + had + V3",
+                  "He had studied English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Pe",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#B4D7FF",
+                      "font_weight": "bold"
+                    }
+                  },
+                  {
+                    "text": "Co",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#C6E0B4",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + has/have been + Ving",
+                  "He has been studying English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + had been + Ving",
+                  "He had been studying English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Mo",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#FFB3BA",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + will + V1",
+                  "He will study English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + would + V1",
+                  "He would study English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Mo",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#FFB3BA",
+                      "font_weight": "bold"
+                    }
+                  },
+                  {
+                    "text": "Co",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#C6E0B4",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + will be + Ving",
+                  "He will be studying English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + would be + Ving",
+                  "He would be studying English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Mo",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#FFB3BA",
+                      "font_weight": "bold"
+                    }
+                  },
+                  {
+                    "text": "Pe",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#B4D7FF",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + will have + V3",
+                  "He will have studied English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + would have + V3",
+                  "He would have studied English"
+                ]
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Mo",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#FFB3BA",
+                      "font_weight": "bold"
+                    }
+                  },
+                  {
+                    "text": "Pe",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#B4D7FF",
+                      "font_weight": "bold"
+                    }
+                  },
+                  {
+                    "text": "Co",
+                    "rowspan": 2,
+                    "style": {
+                      "background_color": "#C6E0B4",
+                      "font_weight": "bold"
+                    }
+                  },
+                  "Present",
+                  "S + will have been + Ving",
+                  "He will have been studying English"
+                ]
+              },
+              {
+                "cells": [
+                  "Past",
+                  "S + would have been + Ving",
+                  "He would have been studying English"
+                ]
+              }
+            ],
+            "caption": "English Tense System: Three-dimensional Model",
+            "style_preset": "minimal",
+            "width": "100%",
+            "border_style": "thin",
+            "alignment": "center"
+          },
+          {
             "type": "paragraph",
             "text": "Az előzőekben azt ígértem, hogy nem fogunk nyelvtani szabályokkal szenvedni. Azt ígértem, hogy példákon keresztül, szinte észrevétlenül fogjuk megérteni mindazt, amire szükségünk van. Megértjük a nyelvet, létrehozzuk a megfelelő egyszerűsítéseket, a saját modellünket. Tiszteletben tartjuk a többi modellt, de kicsit más úton járva jutunk el az igeidők bonyolultnak tűnő szerkezetének magjához."
           },

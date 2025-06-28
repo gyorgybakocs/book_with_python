@@ -6,7 +6,7 @@ import os
 class ChapterBuilder(BasePageBuilder):
     """
     Builds a chapter using ContentBuilder with support for both old and new content formats.
-    Supports images and paragraphs in the new 'content' structure.
+    Supports images, simple tables, advanced tables and paragraphs in the new 'content' structure.
     """
 
     def build(self, source_path: str = None, **options):
@@ -50,7 +50,7 @@ class ChapterBuilder(BasePageBuilder):
         return generate_anchor_name(title)
 
     def _build_as_simple_chapter(self, chapter_data: dict):
-        """Builds a simple chapter with proper anchor and support for images."""
+        """Builds a simple chapter with proper anchor and support for images and tables."""
         starting_pos = self.config.get("common.padding.vertical")
 
         chapter_title = chapter_data.get("title", "")
@@ -64,9 +64,10 @@ class ChapterBuilder(BasePageBuilder):
 
         # Handle both old and new content formats
         if 'content' in chapter_data and chapter_data['content']:
-            # NEW FORMAT with images and paragraphs
+            # NEW FORMAT with images, tables and paragraphs - USE SMART CONTENT PROCESSING
             logger.info(f"Using new content format with {len(chapter_data['content'])} items")
-            self.content.add_content_items(chapter_data['content'])
+            logger.info("Simple chapter will use smart content processing...")
+            self._build_content_with_smart_breaks(chapter_data, has_headers_footers=False)
         elif 'paragraphs' in chapter_data and chapter_data['paragraphs']:
             # LEGACY FORMAT - just paragraphs
             logger.info(f"Using legacy paragraphs format with {len(chapter_data['paragraphs'])} paragraphs")
@@ -82,7 +83,7 @@ class ChapterBuilder(BasePageBuilder):
         self.content.new_page()
 
     def _build_as_main_chapter(self, chapter_data: dict):
-        """Builds a main chapter with title page and support for images."""
+        """Builds a main chapter with title page and support for images and tables."""
         starting_pos = self.config.get("defaults.starting_pos")
         chapter_title = chapter_data.get('title', '')
         anchor = self._get_anchor_name(chapter_data)
@@ -108,12 +109,12 @@ class ChapterBuilder(BasePageBuilder):
         has_paragraphs = 'paragraphs' in chapter_data and chapter_data['paragraphs']
 
         if has_content:
-            # NEW FORMAT with images and paragraphs
+            # NEW FORMAT with images, tables and paragraphs
             content_count = len(chapter_data['content'])
             logger.info(f"----- Using new content format with {content_count} items")
-            logger.info("----- CALLING _build_content_with_headers_footers...")
-            self._build_content_with_headers_footers(chapter_data)
-            logger.info("----- RETURNED from _build_content_with_headers_footers")
+            logger.info("----- CALLING _build_content_with_smart_breaks...")
+            self._build_content_with_smart_breaks(chapter_data, has_headers_footers=True)
+            logger.info("----- RETURNED from _build_content_with_smart_breaks")
         elif has_paragraphs:
             # LEGACY FORMAT with paragraphs
             paragraphs_count = len(chapter_data['paragraphs'])
@@ -136,26 +137,28 @@ class ChapterBuilder(BasePageBuilder):
         self.content.new_page()
         logger.info("Main chapter building completed")
 
-    def _build_content_with_headers_footers(self, chapter_data: dict):
+    def _build_content_with_smart_breaks(self, chapter_data: dict, has_headers_footers: bool = False):
         """
-        Build content items with proper header/footer handling for main chapters.
-        This handles page breaks manually for the new content format.
+        Build content items with smart page breaking - works for both simple and main chapters.
+        Now supports simple tables and advanced tables!
         """
         content_items = chapter_data.get('content', [])
         chapter_title = chapter_data.get('title', '')
 
-        logger.info(f"Processing {len(content_items)} content items for chapter: {chapter_title}")
+        logger.info(f"Processing {len(content_items)} content items with smart breaks for: {chapter_title}")
 
         for i, item in enumerate(content_items):
             logger.debug(f"Processing item {i+1}/{len(content_items)}: {item.get('type')}")
 
             if item.get('type') == 'paragraph':
-                # For paragraphs in main chapters, we need to handle page breaks
                 text = item.get('text', '')
                 logger.debug(f"Paragraph {i+1}: {text[:50]}..." if len(text) > 50 else f"Paragraph {i+1}: {text}")
 
                 if text.strip():
-                    self._add_paragraph_with_headers_footers(text, chapter_title)
+                    if has_headers_footers:
+                        self._add_paragraph_with_headers_footers(text, chapter_title)
+                    else:
+                        self._add_paragraph_with_simple_breaks(text, chapter_title)
                 else:
                     self.content.add_spacing(10)
 
@@ -171,10 +174,14 @@ class ChapterBuilder(BasePageBuilder):
                 if required_height > available_height:
                     # Need page break
                     logger.debug("Image doesn't fit, doing page break")
-                    self.content.add_footer(chapter_title)
-                    self.content.new_page()
-                    self.content.start_from(self.config.get("common.padding.vertical"))
-                    self.content.add_header(f'<span>{chapter_title}</span>')
+                    if has_headers_footers:
+                        self.content.add_footer(chapter_title)
+                        self.content.new_page()
+                        self.content.start_from(self.config.get("common.padding.vertical"))
+                        self.content.add_header(f'<span>{chapter_title}</span>')
+                    else:
+                        self.content.new_page()
+                        self.content.start_from(self.config.get("common.padding.vertical"))
 
                 # Add the image
                 self.content.add_image(
@@ -185,10 +192,90 @@ class ChapterBuilder(BasePageBuilder):
                     caption=item.get('caption')
                 )
 
+            elif item.get('type') == 'table':
+                logger.debug(f"Simple Table {i+1}: {len(item.get('headers', []))} columns, {len(item.get('rows', []))} rows")
+
+                # Add the simple table - it will handle its own page breaking
+                self.content.add_table(
+                    headers=item.get('headers', []),
+                    rows=item.get('rows', []),
+                    caption=item.get('caption'),
+                    alignment=item.get('alignment', 'center'),
+                    style=item.get('style_preset', 'default'),
+                    width=item.get('width', '100%'),
+                    column_widths=item.get('column_widths')
+                )
+
+            elif item.get('type') == 'advanced_table':
+                logger.debug(f"Advanced Table {i+1}: {len(item.get('headers', []))} columns, {len(item.get('rows', []))} rows")
+
+                # Add the advanced table - it will handle its own page breaking
+                self.content.add_advanced_table(
+                    headers=item.get('headers', []),
+                    rows=item.get('rows', []),
+                    caption=item.get('caption'),
+                    alignment=item.get('alignment', 'center'),
+                    style_preset=item.get('style_preset', 'default'),
+                    width=item.get('width', '100%'),
+                    column_widths=item.get('column_widths'),
+                    border_style=item.get('border_style', 'thin')
+                )
+
             else:
                 logger.warning(f"Unknown content type: {item.get('type')} - skipping")
 
-        logger.info(f"Finished processing all {len(content_items)} content items")
+        logger.info(f"Finished processing all {len(content_items)} content items with smart breaks")
+
+    def _add_paragraph_with_simple_breaks(self, text: str, chapter_title: str):
+        """
+        Add a paragraph with simple page breaks (no headers/footers).
+        """
+        logger.debug(f"Adding paragraph with simple breaks: {text[:30]}...")
+
+        par_obj = self.content.create_paragraph(text, firstLineIndent=20)
+
+        while par_obj:
+            # Use LayoutService to calculate available space
+            available_height = self.content.layout_service.calculate_available_space(self.content.current_pos)
+            logger.debug(f"Available height for paragraph: {available_height:.1f}")
+
+            # If no space, do simple page break
+            if available_height <= 20:  # Need some minimum space
+                logger.debug("Not enough space for paragraph, doing simple page break")
+                self.content.new_page()
+                self.content.start_from(self.config.get("common.padding.vertical"))
+                available_height = self.content.layout_service.calculate_available_space(self.content.current_pos)
+
+            # Use LayoutService to split paragraph
+            width = self.content.page_size[0] - 2 * self.content.padding_h
+            parts = par_obj.split(width, available_height)
+
+            if not parts:
+                logger.warning("Could not split paragraph, forcing simple page break")
+                self.content.new_page()
+                self.content.start_from(self.config.get("common.padding.vertical"))
+                # Try again on new page
+                available_height = self.content.layout_service.calculate_available_space(self.content.current_pos)
+                parts = par_obj.split(width, available_height)
+                if not parts:
+                    logger.error("Still cannot split paragraph even on new page - skipping")
+                    break
+
+            # Draw the part that fits
+            logger.debug(f"Drawing paragraph part, remaining parts: {len(parts)}")
+            self.content.draw_paragraph_object(parts[0])
+            self.content.add_spacing(10)
+
+            # Check if there's continuation
+            if len(parts) > 1:
+                par_obj = parts[1]
+                logger.debug("Paragraph continues on next page")
+                # Simple page break for continuation
+                self.content.new_page()
+                self.content.start_from(self.config.get("common.padding.vertical"))
+            else:
+                par_obj = None
+                logger.debug("Paragraph completed")
 
     def _add_paragraph_with_headers_footers(self, text: str, chapter_title: str):
         """
