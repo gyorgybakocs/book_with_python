@@ -1,4 +1,4 @@
-# src/builders/content_builder.py (COMPLETE REFACTORED VERSION)
+# src/builders/content_builder.py (UPDATED FOR SIMPLE TABLES)
 from src.logger import logger
 from src.services.layout_service import LayoutService
 from .content.text_builder import TextBuilder
@@ -7,10 +7,7 @@ from .content.table_builder import TableBuilder
 from .content.layout_builder import LayoutBuilder
 
 class ContentBuilder:
-    """
-    Refactored ContentBuilder that delegates to specialized builders.
-    Replaces the 1000+ line monolith with clean separation of concerns.
-    """
+    """Refactored ContentBuilder that delegates to specialized builders."""
 
     def __init__(self, canvas, page_size, style_manager, config):
         self.canvas = canvas
@@ -68,16 +65,10 @@ class ContentBuilder:
         self.current_pos = self.image_builder.add_image(src, self.current_pos, **kwargs)
         return self
 
-    def add_table(self, headers: list, rows: list, **kwargs):
-        """Add simple table."""
-        self.current_pos = self.table_builder.add_simple_table(
-            headers, rows, self.current_pos, **kwargs)
-        return self
-
-    def add_advanced_table(self, headers: list, rows: list, **kwargs):
-        """Add advanced table."""
-        self.current_pos = self.table_builder.add_advanced_table(
-            headers, rows, self.current_pos, **kwargs)
+    def add_table(self, data: list, style: list = None, **kwargs):
+        """Add table with data matrix and style commands."""
+        self.current_pos = self.table_builder.add_table(
+            data, style, self.current_pos, **kwargs)
         return self
 
     def add_separator_line(self):
@@ -109,11 +100,11 @@ class ContentBuilder:
         return self
 
     # ==========================================
-    # COMPLEX OPERATIONS - USE LAYOUT SERVICE AND MULTIPLE BUILDERS
+    # COMPLEX OPERATIONS - PROCESS CONTENT ITEMS
     # ==========================================
 
     def add_content_items(self, content_items: list):
-        """Process list of mixed content items with intelligent page breaking."""
+        """Process list of mixed content items."""
         paragraphs = []
 
         for item in content_items:
@@ -122,7 +113,7 @@ class ContentBuilder:
                 if text.strip():
                     paragraphs.append(text)
                 else:
-                    paragraphs.append("")  # Empty paragraph for spacing
+                    paragraphs.append("")
 
             elif item.get('type') == 'image':
                 # Add pending paragraphs first
@@ -135,7 +126,7 @@ class ContentBuilder:
                     )
                     paragraphs = []
 
-                # Check if image fits on current page
+                # Check if image fits
                 required_height = self.image_builder.estimate_image_height(
                     item.get('src'), item.get('width', 300),
                     item.get('height', 'auto'), item.get('caption'))
@@ -145,7 +136,6 @@ class ContentBuilder:
                     self.new_page()
                     self.current_pos = self.padding_v
 
-                # Add the image
                 self.add_image(
                     src=item.get('src'),
                     alignment=item.get('alignment', 'center'),
@@ -166,41 +156,16 @@ class ContentBuilder:
                     paragraphs = []
 
                 self.add_table(
-                    headers=item.get('headers', []),
-                    rows=item.get('rows', []),
+                    data=item.get('data', []),
+                    style=item.get('style', []),
                     caption=item.get('caption'),
-                    alignment=item.get('alignment', 'center'),
-                    style=item.get('style_preset', 'default'),
-                    width=item.get('width', '100%'),
-                    column_widths=item.get('column_widths')
-                )
-
-            elif item.get('type') == 'advanced_table':
-                # Add pending paragraphs first
-                if paragraphs:
-                    self.add_chapter_paragraphs_with_breaks(
-                        paragraphs=paragraphs,
-                        chapter_title="",
-                        has_header=False,
-                        has_footer=False
-                    )
-                    paragraphs = []
-
-                self.add_advanced_table(
-                    headers=item.get('headers', []),
-                    rows=item.get('rows', []),
-                    caption=item.get('caption'),
-                    alignment=item.get('alignment', 'center'),
-                    style_preset=item.get('style_preset', 'default'),
-                    width=item.get('width', '100%'),
-                    column_widths=item.get('column_widths'),
-                    border_style=item.get('border_style', 'thin')
+                    alignment=item.get('alignment', 'center')
                 )
 
             else:
                 logger.warning(f"Unknown content type: {item.get('type')} - skipping")
 
-        # Add remaining paragraphs with intelligent page breaking
+        # Add remaining paragraphs
         if paragraphs:
             self.add_chapter_paragraphs_with_breaks(
                 paragraphs=paragraphs,
@@ -257,7 +222,6 @@ class ContentBuilder:
             # Check if there's continuation
             if len(parts) > 1:
                 par_obj = parts[1]
-                # Will need page break for continuation
                 if has_footer:
                     self.add_footer(chapter_title)
                 self.new_page()
@@ -269,7 +233,6 @@ class ContentBuilder:
 
     # ==========================================
     # BACKWARD COMPATIBILITY METHODS
-    # Keep existing interface for page builders
     # ==========================================
 
     def create_paragraph(self, text: str, **kwargs):
@@ -297,10 +260,6 @@ class ContentBuilder:
         """Get paragraph height using text builder."""
         return self.text_builder.get_paragraph_height(text, **kwargs)
 
-    # ==========================================
-    # UTILITY METHODS FOR LAYOUT SERVICE
-    # ==========================================
-
     def get_available_width(self) -> float:
         """Get available width for content."""
         return self.page_size[0] - 2 * self.padding_h
@@ -308,11 +267,6 @@ class ContentBuilder:
     def get_available_height(self, current_pos: float) -> float:
         """Get available height from current position."""
         return self.layout_service.calculate_available_space(current_pos)
-
-    # ==========================================
-    # LEGACY METHODS FROM OLD CONTENT BUILDER
-    # Keep for backward compatibility
-    # ==========================================
 
     def _estimate_image_height_simple(self, image_item: dict) -> float:
         """Simple image height estimation for page break decisions."""

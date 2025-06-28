@@ -193,32 +193,13 @@ class ChapterBuilder(BasePageBuilder):
                 )
 
             elif item.get('type') == 'table':
-                logger.debug(f"Simple Table {i+1}: {len(item.get('headers', []))} columns, {len(item.get('rows', []))} rows")
+                logger.debug(f"Table {i+1}: data matrix with {len(item.get('data', []))} rows")
 
-                # Add the simple table - it will handle its own page breaking
                 self.content.add_table(
-                    headers=item.get('headers', []),
-                    rows=item.get('rows', []),
+                    data=item.get('data', []),
+                    style=item.get('style', []),
                     caption=item.get('caption'),
-                    alignment=item.get('alignment', 'center'),
-                    style=item.get('style_preset', 'default'),
-                    width=item.get('width', '100%'),
-                    column_widths=item.get('column_widths')
-                )
-
-            elif item.get('type') == 'advanced_table':
-                logger.debug(f"Advanced Table {i+1}: {len(item.get('headers', []))} columns, {len(item.get('rows', []))} rows")
-
-                # Add the advanced table - it will handle its own page breaking
-                self.content.add_advanced_table(
-                    headers=item.get('headers', []),
-                    rows=item.get('rows', []),
-                    caption=item.get('caption'),
-                    alignment=item.get('alignment', 'center'),
-                    style_preset=item.get('style_preset', 'default'),
-                    width=item.get('width', '100%'),
-                    column_widths=item.get('column_widths'),
-                    border_style=item.get('border_style', 'thin')
+                    alignment=item.get('alignment', 'center')
                 )
 
             else:

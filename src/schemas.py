@@ -1,45 +1,14 @@
 from pydantic import BaseModel, field_validator
 from typing import List, Dict, Optional, Union, Literal
 
-class TableCell(BaseModel):
-    """Enhanced table cell with merging support."""
-    text: str
-    colspan: Optional[int] = 1  # Number of columns to span
-    rowspan: Optional[int] = 1  # Number of rows to span
-    style_class: Optional[str] = None  # Reference to style in StyleManager
 
-    @field_validator('colspan', 'rowspan')
-    @classmethod
-    def validate_span(cls, v):
-        if v is not None and v < 1:
-            raise ValueError('Span values must be at least 1')
-        return v
-
-class TableRow(BaseModel):
-    """Table row with enhanced cells."""
-    cells: List[Union[str, TableCell]]  # Allow simple strings or complex cells
-    style_class: Optional[str] = None  # Reference to row style
-
-class AdvancedTableContent(BaseModel):
-    """Advanced table content with merged cells and style references."""
-    type: Literal["advanced_table"]
-    headers: List[Union[str, TableCell]]  # Headers can also be complex
-    rows: List[TableRow]  # Enhanced rows
-    caption: Optional[str] = None
-    alignment: Literal["left", "center", "right"] = "center"
-    style_preset: Optional[str] = "default"  # Reference to predefined table style
-    width: Union[int, str] = "100%"
-    column_widths: Optional[List[Union[int, str]]] = None
-    border_style: Optional[Literal["none", "thin", "thick", "double"]] = "thin"
-
-class SimpleTableContent(BaseModel):
+class TableContent(BaseModel):
     """Simple table (backward compatibility)."""
     type: Literal["table"]
-    headers: List[str]
-    rows: List[List[str]]
+    data: List[List[str]]
+    style: List[List[Union[str, List[int], str]]]
     caption: Optional[str] = None
     alignment: Literal["left", "center", "right"] = "center"
-    style_preset: Optional[str] = "default"  # Reference to table style
     width: Union[int, str] = "100%"
     column_widths: Optional[List[Union[int, str]]] = None
 
@@ -84,7 +53,7 @@ class ImageContent(BaseModel):
         return v
 
 # Union type for all content items
-ContentItem = Union[ParagraphContent, ImageContent, SimpleTableContent, AdvancedTableContent]
+ContentItem = Union[ParagraphContent, ImageContent, TableContent]
 
 class Chapter(BaseModel):
     title: str
