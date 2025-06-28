@@ -175,36 +175,36 @@
                 ["", "Time", "Form", "Example"]
               ],
               [
-                ["Si", "Present", "S + V1", "He studies English"],
-                ["", "Past", "S + V2", "He studied English"]
+                ["Si", "Present", "S + V1", "He <font backColor='lightyellow'>studies</font> English"],
+                ["", "Past", "S + V2", "He <font backColor='lightyellow'>studied</font> English"]
               ],
               [
-                ["Co", "Present", "S + am/is/are + Ving", "He is studying English"],
-                ["", "Past", "S + was/were + Ving", "He was studying English"]
+                ["Co", "Present", "S + am/is/are + Ving", "He <font backColor='lightgreen'>is studying</font> English"],
+                ["", "Past", "S + was/were + Ving", "He <font backColor='lightgreen'>was studying</font> English"]
               ],
               [
-                ["Pe", "Present", "S + has/have + V3", "He has studied English"],
-                ["", "Past", "S + had + V3", "He had studied English"]
+                ["Pe", "Present", "S + has/have + V3", "He <font backColor='lightblue'>has studied</font> English"],
+                ["", "Past", "S + had + V3", "He <font backColor='lightblue'>had studied</font> English"]
               ],
               [
-                ["Pe", "Co", "Present", "S + has/have been + Ving", "He has been studying English"],
-                ["", "", "Past", "S + had been + Ving", "He had been studying English"]
+                ["Pe", "Co", "Present", "S + has/have been + Ving", "He <font backColor='lightblue'>has been</font> <font backColor='lightgreen'>studying</font> English"],
+                ["", "", "Past", "S + had been + Ving", "He <font backColor='lightblue'>had been</font> <font backColor='lightgreen'>studying</font> English"]
               ],
               [
-                ["Mo", "Present", "S + will + V1", "He will study English"],
-                ["", "Past", "S + would + V1", "He would study English"]
+                ["Mo", "Present", "S + will + V1", "He <font backColor='pink'>will study</font> English"],
+                ["", "Past", "S + would + V1", "He <font backColor='pink'>would study</font> English"]
               ],
               [
-                ["Mo", "Co", "Present", "S + will be + Ving", "He will be studying English"],
-                ["", "", "Past", "S + would be + Ving", "He would be studying English"]
+                ["Mo", "Co", "Present", "S + will be + Ving", "He <font backColor='pink'>will be</font> <font backColor='lightgreen'>studying</font> English"],
+                ["", "", "Past", "S + would be + Ving", "He <font backColor='pink'>would be</font> <font backColor='lightgreen'>studying</font> English"]
               ],
               [
-                ["Mo", "Pe", "Present", "S + will have + V3", "He will have studied English"],
-                ["", "", "Past", "S + would have + V3", "He would have studied English"]
+                ["Mo", "Pe", "Present", "S + will have + V3", "He <font backColor='pink'>will</font> <font backColor='lightblue'>have studied</font> English"],
+                ["", "", "Past", "S + would have + V3", "He <font backColor='pink'>would</font> <font backColor='lightblue'>have studied</font> English"]
               ],
               [
-                ["Mo", "Pe", "Co", "Present", "S + will have been + Ving", "He will have been studying English"],
-                ["", "", "", "Past", "S + would have been + Ving", "He would have been studying English"]
+                ["Mo", "Pe", "Co", "Present", "S + will have been + Ving", "He <font backColor='pink'>will</font> <font backColor='lightblue'>have been</font> <font backColor='lightgreen'>studying</font> English"],
+                ["", "", "", "Past", "S + would have been + Ving", "He <font backColor='pink'>would</font> <font backColor='lightblue'>have been</font> <font backColor='lightgreen'>studying</font> English"]
               ]
             ],
             "style": [
@@ -214,7 +214,7 @@
               [
                 ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
                 ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "lightgreen"],
+                ["BACKGROUND", [0, 0], [0, 1], "lightyellow"],
                 ["BACKGROUND", [1, 1], [3, 1], "ltgrey"]
               ],
               [

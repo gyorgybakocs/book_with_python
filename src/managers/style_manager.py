@@ -24,13 +24,27 @@ class StyleManager:
         self.table_styles = {}
         self.font = self.config.get("fonts.main")
 
+        # Centralized color map for consistency
+        self.color_map = {
+            'lightblue': '#ADD8E6',
+            'lightgreen': '#90EE90',
+            'lightyellow': '#FFFFE0',
+            'pink': '#FFC0CB',
+            'ltgrey': '#EEEEEE',
+            'grey': '#808080',
+            'red': '#FF0000',
+            'blue': '#0000FF',
+            'green': '#008000',
+            'yellow': '#FFFF00',
+            'white': '#FFFFFF',
+            'black': '#000000'
+        }
+
     def register_styles(self):
         """
         Dynamically registers paragraph styles and table styles from the configuration file.
         """
         success = True
-
-        # Register paragraph styles
         try:
             config_styles = self.config.get("styles", {})
             for style_name, style_props in config_styles.items():
@@ -51,22 +65,17 @@ class StyleManager:
         except Exception as e:
             logger.error(f"Paragraph style registration failed: {e}")
             success = False
-
-        # Register table styles
         try:
             self._register_table_styles()
         except Exception as e:
             logger.error(f"Table style registration failed: {e}")
             success = False
-
         if success:
             logger.info("Successfully registered all styles")
         return success
 
     def _register_table_styles(self):
         """Register predefined table styles."""
-
-        # Default table style
         self.table_styles['default'] = [
             ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
             ('FONTSIZE', (0, 0), (-1, 0), 10),
@@ -81,87 +90,54 @@ class StyleManager:
             ('RIGHTPADDING', (0, 0), (-1, -1), 4),
         ]
 
-        # Modern table style
-        self.table_styles['modern'] = [
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 10),
-            ('FONTSIZE', (0, 1), (-1, -1), 9),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#4472C4')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.HexColor('#4472C4')),
-            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#F2F2F2')]),
-            ('TOPPADDING', (0, 0), (-1, -1), 6),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-            ('LEFTPADDING', (0, 0), (-1, -1), 6),
-            ('RIGHTPADDING', (0, 0), (-1, -1), 6),
-        ]
+    def get_color_map(self) -> dict:
+        """Returns the central color map."""
+        return self.color_map
 
-        # Elegant table style
-        self.table_styles['elegant'] = [
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 11),
-            ('FONTSIZE', (0, 1), (-1, -1), 9),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2F4F4F')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
-            ('LINEBELOW', (0, 0), (-1, 0), 1, colors.HexColor('#2F4F4F')),
-            ('TOPPADDING', (0, 0), (-1, -1), 5),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-            ('LEFTPADDING', (0, 0), (-1, -1), 6),
-            ('RIGHTPADDING', (0, 0), (-1, -1), 6),
-        ]
+    def _parse_color(self, color_spec: str):
+        """Converts color names or hex codes into ReportLab color objects using the central map."""
+        if isinstance(color_spec, str):
+            if color_spec.startswith('#'):
+                return colors.HexColor(color_spec)
 
-        # Colorful table style
-        self.table_styles['colorful'] = [
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 10),
-            ('FONTSIZE', (0, 1), (-1, -1), 9),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#70AD47')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
-                colors.HexColor('#E2EFDA'),
-                colors.HexColor('#C6E0B4')
-            ]),
-            ('TOPPADDING', (0, 0), (-1, -1), 4),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
-            ('LEFTPADDING', (0, 0), (-1, -1), 4),
-            ('RIGHTPADDING', (0, 0), (-1, -1), 4),
-        ]
+            hex_code = self.color_map.get(color_spec.lower())
+            if hex_code:
+                return colors.HexColor(hex_code)
 
-        # Minimal table style
-        self.table_styles['minimal'] = [
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 10),
-            ('FONTSIZE', (0, 1), (-1, -1), 9),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
-            ('TOPPADDING', (0, 1), (-1, -1), 4),
-            ('BOTTOMPADDING', (0, 1), (-1, -1), 4),
-            ('LINEBELOW', (0, 0), (-1, 0), 1, colors.black),
-        ]
+            try:
+                return colors.toColor(color_spec)
+            except ValueError:
+                return colors.white
+        return color_spec
 
-        # Bordered table style
-        self.table_styles['bordered'] = [
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 10),
-            ('FONTSIZE', (0, 1), (-1, -1), 9),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-            ('TOPPADDING', (0, 0), (-1, -1), 6),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-            ('LEFTPADDING', (0, 0), (-1, -1), 6),
-            ('RIGHTPADDING', (0, 0), (-1, -1), 6),
-        ]
+    def build_tense_table_style(self, block_index: int, raw_json_styles: list) -> list:
+        """
+        Builds the complete style command list for a specific block of the tense table.
+        """
+        style_cmds = [('GRID', (0, 0), (-1, -1), 0.5, colors.grey)]
+        if block_index == 0:
+            style_cmds.append(('ALIGN', (0, 0), (-1, -1), 'CENTER'))
+            style_cmds.append(('VALIGN', (0, 0), (-1, -1), 'MIDDLE'))
+            style_cmds.append(('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'))
+
+        additional_styles = []
+        for cmd_tuple in raw_json_styles:
+            cmd, start, end, *rest = cmd_tuple
+
+            if cmd == 'BACKGROUND' and rest:
+                color_spec = rest[0]
+                new_cmd = [cmd, start, end, self._parse_color(color_spec)]
+                style_cmds.append(tuple(new_cmd))
+
+                if block_index > 0 and str(color_spec).lower() not in ['ltgrey', 'grey']:
+                    additional_styles.append(('FONTNAME', start, end, 'Helvetica-Bold'))
+                    additional_styles.append(('ALIGN', start, end, 'CENTER'))
+                    additional_styles.append(('VALIGN', start, end, 'MIDDLE'))
+            else:
+                style_cmds.append(cmd_tuple)
+
+        style_cmds.extend(additional_styles)
+        return style_cmds
 
     def get_style(self, style_name: str) -> ParagraphStyle | None:
         """
