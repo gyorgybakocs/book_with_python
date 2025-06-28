@@ -117,9 +117,36 @@ class TableBuilder:
         merge_commands = []
         cell_style = self.style_manager.prepare_style('paragraph_default', fontSize=9)
 
-        # Track which cells are already occupied by previous rowspans
-        occupied_cells = {}  # (row_idx, col_idx) -> cell_info
+        # Pre-calculate which cells will be occupied by rowspans
+        occupied_cells = set()  # (row_idx, col_idx)
 
+        # First pass: identify all rowspans and mark occupied cells
+        for row_idx, row in enumerate(rows):
+            if isinstance(row, dict):
+                cells = row.get('cells', [])
+            else:
+                cells = row
+
+            col_idx = 0
+            for cell in cells:
+                # Skip columns that are already occupied
+                while (row_idx, col_idx) in occupied_cells:
+                    col_idx += 1
+
+                if isinstance(cell, dict) and cell.get('rowspan', 1) > 1:
+                    rowspan = cell.get('rowspan', 1)
+                    colspan = cell.get('colspan', 1)
+
+                    # Mark cells as occupied by this rowspan (except the current position)
+                    for r in range(row_idx + 1, row_idx + rowspan):  # Start from next row
+                        for c in range(col_idx, col_idx + colspan):
+                            occupied_cells.add((r, c))
+
+                # Move to next column position
+                colspan = cell.get('colspan', 1) if isinstance(cell, dict) else 1
+                col_idx += colspan
+
+        # Second pass: build the actual table
         for row_idx, row in enumerate(rows):
             if isinstance(row, dict):
                 cells = row.get('cells', [])
@@ -134,12 +161,12 @@ class TableBuilder:
             while col_idx < header_count:
                 # Check if this position is occupied by a previous rowspan
                 if (row_idx, col_idx) in occupied_cells:
-                    # This cell is occupied by a previous rowspan, add empty placeholder
+                    # This cell is occupied, add empty placeholder and continue
                     processed_row.append(Paragraph("", cell_style))
                     col_idx += 1
                     continue
 
-                # Check if we have more cells to process from input
+                # Check if we have more input cells to process
                 if cell_input_idx >= len(cells):
                     # No more input cells, fill with empty
                     processed_row.append(Paragraph("", cell_style))
@@ -155,8 +182,14 @@ class TableBuilder:
                     colspan = cell.get('colspan', 1)
                     rowspan = cell.get('rowspan', 1)
 
-                    # Add the cell content
-                    processed_row.append(Paragraph(str(text), cell_style))
+                    # Create paragraph with potential bold styling
+                    cell_style_def = cell.get('style', {})
+                    if cell_style_def.get('font_weight') == 'bold':
+                        text_for_paragraph = f"<b>{text}</b>"
+                    else:
+                        text_for_paragraph = str(text)
+
+                    processed_row.append(Paragraph(text_for_paragraph, cell_style))
 
                     # Add merge command if needed
                     if colspan > 1 or rowspan > 1:
@@ -167,20 +200,21 @@ class TableBuilder:
                         )
                         logger.debug(f"SPAN: ({col_idx}, {row_idx + 1}) to ({end_col}, {end_row + 1}) for '{text}'")
 
-                    # Mark cells as occupied for future rows
-                    for r in range(row_idx, row_idx + rowspan):
-                        for c in range(col_idx, col_idx + colspan):
-                            if r > row_idx or c > col_idx:  # Don't mark current position
-                                occupied_cells[(r, c)] = {
-                                    'text': text,
-                                    'source_row': row_idx,
-                                    'source_col': col_idx
-                                }
-
-                    # Apply cell styling if specified
-                    cell_style_def = cell.get('style', {})
-                    if cell_style_def:
-                        self._apply_direct_cell_style(merge_commands, cell_style_def, col_idx, row_idx + 1)
+                    # Apply cell background color
+                    if cell_style_def.get('background_color'):
+                        color = self._parse_color(cell_style_def['background_color'])
+                        if colspan > 1 or rowspan > 1:
+                            # Apply to the entire span
+                            end_col = col_idx + colspan - 1
+                            end_row = row_idx + rowspan
+                            merge_commands.append(
+                                ('BACKGROUND', (col_idx, row_idx + 1), (end_col, end_row), color)
+                            )
+                        else:
+                            merge_commands.append(
+                                ('BACKGROUND', (col_idx, row_idx + 1), (col_idx, row_idx + 1), color)
+                            )
+                        logger.debug(f"Added background color {cell_style_def['background_color']} at ({col_idx}, {row_idx + 1})")
 
                     col_idx += colspan
 
@@ -196,7 +230,7 @@ class TableBuilder:
             processed_row = processed_row[:header_count]
 
             processed_rows.append(processed_row)
-            logger.debug(f"Row {row_idx}: {len(processed_row)} columns, occupied: {[k for k in occupied_cells.keys() if k[0] == row_idx]}")
+            logger.debug(f"Row {row_idx}: input_cells={len(cells)}, output_cols={len(processed_row)}, occupied_in_this_row={[(r,c) for r,c in occupied_cells if r==row_idx]}")
 
         return processed_rows, merge_commands
 
