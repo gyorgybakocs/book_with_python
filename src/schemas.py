@@ -1,18 +1,7 @@
-from pydantic import BaseModel, field_validator
-from typing import List, Dict, Optional, Union, Literal
+from pydantic import BaseModel, field_validator, model_validator
+from typing import List, Dict, Optional, Union, Literal, Any
 
-
-class TableContent(BaseModel):
-    """Simple table (backward compatibility)."""
-    type: Literal["table"]
-    data: List[List[str]]
-    style: List[List[Union[str, List[int], str]]]
-    caption: Optional[str] = None
-    alignment: Literal["left", "center", "right"] = "center"
-    width: Union[int, str] = "100%"
-    column_widths: Optional[List[Union[int, str]]] = None
-
-# Keep all existing classes...
+# All existing classes remain the same...
 class Title(BaseModel):
     title: str
     subtitle: str
@@ -52,14 +41,55 @@ class ImageContent(BaseModel):
             raise ValueError('Only JPEG and PNG images are supported')
         return v
 
-# Union type for all content items
+
+# --- MODIFIED TableContent CLASS ---
+class TableContent(BaseModel):
+    """
+    Updated schema to handle a list of table blocks, with cross-field validation.
+    """
+    type: Literal["table"]
+
+    # These types are updated to expect a list of tables.
+    # e.g., data is a list of tables, where each table is a list of rows.
+    data: List[List[List[str]]]
+    style: List[List[List[Any]]] # Using 'Any' for flexibility with style command structure
+    block_column_widths: List[List[str]]
+
+    caption: Optional[str] = None
+    alignment: Literal["left", "center", "right"] = "center"
+    width: Union[int, str] = "100%"
+
+    # This is the new validator you requested.
+    @model_validator(mode='after')
+    def check_list_lengths_match(self):
+        """
+        Ensures that the number of table blocks is consistent across
+        data, style, and block_column_widths lists.
+        """
+        len_data = len(self.data)
+        len_style = len(self.style)
+        len_widths = len(self.block_column_widths)
+
+        if not (len_data == len_style == len_widths):
+            raise ValueError(
+                f"Inconsistent number of table blocks defined. "
+                f"Found {len_data} items in 'data', {len_style} in 'style', "
+                f"and {len_widths} in 'block_column_widths'. All must be identical."
+            )
+        return self
+# --- END OF MODIFICATION ---
+
+
+# Union type for all content items now correctly includes the updated TableContent
 ContentItem = Union[ParagraphContent, ImageContent, TableContent]
 
 class Chapter(BaseModel):
     title: str
     type: Optional[str] = "simple"
-    paragraphs: Optional[List[str]] = None
     content: Optional[List[ContentItem]] = None
+
+    # Removed the old 'paragraphs' field as 'content' is more flexible
+    # paragraphs: Optional[List[str]] = None
 
 class Book(BaseModel):
     title: Title

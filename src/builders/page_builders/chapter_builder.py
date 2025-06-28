@@ -199,7 +199,8 @@ class ChapterBuilder(BasePageBuilder):
                     data=item.get('data', []),
                     style=item.get('style', []),
                     caption=item.get('caption'),
-                    alignment=item.get('alignment', 'center')
+                    alignment=item.get('alignment', 'center'),
+                    block_column_widths=item.get('block_column_widths', None)
                 )
 
             else:

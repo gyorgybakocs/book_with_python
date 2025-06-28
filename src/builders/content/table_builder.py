@@ -3,7 +3,11 @@ from reportlab.lib import colors
 from src.logger import logger
 
 class TableBuilder:
-    """Handles tables with simple data matrix + style commands."""
+    """
+    Final version based on the corrected JSON structure.
+    It iterates through the list of tables provided in the JSON
+    and creates them one by one.
+    """
 
     def __init__(self, canvas, page_size, style_manager, config):
         self.canvas = canvas
@@ -13,131 +17,90 @@ class TableBuilder:
         self.padding_h = config.get("common.padding.horizontal")
 
     def add_table(self, data: list, style: list = None, current_pos: float = 0,
-                  caption: str = None, alignment: str = "center") -> float:
-        """Add table from data matrix and style commands."""
+                  caption: str = None, alignment: str = "center",
+                  block_column_widths: list = None, **kwargs) -> float:
+        """
+        Creates a series of small, independent tables from the provided lists.
+        The JSON is expected to provide a list for each table block.
+        """
         try:
-            if not data:
-                return current_pos
+            available_width = self.page_size[0] - 2 * self.padding_h
+            y_pos_after_last_table = current_pos
 
-            # Convert data to Paragraph objects
-            table_data = self._convert_data_to_paragraphs(data)
+            # The JSON is a list of tables, so we just loop through it.
+            for i in range(len(data)):
+                table_data = data[i]
+                table_style_raw = style[i]
+                width_specs_percent = block_column_widths[i]
 
-            # Create table
-            table = Table(table_data, repeatRows=1)
+                # Convert percentage widths to absolute points.
+                col_widths_in_points = [available_width * (float(p.strip('%')) / 100) if '%' in p else float(p) for p in width_specs_percent]
 
-            # Apply styles
-            style_commands = self._convert_style_commands(style or [])
-            if style_commands:
-                table.setStyle(TableStyle(style_commands))
+                # Process style commands to handle colors and add a default GRID.
+                table_style_cmds = [('GRID', (0, 0), (-1, -1), 0.5, colors.grey)]
+                for cmd_tuple in table_style_raw:
+                    cmd, start, end, *rest = cmd_tuple
+                    if cmd == 'BACKGROUND' and rest:
+                        new_cmd = [cmd, start, end, self._parse_color(rest[0])]
+                        table_style_cmds.append(tuple(new_cmd))
+                    else:
+                        table_style_cmds.append(cmd_tuple)
 
-            # Place table
-            new_pos = self._place_table(table, current_pos, alignment)
+                # Check for data consistency before creating the table.
+                if table_data and len(table_data[0]) != len(col_widths_in_points):
+                    logger.error(f"Data inconsistency in table block {i}: "
+                                 f"{len(table_data[0])} data columns vs {len(col_widths_in_points)} widths. Skipping block.")
+                    continue
 
-            # Add caption
+                # Create the simple Table object for the current block.
+                table_obj = Table(table_data, colWidths=col_widths_in_points)
+                table_obj.setStyle(TableStyle(table_style_cmds))
+
+                # Place the table on the canvas.
+                y_pos_after_last_table = self._place_table(table_obj, y_pos_after_last_table, alignment)
+
             if caption:
-                new_pos = self._add_table_caption(caption, new_pos)
+                y_pos_after_last_table = self._add_table_caption(caption, y_pos_after_last_table)
 
-            return new_pos + 15
+            return y_pos_after_last_table + 10
 
         except Exception as e:
-            logger.error(f"Failed to add table: {e}")
+            logger.error(f"Failed to add table with final simplified logic: {e}", exc_info=True)
             return current_pos + 50
 
-    def _convert_data_to_paragraphs(self, data: list) -> list:
-        """Convert string data matrix to Paragraph objects."""
-        converted_data = []
-
-        for row_idx, row in enumerate(data):
-            converted_row = []
-            for cell in row:
-                if row_idx == 0:  # Header row
-                    style = self.style_manager.prepare_style('paragraph_default',
-                                                             fontSize=10, alignment=1)
-                    if cell.strip():
-                        converted_row.append(Paragraph(f"<b>{cell}</b>", style))
-                    else:
-                        converted_row.append(Paragraph("", style))
-                else:  # Data rows
-                    style = self.style_manager.prepare_style('paragraph_default', fontSize=9)
-                    converted_row.append(Paragraph(str(cell), style))
-            converted_data.append(converted_row)
-
-        return converted_data
-
-    def _convert_style_commands(self, style: list) -> list:
-        """Convert JSON style commands to ReportLab format."""
-        commands = []
-
-        for style_cmd in style:
-            if len(style_cmd) < 3:
-                continue
-
-            cmd_type = style_cmd[0]
-            start_pos = tuple(style_cmd[1])
-            end_pos = tuple(style_cmd[2])
-
-            if cmd_type == "SPAN":
-                commands.append(('SPAN', start_pos, end_pos))
-
-            elif cmd_type == "BACKGROUND":
-                if len(style_cmd) >= 4:
-                    color_spec = style_cmd[3]
-                    color = self._parse_color(color_spec)
-                    commands.append(('BACKGROUND', start_pos, end_pos, color))
-
-        return commands
-
     def _parse_color(self, color_spec: str):
-        """Parse color specification to ReportLab color."""
-        if color_spec.startswith('#'):
-            return colors.HexColor(color_spec)
-
-        color_map = {
-            'lightblue': colors.lightblue,
-            'lightgreen': colors.lightgreen,
-            'lightyellow': colors.lightyellow,
-            'lightgrey': colors.lightgrey,
-            'red': colors.red,
-            'blue': colors.blue,
-            'green': colors.green,
-            'yellow': colors.yellow,
-            'white': colors.white,
-            'black': colors.black,
-        }
-
-        return color_map.get(color_spec.lower(), colors.white)
+        """Converts color names or hex codes into ReportLab color objects."""
+        if isinstance(color_spec, str) and color_spec.startswith('#'): return colors.HexColor(color_spec)
+        color_map = {'lightblue': colors.lightblue, 'lightgreen': colors.lightgreen, 'lightyellow': colors.lightyellow, 'lightgrey': colors.lightgrey, 'ltgrey': colors.lightgrey, 'lightcyan': colors.lightcyan, 'red': colors.red, 'blue': colors.blue, 'green': colors.green, 'yellow': colors.yellow, 'white': colors.white, 'black': colors.black, 'pink': colors.pink}
+        return color_map.get(str(color_spec).lower(), colors.white)
 
     def _place_table(self, table: Table, current_pos: float, alignment: str) -> float:
-        """Place table on page."""
+        """Places a single table object on the canvas and updates the Y position."""
         available_width = self.page_size[0] - 2 * self.padding_h
-
-        try:
-            table_width, table_height = table.wrapOn(self.canvas, available_width, 1000)
-        except Exception as e:
-            logger.error(f"Failed to calculate table dimensions: {e}")
-            return current_pos + 100
+        table_width, table_height = table.wrapOn(self.canvas, available_width, 0)
 
         if alignment == "center":
             x_pos = self.padding_h + (available_width - table_width) / 2
         elif alignment == "right":
             x_pos = self.page_size[0] - self.padding_h - table_width
-        else:  # left
+        else: # "left"
             x_pos = self.padding_h
 
         y_pos = self.page_size[1] - current_pos - table_height
         table.drawOn(self.canvas, x_pos, y_pos)
 
-        return current_pos + table_height + 5
+        return current_pos + table_height
 
     def _add_table_caption(self, caption: str, current_pos: float) -> float:
-        """Add table caption."""
-        caption_style = self.style_manager.prepare_style('paragraph_default',
-                                                         fontSize=9, alignment=1)
+        """Adds a caption below the entire set of tables."""
+        caption_style = self.style_manager.prepare_style('paragraph_default', fontSize=9, alignment=1)
         caption_p = Paragraph(f"<i>{caption}</i>", caption_style)
-        width = self.page_size[0] - 2 * self.padding_h
-        _, caption_height = caption_p.wrap(width, 30)
 
-        y_pos = self.page_size[1] - current_pos - caption_height
-        caption_p.drawOn(self.canvas, self.padding_h, y_pos)
+        available_width = self.page_size[0] - 2 * self.padding_h
+        caption_width, caption_height = caption_p.wrap(available_width, self.page_size[1])
 
-        return current_pos + caption_height + 5
+        y_pos = self.page_size[1] - current_pos - caption_height - 5
+        x_pos = self.padding_h
+        caption_p.drawOn(self.canvas, x_pos, y_pos)
+
+        return current_pos + caption_height + 10
