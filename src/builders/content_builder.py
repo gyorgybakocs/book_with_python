@@ -1,10 +1,11 @@
-# src/builders/content_builder.py (UPDATED FOR SIMPLE TABLES)
 from src.logger import logger
 from src.services.layout_service import LayoutService
 from .content.text_builder import TextBuilder
 from .content.image_builder import ImageBuilder
 from .content.table_builder import TableBuilder
 from .content.layout_builder import LayoutBuilder
+from .content.textbox_builder import TextBoxBuilder
+from .content.speech_bubble_builder import SpeechBubbleBuilder
 
 class ContentBuilder:
     """Refactored ContentBuilder that delegates to specialized builders."""
@@ -24,6 +25,8 @@ class ContentBuilder:
         self.image_builder = ImageBuilder(canvas, page_size, style_manager, config)
         self.table_builder = TableBuilder(canvas, page_size, style_manager, config)
         self.layout_builder = LayoutBuilder(canvas, page_size, style_manager, config)
+        self.textbox_builder = TextBoxBuilder(canvas, page_size, style_manager, config)
+        self.speech_bubble_builder = SpeechBubbleBuilder(canvas, page_size, style_manager, config)
 
         # Keep layout service for complex operations
         self.layout_service = LayoutService(self, config)
@@ -71,6 +74,16 @@ class ContentBuilder:
             data, style, self.current_pos, **kwargs)
         return self
 
+    def add_textbox(self, textbox_data: dict, **kwargs):
+        """Add customizable text box."""
+        self.current_pos = self.textbox_builder.add_textbox(textbox_data, self.current_pos)
+        return self
+
+    def add_speech_bubble(self, bubble_data: dict, **kwargs):
+        """Add speech bubble with avatar and text."""
+        self.current_pos = self.speech_bubble_builder.add_speech_bubble(bubble_data, self.current_pos)
+        return self
+
     def add_separator_line(self):
         """Add horizontal line."""
         self.current_pos = self.layout_builder.add_separator_line(self.current_pos)
@@ -114,6 +127,48 @@ class ContentBuilder:
                     paragraphs.append(text)
                 else:
                     paragraphs.append("")
+
+            elif item.get('type') == 'speech_bubble':
+                # Add pending paragraphs first
+                if paragraphs:
+                    self.add_chapter_paragraphs_with_breaks(
+                        paragraphs=paragraphs,
+                        chapter_title="",
+                        has_header=False,
+                        has_footer=False
+                    )
+                    paragraphs = []
+
+                # Check if speech bubble fits
+                required_height = self.speech_bubble_builder.estimate_speech_bubble_height(item)
+                available_height = self.layout_service.calculate_available_space(self.current_pos)
+
+                if required_height > available_height:
+                    self.new_page()
+                    self.current_pos = self.padding_v
+
+                self.add_speech_bubble(item)
+
+            elif item.get('type') == 'textbox':
+                # Add pending paragraphs first
+                if paragraphs:
+                    self.add_chapter_paragraphs_with_breaks(
+                        paragraphs=paragraphs,
+                        chapter_title="",
+                        has_header=False,
+                        has_footer=False
+                    )
+                    paragraphs = []
+
+                # Check if textbox fits
+                required_height = self.textbox_builder.estimate_textbox_height(item)
+                available_height = self.layout_service.calculate_available_space(self.current_pos)
+
+                if required_height > available_height:
+                    self.new_page()
+                    self.current_pos = self.padding_v
+
+                self.add_textbox(item)
 
             elif item.get('type') == 'image':
                 # Add pending paragraphs first

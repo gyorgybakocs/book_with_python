@@ -41,8 +41,6 @@ class ImageContent(BaseModel):
             raise ValueError('Only JPEG and PNG images are supported')
         return v
 
-
-# --- MODIFIED TableContent CLASS ---
 class TableContent(BaseModel):
     """
     Updated schema to handle a list of table blocks, with cross-field validation.
@@ -77,11 +75,102 @@ class TableContent(BaseModel):
                 f"and {len_widths} in 'block_column_widths'. All must be identical."
             )
         return self
-# --- END OF MODIFICATION ---
 
+class TextBoxContent(BaseModel):
+    """
+    Schema for customizable text boxes with background, borders, and mixed content.
+    """
+    type: Literal["textbox"]
 
-# Union type for all content items now correctly includes the updated TableContent
-ContentItem = Union[ParagraphContent, ImageContent, TableContent]
+    # Content can be mixed: text strings or structured items
+    content: List[Union[str, Dict[str, Any]]]
+
+    # Box styling
+    background_color: Optional[str] = None  # Color name or hex
+    border_color: Optional[str] = "black"
+    border_width: Optional[float] = 1.0
+    border_style: Optional[Literal["solid", "dashed", "dotted"]] = "solid"
+    border_radius: Optional[float] = 0  # Rounded corners
+
+    # Padding and margins
+    padding_top: Optional[float] = 8
+    padding_bottom: Optional[float] = 8
+    padding_left: Optional[float] = 8
+    padding_right: Optional[float] = 8
+    margin_top: Optional[float] = 5
+    margin_bottom: Optional[float] = 5
+
+    # Box dimensions
+    width: Union[int, str] = "100%"  # Can be pixels or percentage
+    height: Optional[float] = None  # Fixed height
+    min_height: Optional[float] = None
+    max_height: Optional[float] = None
+
+    # Text styling (default for text content)
+    font_family: Optional[str] = None  # Override default font
+    font_size: Optional[float] = 12
+    font_weight: Optional[Literal["Regular", "Bold", "Italic", "BoldItalic"]] = "Regular"
+    text_color: Optional[str] = "black"
+    text_align: Optional[Literal["left", "center", "right", "justify"]] = "left"
+    line_height: Optional[float] = 1.2
+
+    # Positioning
+    alignment: Literal["left", "center", "right"] = "left"
+
+    @field_validator('content')
+    @classmethod
+    def validate_content(cls, v):
+        if not v:
+            raise ValueError('TextBox content cannot be empty')
+        return v
+
+class SpeechBubbleContent(BaseModel):
+    """
+    Schema for speech bubbles with avatar and text.
+    """
+    type: Literal["speech_bubble"]
+
+    # Speech bubble specific
+    bubble_type: Literal["left", "right"] = "left"  # Avatar position
+    avatar_src: str  # Image filename
+    text: str  # Speech text
+
+    # Bubble styling
+    background_color: Optional[str] = "lightblue"
+    border_color: Optional[str] = "blue"
+    border_width: Optional[float] = 2
+    border_radius: Optional[float] = 10
+
+    # Dimensions
+    height: Optional[float] = 150
+    width: Union[int, str] = "100%"
+    avatar_size: Optional[float] = 100
+
+    # Spacing
+    padding_top: Optional[float] = 25
+    padding_bottom: Optional[float] = 25
+    padding_left: Optional[float] = 25
+    padding_right: Optional[float] = 25
+    margin_top: Optional[float] = 5
+    margin_bottom: Optional[float] = 5
+
+    # Text styling
+    text_size: Optional[float] = 14
+    text_weight: Optional[Literal["Regular", "Bold", "Italic", "BoldItalic"]] = "Regular"
+    text_color: Optional[str] = "black"
+
+    # Positioning
+    alignment: Literal["left", "center", "right"] = "left"
+
+    @field_validator('avatar_src')
+    @classmethod
+    def validate_avatar_format(cls, v):
+        if not v.lower().endswith(('.jpg', '.jpeg', '.png')):
+            raise ValueError('Only JPEG and PNG avatars are supported')
+        return v
+
+# Union type for all content items now correctly includes SpeechBubbleContent
+ContentItem = Union[ParagraphContent, ImageContent, TableContent, TextBoxContent, SpeechBubbleContent]
 
 class Chapter(BaseModel):
     title: str

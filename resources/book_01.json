@@ -139,6 +139,22 @@
             "text": "A <b>fenti</b> példából az is látható, hogy az angol nyelv elsajátítása során a tanulók számos nyelvtani kihívással szembesülnek. Az igeidők rendszere gyakran tűnik úgy a tanulók számára, mint egy bonyolult labirintus, ahol könnyű eltévedni. A statisztikák azt mutatják, hogy még a haladó szintű nyelvtanulók is küzdenek bizonyos szerkezetek helyes használatával. <i>Listia és Febriyant (2020)</i> szerint a befejezett igeidők (perfect tenses) okozzák a legtöbb fejtörést - a tanulók több mint 60%-a hibázik a használatukkor."
           },
           {
+            "type": "textbox",
+            "content": [
+              "Nagy sportrajongó Gábor...",
+              {
+                "type": "text",
+                "text": "Gábor wakes up at five every morning.",
+                "font_weight": "Italic",
+                "text_align": "center"
+              },
+              "További szöveg..."
+            ],
+            "background_color": "lightblue",
+            "border_color": "blue",
+            "border_width": 2
+          },
+          {
             "type": "paragraph",
             "text": "De miért is olyan nehéz ez? A válasz részben a különböző anyanyelvek sajátosságaiban rejlik. <i>Watcharapunyawong és Usaha (2013)</i> thai diákokkal végzett kutatása kimutatta, hogy azokban a nyelvekben, ahol nincs az angolhoz hasonló igeidőrendszer, a tanulók különösen nagy kihívásokkal szembesülnek. A thai diákok például gyakran elhagyják a múlt idő jelölését, mivel saját nyelvükben ez nem létezik. Ez a jelenség a magyar tanulóknál is megfigyelhető, különösen a present perfect használatakor, hiszen nyelvünkben nincs pontos megfelelője ennek az igeidőnek. <i>Balogh és Kiss (2024)</i> kutatása rámutat, hogy a magyar diákok esetében az egyik leggyakoribb probléma - a perfect használatán kívül - a folyamatos és egyszerű jelen idő (present continuous vs. simple present) helytelen használata. Ez nem meglepő, hiszen a magyarban nincs ilyen megkülönböztetés - amikor azt mondjuk „Éppen tanulok”, nem használunk speciális nyelvtani szerkezetet a folyamatosság kifejezésére."
           },
@@ -310,6 +326,22 @@
             "text": "Maradjunk annyiban, hogy az igeidő (tense) csak azt határozza meg, milyen alakot vesz fel az ige. És az angol igéknek mindössze két alapvető alakjuk van. Van a jelen (present) és a múlt (past). Ennyi. A legegyszerűbb és legjobb az lenne, ha a megtévesztő past és present elnevezésektől is megszabadulnánk és mondjuk „Form 1” és „Form 2”, néven említenénk őket."
           },
           {
+            "type": "textbox",
+            "content": [
+              {
+                "type": "text",
+                "text": "1. PÉLDA",
+                "font_weight": "Bold",
+                "text_color": "white"
+              }
+            ],
+            "background_color": "black",
+            "border_width": 1,
+            "padding_left": 15,
+            "padding_right": 15,
+            "width": "20%"
+          },
+          {
             "type": "paragraph",
             "text": "Érdekes megfigyelni, hogy például a magyar nyelvben is csak a múlt időnek van jele. A jövő időt mi is segédigével képezzük. (tanul / tanult / tanulni fog) A magyarban ennek megfelelően csak három igeidő van. Illetve ha az előző definíciónk alapján nézzük, akkor nekünk is csak kettő van."
           },
@@ -340,6 +372,30 @@
           {
             "type": "paragraph",
             "text": "<b>Az idő</b> a cselekvés időbeli elhelyezkedését mutatja meg. Ez a legegyszerűbb a három közül, hiszen - ahogy láttuk - valójában csak két alapvető időnk van: jelen és múlt. A jövő idő már a következő pillérünkhöz, a módhoz kapcsolódik."
+          },
+          {
+            "type": "speech_bubble",
+            "bubble_type": "left",
+            "avatar_src": "av1.png",
+            "text": "TEST SENTENCE IN A SPEECH BUBBLE!",
+            "height": 150,
+            "background_color": "lightblue",
+            "border_color": "green",
+            "border_width": 2,
+            "border_radius": 10,
+            "alignment": "left"
+          },
+          {
+            "type": "speech_bubble",
+            "bubble_type": "right",
+            "avatar_src": "av2.png",
+            "text": "ANSWER SENTENCE IN A SPEECH BUBBLE!",
+            "height": 150,
+            "background_color": "lightgreen",
+            "border_color": "blue",
+            "border_width": 2,
+            "border_radius": 10,
+            "alignment": "right"
           },
           {
             "type": "paragraph",

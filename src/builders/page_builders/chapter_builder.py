@@ -6,7 +6,7 @@ import os
 class ChapterBuilder(BasePageBuilder):
     """
     Builds a chapter using ContentBuilder with support for both old and new content formats.
-    Supports images, simple tables, advanced tables and paragraphs in the new 'content' structure.
+    Supports images, simple tables, advanced tables, textboxes and paragraphs in the new 'content' structure.
     """
 
     def build(self, source_path: str = None, **options):
@@ -50,7 +50,7 @@ class ChapterBuilder(BasePageBuilder):
         return generate_anchor_name(title)
 
     def _build_as_simple_chapter(self, chapter_data: dict):
-        """Builds a simple chapter with proper anchor and support for images and tables."""
+        """Builds a simple chapter with proper anchor and support for images, tables and textboxes."""
         starting_pos = self.config.get("common.padding.vertical")
 
         chapter_title = chapter_data.get("title", "")
@@ -64,7 +64,7 @@ class ChapterBuilder(BasePageBuilder):
 
         # Handle both old and new content formats
         if 'content' in chapter_data and chapter_data['content']:
-            # NEW FORMAT with images, tables and paragraphs - USE SMART CONTENT PROCESSING
+            # NEW FORMAT with images, tables, textboxes and paragraphs - USE SMART CONTENT PROCESSING
             logger.info(f"Using new content format with {len(chapter_data['content'])} items")
             logger.info("Simple chapter will use smart content processing...")
             self._build_content_with_smart_breaks(chapter_data, has_headers_footers=False)
@@ -83,7 +83,7 @@ class ChapterBuilder(BasePageBuilder):
         self.content.new_page()
 
     def _build_as_main_chapter(self, chapter_data: dict):
-        """Builds a main chapter with title page and support for images and tables."""
+        """Builds a main chapter with title page and support for images, tables and textboxes."""
         starting_pos = self.config.get("defaults.starting_pos")
         chapter_title = chapter_data.get('title', '')
         anchor = self._get_anchor_name(chapter_data)
@@ -109,7 +109,7 @@ class ChapterBuilder(BasePageBuilder):
         has_paragraphs = 'paragraphs' in chapter_data and chapter_data['paragraphs']
 
         if has_content:
-            # NEW FORMAT with images, tables and paragraphs
+            # NEW FORMAT with images, tables, textboxes and paragraphs
             content_count = len(chapter_data['content'])
             logger.info(f"----- Using new content format with {content_count} items")
             logger.info("----- CALLING _build_content_with_smart_breaks...")
@@ -140,7 +140,7 @@ class ChapterBuilder(BasePageBuilder):
     def _build_content_with_smart_breaks(self, chapter_data: dict, has_headers_footers: bool = False):
         """
         Build content items with smart page breaking - works for both simple and main chapters.
-        Now supports simple tables and advanced tables!
+        Now supports simple tables, advanced tables and textboxes!
         """
         content_items = chapter_data.get('content', [])
         chapter_title = chapter_data.get('title', '')
@@ -161,6 +161,54 @@ class ChapterBuilder(BasePageBuilder):
                         self._add_paragraph_with_simple_breaks(text, chapter_title)
                 else:
                     self.content.add_spacing(10)
+
+            elif item.get('type') == 'speech_bubble':
+                logger.debug(f"Speech Bubble {i+1}: {item.get('text', '')[:30]}...")
+
+                # Check if speech bubble fits on current page
+                required_height = self.content.speech_bubble_builder.estimate_speech_bubble_height(item)
+                available_height = self.content.layout_service.calculate_available_space(self.content.current_pos)
+
+                logger.debug(f"Speech Bubble height needed: {required_height:.1f}, available: {available_height:.1f}")
+
+                if required_height > available_height:
+                    # Need page break
+                    logger.debug("Speech Bubble doesn't fit, doing page break")
+                    if has_headers_footers:
+                        self.content.add_footer(chapter_title)
+                        self.content.new_page()
+                        self.content.start_from(self.config.get("common.padding.vertical"))
+                        self.content.add_header(f'<span>{chapter_title}</span>')
+                    else:
+                        self.content.new_page()
+                        self.content.start_from(self.config.get("common.padding.vertical"))
+
+                # Add the speech bubble
+                self.content.add_speech_bubble(item)
+
+            elif item.get('type') == 'textbox':
+                logger.debug(f"TextBox {i+1}: {len(item.get('content', []))} content items")
+
+                # Check if textbox fits on current page
+                required_height = self.content.textbox_builder.estimate_textbox_height(item)
+                available_height = self.content.layout_service.calculate_available_space(self.content.current_pos)
+
+                logger.debug(f"TextBox height needed: {required_height:.1f}, available: {available_height:.1f}")
+
+                if required_height > available_height:
+                    # Need page break
+                    logger.debug("TextBox doesn't fit, doing page break")
+                    if has_headers_footers:
+                        self.content.add_footer(chapter_title)
+                        self.content.new_page()
+                        self.content.start_from(self.config.get("common.padding.vertical"))
+                        self.content.add_header(f'<span>{chapter_title}</span>')
+                    else:
+                        self.content.new_page()
+                        self.content.start_from(self.config.get("common.padding.vertical"))
+
+                # Add the textbox
+                self.content.add_textbox(item)
 
             elif item.get('type') == 'image':
                 logger.debug(f"Image {i+1}: {item.get('src')}")
