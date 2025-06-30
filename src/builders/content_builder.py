@@ -1,5 +1,6 @@
 from src.logger import logger
 from src.services.layout_service import LayoutService
+from .content.list_builder import ListBuilder
 from .content.text_builder import TextBuilder
 from .content.image_builder import ImageBuilder
 from .content.table_builder import TableBuilder
@@ -27,6 +28,7 @@ class ContentBuilder:
         self.layout_builder = LayoutBuilder(canvas, page_size, style_manager, config)
         self.textbox_builder = TextBoxBuilder(canvas, page_size, style_manager, config)
         self.speech_bubble_builder = SpeechBubbleBuilder(canvas, page_size, style_manager, config)
+        self.list_builder = ListBuilder(canvas, page_size, style_manager, config)
 
         # Keep layout service for complex operations
         self.layout_service = LayoutService(self, config)
@@ -34,6 +36,11 @@ class ContentBuilder:
     # ==========================================
     # PUBLIC API - DELEGATE TO SPECIALIZED BUILDERS
     # ==========================================
+
+    def add_list(self, **kwargs):
+        """Add a bulleted or dashed list."""
+        self.current_pos = self.list_builder.add_list(current_pos=self.current_pos, **kwargs)
+        return self
 
     def start_from(self, pos: float):
         """Set starting position."""
@@ -47,7 +54,10 @@ class ContentBuilder:
 
     def add_title(self, text: str, **kwargs):
         """Add main title."""
+        extra_spacing = kwargs.pop('extra_spacing', 0)
         self.current_pos = self.text_builder.add_title(text, self.current_pos, **kwargs)
+        if extra_spacing > 0:
+            self.add_spacing(extra_spacing)
         return self
 
     def add_subtitle(self, text: str, **kwargs):
@@ -92,6 +102,7 @@ class ContentBuilder:
     def add_header(self, text: str):
         """Add page header."""
         self.layout_builder.add_header(text, self.page_num)
+        self.add_spacing(5)
         return self
 
     def add_footer(self, text: str):

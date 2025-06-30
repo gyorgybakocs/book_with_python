@@ -10,9 +10,9 @@ class TitlePageBuilder(BasePageBuilder):
 
         (self.content
          .start_from(starting_pos)
-         .add_title(f'<a name="title"/><b>{title_data.get("title", "Unknown Title")}</b>', alignment=0)
+         .add_title(f'<a name="title"/><b>{title_data.get("title", "Unknown Title")}</b>', alignment=0, extra_spacing=5)
          .add_separator_line()
-         .add_subtitle(f'<b>{title_data.get("subtitle", "")}</b>')
+         .add_subtitle(f'<b>{title_data.get("subtitle", "")}</b>', alignment=2)
          .new_page())
 
         end_page = self.content.page_num - 1

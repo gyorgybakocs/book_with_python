@@ -18,7 +18,7 @@ defaults:
 
 # Font definitions, using the values currently active in the code
 fonts:
-  main: CamingoCode
+  main: Roboto
   ipa: lucida_sans_unicode
 
 # Common page layout settings from the original JSON
@@ -39,7 +39,7 @@ styles:
     leading: 20
   paragraph_default:
     font_weight: "Regular"
-    font_size: 12
+    font_size: 12.5
     leading: 18
     alignment: 4 # Justify
 

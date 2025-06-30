@@ -76,6 +76,17 @@ class TableContent(BaseModel):
             )
         return self
 
+class ListItem(BaseModel):
+    text: str
+    # A sub_items list can contain simple strings (for 2nd level)
+    # or it could be expanded to contain ListItem objects again for deeper nesting.
+    sub_items: Optional[List[str]] = None
+
+class ListContent(BaseModel):
+    type: Literal["list"]
+    items: List[ListItem] # The main list contains ListItem objects
+    bullet_type: Optional[str] = "bullet"
+
 class TextBoxContent(BaseModel):
     """
     Schema for customizable text boxes with background, borders, and mixed content.
@@ -170,7 +181,7 @@ class SpeechBubbleContent(BaseModel):
         return v
 
 # Union type for all content items now correctly includes SpeechBubbleContent
-ContentItem = Union[ParagraphContent, ImageContent, TableContent, TextBoxContent, SpeechBubbleContent]
+ContentItem = Union[ParagraphContent, ImageContent, TableContent, TextBoxContent, SpeechBubbleContent, ListContent]
 
 class Chapter(BaseModel):
     title: str

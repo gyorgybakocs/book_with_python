@@ -60,7 +60,7 @@ class ChapterBuilder(BasePageBuilder):
 
         (self.content
          .start_from(starting_pos)
-         .add_paragraph(f'<a name="{anchor}"></a>{chapter_title}', style_name='title_sub'))
+         .add_paragraph(f'<a name="{anchor}"></a>{chapter_title}', style_name='title_sub', extra_spacing=10))
 
         # Handle both old and new content formats
         if 'content' in chapter_data and chapter_data['content']:
@@ -228,6 +228,7 @@ class ChapterBuilder(BasePageBuilder):
                         self.content.start_from(self.config.get("common.padding.vertical"))
                         self.content.add_header(f'<span>{chapter_title}</span>')
                     else:
+                        logger.debug(f"--------> NEW PAGE WOTHOUT HEADER OR FOOTER!!!! start from: {self.config.get('common.padding.vertical')}")
                         self.content.new_page()
                         self.content.start_from(self.config.get("common.padding.vertical"))
 
@@ -239,7 +240,7 @@ class ChapterBuilder(BasePageBuilder):
                     height=item.get('height', 'auto'),
                     caption=item.get('caption')
                 )
-
+                logger.debug(f"--------> WE ADDED A NEW IMAGE!!!! src: {item.get('src')}, w: {item.get('width', 300)}, h: {item.get('height', 'auto')}")
             elif item.get('type') == 'table':
                 logger.debug(f"Table {i+1}: data matrix with {len(item.get('data', []))} rows")
 
@@ -250,7 +251,8 @@ class ChapterBuilder(BasePageBuilder):
                     alignment=item.get('alignment', 'center'),
                     block_column_widths=item.get('block_column_widths', None)
                 )
-
+            elif item.get('type') == 'list':
+                self.content.add_list(**item)
             else:
                 logger.warning(f"Unknown content type: {item.get('type')} - skipping")
 
@@ -368,99 +370,92 @@ class ChapterBuilder(BasePageBuilder):
     def _estimate_image_height(self, image_item: dict) -> float:
         """
         Estimate the height an image will take (including caption).
-        Now loads actual image to get real dimensions with detailed logging.
+        This version uses the user's original logic and applies the agreed-upon fix
+        for percentage-based height calculation.
         """
         width = image_item.get('width', 300)
         height = image_item.get('height', 'auto')
         caption = image_item.get('caption')
         src = image_item.get('src')
 
-        # Calculate available space like ContentBuilder does
+        # This is from the user's provided 'good' code.
         available_width = self.content.page_size[0] - 2 * self.content.padding_h
         available_height = self.content.layout_service.calculate_available_space(self.content.current_pos + 30)
 
-        # Try to get real image dimensions
-        real_aspect_ratio = 0.75  # Default fallback
+        # Get the total content height of a full page for percentage calculations
+        total_page_content_height = self.content.page_size[1] - (2 * self.config.get("common.padding.vertical"))
 
+        real_aspect_ratio = 0.75  # Default fallback
         try:
             from PIL import Image
             image_path = os.path.join(self.config.get("paths.resources") + "/images", src)
             if os.path.exists(image_path):
                 with Image.open(image_path) as img:
                     original_width, original_height = img.size
-                    real_aspect_ratio = original_height / original_width
+                    if original_width > 0:
+                        real_aspect_ratio = original_height / original_width
                     logger.debug(f"Image {src}: {original_width}x{original_height}, ratio: {real_aspect_ratio:.3f}")
             else:
                 logger.warning(f"Image file not found: {image_path}")
         except Exception as e:
             logger.warning(f"Could not load image {src}: {e}")
 
-        # Handle different width formats
+        # Handle different width/height formats using the user's original logic
         if isinstance(width, str) and width.endswith('%'):
             percentage = float(width.rstrip('%')) / 100
             width_points = available_width * percentage
             height_points = width_points * real_aspect_ratio
             logger.debug(f"Width percentage: {width} = {width_points:.1f} points")
-
-            # Check if height would be too tall
             if height_points > available_height:
                 logger.debug(f"Image would be too tall, scaling to fit height")
                 height_points = available_height
-                width_points = height_points / real_aspect_ratio
+                if real_aspect_ratio > 0: width_points = height_points / real_aspect_ratio
 
         elif isinstance(height, str) and height.endswith('%') and height != "auto":
-            # Height as percentage
+            # --- FIX APPLIED HERE ---
+            # Calculate from total page height, not remaining available height
             percentage = float(height.rstrip('%')) / 100
-            height_points = available_height * percentage
-            width_points = height_points / real_aspect_ratio
+            height_points = total_page_content_height * percentage
+            if real_aspect_ratio > 0: width_points = height_points / real_aspect_ratio
+            else: width_points = available_width
             logger.debug(f"Height percentage: {height} = {height_points:.1f} points")
-
-            # Check if width would be too wide
             if width_points > available_width:
                 logger.debug(f"Image would be too wide, scaling to fit width")
                 width_points = available_width
                 height_points = width_points * real_aspect_ratio
 
         elif width == "auto" and isinstance(height, str) and height.endswith('%'):
-            # Auto width with percentage height
+            # --- FIX APPLIED HERE ---
+            # Calculate from total page height, not remaining available height
             percentage = float(height.rstrip('%')) / 100
-            height_points = available_height * percentage
-            width_points = height_points / real_aspect_ratio
+            height_points = total_page_content_height * percentage
+            if real_aspect_ratio > 0: width_points = height_points / real_aspect_ratio
+            else: width_points = available_width
             logger.debug(f"Auto width with height {height}: {width_points:.1f}x{height_points:.1f} points")
-
-            # Check if width would be too wide
             if width_points > available_width:
                 logger.debug(f"Auto width would be too wide, scaling to fit")
                 width_points = available_width
                 height_points = width_points * real_aspect_ratio
 
         else:
-            # Normal pixel-based sizing
-            width_points = width * 0.75  # Convert pixels to points
-
+            width_points = width * 0.75 if isinstance(width, (int, float)) else width
             if height == "auto":
                 height_points = width_points * real_aspect_ratio
             else:
-                height_points = height * 0.75
-
-            # Check if dimensions exceed available space and scale down if needed
+                height_points = height * 0.75 if isinstance(height, (int, float)) else height
             if width_points > available_width:
                 scale_factor = available_width / width_points
                 width_points = available_width
                 height_points = height_points * scale_factor
-
             if height_points > available_height:
                 scale_factor = available_height / height_points
                 height_points = available_height
                 width_points = width_points * scale_factor
 
-        # Add space for caption if present
-        caption_height = 25 if caption else 0
+        caption_height = 25 if caption and caption.strip() else 0
         spacing = 15
-
         total_estimated_height = height_points + caption_height + spacing
         logger.debug(f"Total estimated height for {src}: {total_estimated_height:.1f} points")
-
         return total_estimated_height
 
     def _draw_paragraphs_with_page_breaks(self, chapter_data: dict, has_header: bool, has_footer: bool, continue_from_current_pos: bool = False):

@@ -6,7 +6,8 @@
       "subtitle": "A \"két igeidő\" módszer"
     },
     "copyright": {
-      "copyright_text": "Copyright © 2025 BGDS Minden jog fenntartva. A kiadvány bármely részének újranyomása, terjesztése vagy bármilyen formában történő átvétele, beleértve a fénymásolást, felvételt vagy más elektronikus vagy mechanikus módszereket, a kiadó előzetes írásbeli engedélye nélkül tilos, kivéve rövid idézetek esetében kritikai értékelések vagy bizonyos más nem kereskedelmi felhasználások esetén, amelyeket a szerzői jog törvény megenged.",
+      "copyright": "Copyright © 2025 BGDS Minden jog fenntartva.",
+      "copyright_text": "A kiadvány bármely részének újranyomása, terjesztése vagy bármilyen formában történő átvétele, beleértve a fénymásolást, felvételt vagy más elektronikus vagy mechanikus módszereket, a kiadó előzetes írásbeli engedélye nélkül tilos, kivéve rövid idézetek esetében kritikai értékelések vagy bizonyos más nem kereskedelmi felhasználások esetén, amelyeket a szerzői jog törvény megenged.",
       "author_text": "Szerző",
       "author": "BGDS",
       "design_text": "Borítóterv és belső elrendezés",
@@ -18,7 +19,7 @@
       "ISBN_print": "ISBN 978 pr...",
       "printing_text": "Kiadási történet",
       "printing": [
-        "2025 március: Első kiadás"
+        "2025 július: Első kiadás"
       ],
       "email_text": "Engedélykérésekkel kapcsolatos információkért kérjük, keresse a BGDS-t az alábbi címen",
       "email": "gyorgy.bakocs@transprnt.com"
@@ -57,43 +58,31 @@
         },
         {
           "type": "paragraph",
-          "text": "<b>Tegye fel a kezét</b>, aki még soha nem érezte magát elveszettnek az angol igeidők dzsungelében! Volt már olyan érzése, hogy a sok szabály és kivétel között azt sem tudja, mikor használjon egy egyszerű múlt időt? Nem egyedül van ezzel - és van megoldás. De mielőtt megmutatnám, engedje meg, hogy bemutatkozzam."
+          "text": "Ha valaha is érezte úgy, hogy az angol igeidők egy logikátlan káoszt alkotnak, akkor jó helyen jár! Volt már olyan érzése, hogy a sok szabály és kivétel között azt sem tudja, mikor használjon egy egyszerű múlt időt? Nincs egyedül ezzel – de nyugalom, van megoldás. Azért írtam ezt a könyvet – bár már annyi kiadvány foglalkozik az angol igeidőkkel – hogy képes legyen használni az igeidőket anélkül, hogy a szabályokon rágódna. De mielőtt belekezdenék, engedje meg, hogy bemutatkozzam."
         },
         {
           "type": "paragraph",
-          "text": "Bakocs György vagyok, fejlesztőmérnökként dolgozom közel három évtizede. Munkám során csaknem egy évtizedet töltöttem Malajziában, ahol az angol nyelv iránti szenvedélyem kibontakozott. Ennek eredményeként indítottam el egy Instagram- és YouTube-csatornát @aseasyaspie2017 néven, ahol TV-sorozatokból vett példákkal szemléltettem az angol idiómákat. Az Instagram oldalam gyorsan népszerűvé vált, több mint 100 ezer követőt szereztem. Egy technikai malőr miatt elvesztettem a hozzáférésemet a fiókhoz, de @aseasyaspie2021 néven újraindítottam a projektet. Az évek során megszereztem a TEFL (Teaching English as a Foreign Language) tanári képesítést is, mert tudtam: ez az én utam."
+          "text": "Bakocs György vagyok, fejlesztőmérnökként dolgozom közel három évtizede. Munkám során csaknem egy évtizedet töltöttem Malajziában, ahol az angol nyelv iránti szenvedélyem kibontakozott. Ennek eredményeként indítottam el egy Instagram- és YouTube-csatornát @aseasyaspie2017 néven. Az Instagram oldalam gyorsan népszerűvé vált, több mint 100 ezer követőt szereztem. Egy technikai malőr miatt elvesztettem a hozzáférésemet a fiókhoz, de @aseasyaspie2021 néven újraindítottam a projektet. Az évek során megszereztem a TEFL (Teaching English as a Foreign Language) tanári képesítést is, mert tudtam: ez az én utam."
         },
         {
           "type": "paragraph",
-          "text": "Tehát akkor miért írtam ezt a könyvet, hiszen már annyi kiadvány foglalkozik az angol igeidőkkel? A válasz egyszerű: szeretném, hogy e könyv elolvasása és megértése után képes legyen használni az igeidőket anélkül, hogy a szabályokon rágódna. Nem célom nyelvtani szabályokat sulykolni."
+          "text": "Fiatal koromban a nyelvórákon két nagyon eltérő megközelítéssel találkoztam. Volt egy kiváló tanárom, aki éveket élt Amerikában. Az óráin dalokat fordítottunk, szerepjátékokat játszottunk, és bár néha megemlített egy-egy nyelvtani érdekességet, a lényeg mindig a beszéden volt. Az órák kötetlenek, mégis hatékonyak voltak, a  tudásunk pedig folyamatosan fejlődött. Szerettem az angolt, és még többet akartam tudni. Beiratkoztam az IHLS-be, ahol anyanyelvi tanárok oktattak, és a nyelvi akadályok miatt szó sem lehetett arról, hogy nyelvtani magyarázatokkal terheljenek minket; ehelyett beszéltünk, hallgattunk, és a hibáinkból tanultunk."
         },
         {
           "type": "paragraph",
-          "text": "Fiatal koromban két nagyon eltérő megközelítéssel találkoztam. Volt egy kiváló tanárom, aki hosszú éveket élt Amerikában. Az óráin dalokat fordítottunk, szerepjátékokat játszottunk, és bár néha megemlített egy-egy nyelvtani érdekességet, a lényeg mindig a beszéden volt. Az órák hatékonyak és kötetlenek voltak, tudásunk pedig folyamatosan fejlődött. Szerettem az angolt, és még többet akartam tudni. Beiratkoztam az IHLS-be, ahol anyanyelvi tanárok oktattak, és a nyelvi akadályok miatt szó sem lehetett arról, hogy nyelvtani magyarázatokkal terheljenek minket; ehelyett beszéltünk, hallgattunk, és a hibáinkból tanultunk."
+          "text": "Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. \"Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály?\" Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került."
         },
         {
           "type": "paragraph",
-          "text": "Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. \"Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály a listáról?\" Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került."
+          "text": "A brit iskolákban a nyelvtan oktatása jelentősen eltér a magyar rendszertől. Míg Magyarországon a gyerekek már általános iskolában megismerik az olyan nyelvtani fogalmakat, mint az alany és az állítmány, valamint rendszeresen gyakorolják a mondatértelmezést, addig az angol oktatásban gyakorlatilag nincs hagyományos értelemben vett nyelvtanoktatás. Az angol nemzeti tanterv tartalmaz ugyan bizonyos nyelvtani elemeket, amelyeket integráltan, szövegalkotás és olvasás közben tanítanak. Ezek az elemek kevésbé strukturáltak, mint a magyar rendszerben megszokott nyelvtani elemzések. A diákok irodalmat és fogalmazást tanulnak, de a nyelvtani szabályok részletes magyarázata ritkán kap helyet az oktatásban. A tanárok inkább csak kijavítják a hibákat, de nem tanítják meg a szabályok hátterét."
         },
         {
           "type": "paragraph",
-          "text": "A brit iskolákban a nyelvtan oktatása jelentősen eltér a magyar rendszertől. Míg Magyarországon a gyerekek már általános iskolában megismerik az olyan nyelvtani fogalmakat, mint az alany és az állítmány, valamint rendszeresen gyakorolják a mondatértelmezést, addig az angol oktatásban a nyelvtani szabályok tanítása kevésbé kap hangsúlyt."
+          "text": "Az „angol módszer\" azonban hátrányokkal is járhat. Brit nyelvtanárok szerint megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs olyan fogalmakról, mint például a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban tudja az angol nyelvtant, mint maguk a britek. Mégis ők természetesen és magabiztosan használják az angolt, mi pedig – akik a szabályokat kívülről fújjuk – még egy egyszerű mondatnál is elbizonytalanodunk. Ebből is látható, hogy nem az a lényeg, hogy megtanuljuk a szabályokat, hanem az, hogy használni tudjuk őket!"
         },
         {
           "type": "paragraph",
-          "text": "A Speak Blog (2023) szerint az angol iskolákban gyakorlatilag nincs hagyományos értelemben vett nyelvtanoktatás. A diákok irodalmat és fogalmazást tanulnak, de a nyelvtani szabályok részletes magyarázata ritkán kap helyet az oktatásban. A tanárok inkább csak kijavítják a hibákat, de nem tanítják meg a szabályok hátterét. A Wyse, Aarts, Anders, de Gennaro, Dockrell, Manyukhina, Sing és Torgerson (2022) által készített tanulmány rámutat, hogy az angol nemzeti tanterv tartalmaz bizonyos nyelvtani elemeket, amelyeket integráltan, szövegalkotás és olvasás közben tanítanak. A kutatás azonban azt is megállapítja, hogy ezek az elemek kevésbé strukturáltak, mint például a magyar rendszerben megszokott nyelvtani elemzések. A tanárok inkább implicit módon segítik a diákok helyes nyelvhasználatát, mintsem hogy átfogó szabályrendszert tanítsanak."
-        },
-        {
-          "type": "paragraph",
-          "text": "A gyerekek nyelvhasználata egy teljesen természetes folyamat: ahogy a magyar első osztályosok is hibátlanul használják a ragokat, jeleket és képzőket anélkül, hogy tudnák, mik ezek, úgy az angol gyerekek is ösztönösen alkalmazzák az igeidőket. A fiam például magabiztosan használja a present perfect igeidőt, de amikor megkérdezem tőle, hogy el tudná-e magyarázni, mikor kell használni, csak értetlenül néz rám."
-        },
-        {
-          "type": "paragraph",
-          "text": "Meglepő módon az „angol módszer\" hátrányokkal is járhat. Brit nyelvtanárok szerint ez megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs, mi az a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban érti az angol nyelvtant, mint maguk a britek. Mégis minden brit folyékonyan beszél és ír angolul, míg mi csak küszködünk a szabályokkal, és gyakran még egy egyszerű mondatot sem merünk kimondani, mert attól félünk, hogy nyelvtanilag hibás lesz. Nem kellene ezen elgondolkodnunk?"
-        },
-        {
-          "type": "paragraph",
-          "text": "Ez a felismerés arra ösztönzött, hogy olyan módszert keressek, amely a szabályok magolása helyett a nyelvhasználatot segíti elő. Egy olyan megközelítést találtam, amely új nézőpontból közelíti meg a kérdést, és nem a rengeteg igeidőre, nem a száraz szabályokra fókuszál. Nem egy forradalmi újításról van szó - inkább a már létező elméletek leegyszerűsített, gyakorlati változatáról. Hidat épít a nyelvtani szabályok és azok gyakorlati használata között, így az igeidők használata olyan természetessé válik majd az Ön számára, mint egy anyanyelvi beszélőnek."
+          "text": "Ez a felismerés arra ösztönzött, hogy olyan módszert keressek, amely a szabályok magolása helyett a nyelvhasználatot segíti elő. Egy olyan megközelítést találtam, amely nem a rengeteg igeidőre, nem a száraz szabályokra fókuszál. Nem egy forradalmi újításról van szó, inkább a már létező elméletek leegyszerűsített, gyakorlati változatáról. Hidat épít a nyelvtani szabályok és azok gyakorlati használata között, így az igeidők használata olyan természetessé válik majd az Ön számára, mint egy anyanyelvi beszélőnek."
         },
         {
           "type": "paragraph",
@@ -101,34 +90,30 @@
         },
         {
           "type": "paragraph",
-          "text": "Készen áll, hogy együtt fedezzük fel az angol nyelv e gyakran rettegett területét? Ígérem, amikor végzünk, magabiztosan fogja használni az igeidőket - szabálylisták nélkül is! Vágjunk bele!"
+          "text": "Készen áll, hogy együtt fedezzük fel az angol nyelv e gyakran rettegett területét? Ígérem, amikor végzünk, magabiztosan fogja használni az igeidőket! Vágjunk bele!"
+        },
+        {
+          "type": "image",
+          "src": "preface.png",
+          "alignment": "center",
+          "width": "auto",
+          "height": "100%",
+          "caption": ""
         }
       ]
     },
     "chapters": {
       "ch_1": {
-        "title": "Túl a szabályokon: Az angol igeidők valós kihívásai",
+        "title": "1. Túl a szabályokon",
         "type": "simple",
         "content": [
           {
             "type": "paragraph",
-            "text": "Mielőtt fejest ugranánk az igeidők világába, beszéljünk azokról a kihívásokról, amelyekkel mindannyian szembesülünk a nyelvtanulás során. Már az első lépésnél elakadhatunk: melyik módszert válasszuk? A tanterv szerinti iskolai oktatáson kívül rengeteg különböző módszer létezik. Vannak olyanok, melyek azt ígérik, hogy mindenféle nyelvtani szabály és szavak tanulása nélkül is folyékonyan beszélhetünk majd angolul, mert úgy tanulhatunk meg mindent, „mint a kisgyerekek”. Ez valószínűleg nem igaz, de ezek a módszerek közelebb járnak az igazsághoz, mint azok, melyek szerint a nyelvtani szabályok alapos ismerete nélkül lehetetlen jól megtanulni egy nyelvet."
+            "text": "Mindenekelőtt beszéljünk azokról a kihívásokról, amelyekkel mindannyian szembesülünk a nyelvtanulás során. Már az első lépésnél elakadhatunk: melyik módszert válasszuk? A tanterv szerinti iskolai oktatáson kívül rengeteg különböző módszer létezik. Vannak olyanok, melyek azt ígérik, hogy mindenféle nyelvtani szabály tanulása nélkül is folyékonyan beszélhetünk majd angolul, mert úgy tanulhatunk meg mindent, „mint a kisgyerekek”. Ez valószínűleg nem igaz, de ezek a módszerek közelebb járnak az igazsághoz, mint azok, melyek szerint a nyelvtani szabályok alapos ismerete nélkül lehetetlen jól megtanulni egy nyelvet."
           },
           {
             "type": "paragraph",
-            "text": "Meg kell találnunk az arany középutat, ahol a tanuló példák segítségével rájön a nyelvtani szabályokra, amit aztán egyszerűsített formában - mintegy megerősítésként - el is magyaráznak neki. Ezt én fontosnak tartom, mert a kisgyerek még mindent fenntartás nélkül elfogad, de később már szükség van a „miért” ismeretére is, hiszen ha a szabályok megtanulása nem is, de a megértésük hasznos lehet."
-          },
-          {
-            "type": "image",
-            "src": "169.png",
-            "alignment": "center",
-            "width": "auto",
-            "height": "80%",
-            "caption": "Gyerekek természetes nyelvtanulási folyamata"
-          },
-          {
-            "type": "paragraph",
-            "text": "Nézzünk egy hétköznapi esetet. Amikor az anyukája megkérdezi: <b>„What did you have for lunch at kindergarten?”</b> (<b>„Mit ebédeltél az oviban?”,</b>), a gyerek gondolkodás nélkül válaszol: <b>„I had some broth.”,</b> (<b>„Húslevest.”,</b>). A kicsi hallja, hogy a <b>„did”,</b> segédigével kérdeztek és ezért a válaszában is a simple past igeidőt fogja használni. Később, amikor az anyuka a vacsoráról érdeklődik - <b>„Have you eaten dinner?”,</b> (<b>„Vacsoráztál?”,</b>) -, a gyerek ugyanilyen természetességgel használja a present perfect alakot: <b>„Yes, I've eaten dinner already.”,</b> (<b>„Igen, már vacsoráztam.”,</b>)."
+            "text": "Nézzünk egy hétköznapi esetet. Amikor az anyuka este megkérdezi: <i>„What did you have for lunch at kindergarten today?” („Mit ebédeltél az oviban?”)</i>, a gyerek gondolkodás nélkül válaszol: <i>„I had some broth.” („Húslevest.”)</i>. A kicsi hallja, hogy a „did” segédigével kérdeztek és ezért a válaszában is a <i>simple past</i> igeidőt fogja használni. Később, amikor az anyuka a vacsoráról érdeklődik: <i>„Have you eaten dinner?” („Vacsoráztál?”)</i>, a gyerek ugyanilyen természetességgel használja a <i>present perfect</i> alakot: <i>„Yes, I've eaten dinner already.” („Igen, már vacsoráztam.”)</i>."
           },
           {
             "type": "paragraph",
@@ -136,234 +121,74 @@
           },
           {
             "type": "paragraph",
-            "text": "A <b>fenti</b> példából az is látható, hogy az angol nyelv elsajátítása során a tanulók számos nyelvtani kihívással szembesülnek. Az igeidők rendszere gyakran tűnik úgy a tanulók számára, mint egy bonyolult labirintus, ahol könnyű eltévedni. A statisztikák azt mutatják, hogy még a haladó szintű nyelvtanulók is küzdenek bizonyos szerkezetek helyes használatával. <i>Listia és Febriyant (2020)</i> szerint a befejezett igeidők (perfect tenses) okozzák a legtöbb fejtörést - a tanulók több mint 60%-a hibázik a használatukkor."
+            "text": "A valódi probléma az, hogy nem rávezetjük a tanulókat a helyes nyelvhasználatra, csak elmondjuk a szabályokat és elvárjuk, hogy használják azokat. De a statisztikák azt mutatják, hogy a nyelvtanulók folyamatosan küzdenek bizonyos szerkezetek helyes használatával. A befejezett igeidők (<i>perfect tenses</i>) okozzák a legtöbb fejtörést - a tanulók több mint 60%-a hibázik a használatukkor, és a diákok 72%-a érzi úgy, hogy a nyelvtani hibáktól való félelem akadályozza őket a beszédben. Mi áll ennek hátterében? <i>Lajtai</i> (2020) részletesen elemzi azt a jelenséget, amikor valaki tudja a szabályokat, de képtelen azokat a gyakorlatban használni. Talán hívhatnánk szabály-paradoxonnak."
           },
           {
-            "type": "textbox",
-            "content": [
-              "Nagy sportrajongó Gábor...",
-              {
-                "type": "text",
-                "text": "Gábor wakes up at five every morning.",
-                "font_weight": "Italic",
-                "text_align": "center"
-              },
-              "További szöveg..."
-            ],
-            "background_color": "lightblue",
-            "border_color": "blue",
-            "border_width": 2
-          },
-          {
-            "type": "paragraph",
-            "text": "De miért is olyan nehéz ez? A válasz részben a különböző anyanyelvek sajátosságaiban rejlik. <i>Watcharapunyawong és Usaha (2013)</i> thai diákokkal végzett kutatása kimutatta, hogy azokban a nyelvekben, ahol nincs az angolhoz hasonló igeidőrendszer, a tanulók különösen nagy kihívásokkal szembesülnek. A thai diákok például gyakran elhagyják a múlt idő jelölését, mivel saját nyelvükben ez nem létezik. Ez a jelenség a magyar tanulóknál is megfigyelhető, különösen a present perfect használatakor, hiszen nyelvünkben nincs pontos megfelelője ennek az igeidőnek. <i>Balogh és Kiss (2024)</i> kutatása rámutat, hogy a magyar diákok esetében az egyik leggyakoribb probléma - a perfect használatán kívül - a folyamatos és egyszerű jelen idő (present continuous vs. simple present) helytelen használata. Ez nem meglepő, hiszen a magyarban nincs ilyen megkülönböztetés - amikor azt mondjuk „Éppen tanulok”, nem használunk speciális nyelvtani szerkezetet a folyamatosság kifejezésére."
-          },
-          {
-            "type": "paragraph",
-            "text": "És itt érkezünk el egy igazán súlyos problémához: a nyelvtani hibák romboló hatásához. A kutatások lehangoló képet festenek erről. <i>Wahyuningtyas és Bram (2018)</i> kutatásából kiderül, hogy a nyelvtanulók többsége inkább csendben marad az órákon, mintsem hibázzon. Ez különösen aggasztó, hiszen épp a gyakorlás hiánya az, ami miatt nem fejlődik a nyelvtudásuk. A tanulmány szerint a diákok 72%-a érzi úgy, hogy a nyelvtani hibáktól való félelem akadályozza őket a szabad kommunikációban. Ahogy egy magyar középiskolás őszintén megfogalmazta: „Tudom a szabályt, de amikor beszélni kell, mindig összekeverem, mikor melyiket kell használni. A végén inkább meg sem szólalok.” Ez nem egyszerűen csak kellemetlenség - a szorongás gyakran vezet ahhoz, hogy a diákok kerülik a nyelvhasználatot, ami további hiányosságokhoz és még több hibához vezet. Ez egy ördögi kör, amelyből nehéz kitörni."
-          },
-          {
-            "type": "paragraph",
-            "text": "Mi áll ennek hátterében? <i>Lajtai (2020)</i> részletesen elemzi azt a jelenséget, amikor valaki kiválóan felmondja a szabályokat, mégsem tudja őket használni a gyakorlatban. Talán hívhatnánk <b>szabály-paradoxonnak</b>. Egy ismerősöm szavai tökéletesen megvilágítják ezt: „Tudom, hogy a present perfect akkor kell, ha a múltbeli cselekvésnek hatása van a jelenre. De amikor beszélgetek, fogalmam sincs, mikor van hatása és mikor nincs. Inkább használom az egyszerű múlt időt, azzal nem lehet nagyot hibázni.”"
-          },
-          {
-            "type": "paragraph",
-            "text": "A tanárok helyzete sem könnyebb. A tanárok gyakran érzik tehetetlennek magukat, amikor ugyanazokat a hibákat látják visszatérni újra és újra. <b>İpek (2016)</b> kutatásában egy tapasztalt nyelvtanár így írta le dilemmáját: „Minden alkalommal, amikor egy diák hibázik, el kell döntenem: megállítsam-e a beszédfolyamot a javítás kedvéért, vagy hagyjam, hogy a hiba rögzüljön.” Tehát még a tapasztalt nyelvtanárok is gyakran bizonytalanok abban, hogyan kezeljék a nyelvtani hibákat. Sokan attól tartanak, hogy a túl sok javítás demotiválja a diákokat, míg a hibák figyelmen kívül hagyása rossz szokások rögzüléséhez vezethet. Ez a bizonytalanság különösen erős az igeidők tanításánál, ahol a szabályok ismerete és azok gyakorlati alkalmazása között gyakran hatalmas szakadék tátong. Ez a dilemma különösen éles a magyar oktatási rendszerben, ahol Fazekas Márta szerint a nyelvoktatás módszertana nem felel meg teljes mértékben a modern elvárásoknak."
-          },
-          {
-            "type": "paragraph",
-            "text": "Az angol igeidők helyes használata tehát nem egyszerűen nyelvtani szabályok kérdése - egy olyan összetett készségről van szó, amely meghatározza, mennyire magabiztosan és természetesen tudunk kommunikálni angolul. Ez a kihívás alapjaiban befolyásolja a nyelvtanulók önbizalmát és kommunikációs készségeit. A tökéletes megoldást valószínűleg senki sem ismeri - talán nem is létezik egyetlen, minden problémára választ adó módszer. Amit viszont tehetünk, hogy különböző megközelítéseket vizsgálunk meg, amelyek az angol nyelvtanulás egy-egy területén nyújthatnak segítséget. A következő fejezetekben egy ilyen módszert mutatok be, amely specifikusan az igeidők megértését és használatát célozza - nem ígérve többet, mint amit valóban nyújtani tud."
+            "type": "image",
+            "src": "ch1.png",
+            "alignment": "center",
+            "width": "auto",
+            "height": "100%",
+            "caption": ""
           }
         ]
       },
       "ch_2": {
-        "title": "Modellezzük le a valóságot: Az igeidők új megközelítése",
+        "title": "2. Az igeidők új megközelítése",
         "type": "simple",
         "content": [
           {
             "type": "paragraph",
-            "text": "Miután elkészítettem az előző fejezetet arról, hogy milyen nehézségekkel szembesülhetünk az angol tanulása során, belevágtam a nyelvtani bevezető megírásába. Bújtam a szakkönyveket és tanulmányokat, jegyzeteltem a különböző nyelvtípusokról, a mondatszerkezetekről, az igei szóláncokról. Főigék, segédigék, aspektusok - minden apró részletet alaposan körbejártam. A végeredmény egy harminc oldalas, részletes elemzés lett. Még hivatkozásokat is tettem bele, ahogyan egy jó diplomamunkába szokták, APA 7 szabályok szerint. Mert valójában nem könyvet írtam, hanem egy tanulmányt. Szóval amikor újraolvastam ezt a hosszú, vontatott, unalmas fejezetet, hirtelen rádöbbentem, hogy ez nem fog segíteni a nyelvtanulásban."
-          },
-          {
-            "type": "table",
-            "data": [
-              [
-                ["", "Time", "Form", "Example"]
-              ],
-              [
-                ["Si", "Present", "S + V1", "He <font backColor='lightyellow'>studies</font> English"],
-                ["", "Past", "S + V2", "He <font backColor='lightyellow'>studied</font> English"]
-              ],
-              [
-                ["Co", "Present", "S + am/is/are + Ving", "He <font backColor='lightgreen'>is studying</font> English"],
-                ["", "Past", "S + was/were + Ving", "He <font backColor='lightgreen'>was studying</font> English"]
-              ],
-              [
-                ["Pe", "Present", "S + has/have + V3", "He <font backColor='lightblue'>has studied</font> English"],
-                ["", "Past", "S + had + V3", "He <font backColor='lightblue'>had studied</font> English"]
-              ],
-              [
-                ["Pe", "Co", "Present", "S + has/have been + Ving", "He <font backColor='lightblue'>has been</font> <font backColor='lightgreen'>studying</font> English"],
-                ["", "", "Past", "S + had been + Ving", "He <font backColor='lightblue'>had been</font> <font backColor='lightgreen'>studying</font> English"]
-              ],
-              [
-                ["Mo", "Present", "S + will + V1", "He <font backColor='pink'>will study</font> English"],
-                ["", "Past", "S + would + V1", "He <font backColor='pink'>would study</font> English"]
-              ],
-              [
-                ["Mo", "Co", "Present", "S + will be + Ving", "He <font backColor='pink'>will be</font> <font backColor='lightgreen'>studying</font> English"],
-                ["", "", "Past", "S + would be + Ving", "He <font backColor='pink'>would be</font> <font backColor='lightgreen'>studying</font> English"]
-              ],
-              [
-                ["Mo", "Pe", "Present", "S + will have + V3", "He <font backColor='pink'>will</font> <font backColor='lightblue'>have studied</font> English"],
-                ["", "", "Past", "S + would have + V3", "He <font backColor='pink'>would</font> <font backColor='lightblue'>have studied</font> English"]
-              ],
-              [
-                ["Mo", "Pe", "Co", "Present", "S + will have been + Ving", "He <font backColor='pink'>will</font> <font backColor='lightblue'>have been</font> <font backColor='lightgreen'>studying</font> English"],
-                ["", "", "", "Past", "S + would have been + Ving", "He <font backColor='pink'>would</font> <font backColor='lightblue'>have been</font> <font backColor='lightgreen'>studying</font> English"]
-              ]
-            ],
-            "style": [
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "lightyellow"],
-                ["BACKGROUND", [1, 1], [3, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "lightgreen"],
-                ["BACKGROUND", [1, 1], [3, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "lightblue"],
-                ["BACKGROUND", [1, 1], [3, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "lightblue"],
-                ["SPAN", [1, 0], [1, 1]],
-                ["BACKGROUND", [1, 0], [1, 1], "lightgreen"],
-                ["BACKGROUND", [2, 1], [4, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "pink"],
-                ["BACKGROUND", [1, 1], [3, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "pink"],
-                ["SPAN", [1, 0], [1, 1]],
-                ["BACKGROUND", [1, 0], [1, 1], "lightgreen"],
-                ["BACKGROUND", [2, 1], [4, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "pink"],
-                ["SPAN", [1, 0], [1, 1]],
-                ["BACKGROUND", [1, 0], [1, 1], "lightblue"],
-                ["BACKGROUND", [2, 1], [4, 1], "ltgrey"]
-              ],
-              [
-                ["GRID", [0, 0], [-1,-1], 0.5, "grey"],
-                ["SPAN", [0, 0], [0, 1]],
-                ["BACKGROUND", [0, 0], [0, 1], "pink"],
-                ["SPAN", [1, 0], [1, 1]],
-                ["BACKGROUND", [1, 0], [1, 1], "lightblue"],
-                ["SPAN", [2, 0], [2, 1]],
-                ["BACKGROUND", [2, 0], [2, 1], "lightgreen"],
-                ["BACKGROUND", [3, 1], [5, 1], "ltgrey"]
-              ]
-            ],
-            "block_column_widths": [
-              ["15%", "10%", "28%", "47%"],
-              ["15%", "10%", "28%", "47%"],
-              ["15%", "10%", "28%", "47%"],
-              ["15%", "10%", "28%", "47%"],
-              ["7.5%", "7.5%", "10%", "28%", "47%"],
-              ["15%", "10%", "28%", "47%"],
-              ["7.5%", "7.5%", "10%", "28%", "47%"],
-              ["7.5%", "7.5%", "10%", "28%", "47%"],
-              ["5%", "5%", "5%", "10%", "28%", "47%"]
-            ],
-            "caption": "English Tense System: Three-dimensional Model",
-            "alignment": "center",
-            "width": "100%"
+            "text": "Az előzőekben azt ígértem, hogy nem fogunk nyelvtani szabályokkal szenvedni, hanem példákon keresztül, szinte észrevétlenül fogjuk felfedezni mindazt, amire szükségünk van. Megértjük a nyelvet, létrehozzuk a megfelelő egyszerűsítéseket, a saját modellünket. Tiszteletben tartjuk a többi modellt, de kicsit más úton járva jutunk el az igeidők bonyolultnak tűnő szerkezetének magjához. Tegyük hát ezt!"
           },
           {
             "type": "paragraph",
-            "text": "Az előzőekben azt ígértem, hogy nem fogunk nyelvtani szabályokkal szenvedni. Azt ígértem, hogy példákon keresztül, szinte észrevétlenül fogjuk megérteni mindazt, amire szükségünk van. Megértjük a nyelvet, létrehozzuk a megfelelő egyszerűsítéseket, a saját modellünket. Tiszteletben tartjuk a többi modellt, de kicsit más úton járva jutunk el az igeidők bonyolultnak tűnő szerkezetének magjához."
+            "text": "Hány igeidő van valójában az angolban? Egyáltalán mi az az igeidő? A tankönyvekben található igeidő meghatározást mindenki ismeri. És most azt kérem, próbálja ezt elfelejteni, mert ez a meghatározás alapvetően hibás. Amit a tankönyvek igeidőnek neveznek, azok valójában igei szerkezetek. Milyen időben van például az <i>„I sat down.\"</i>? Természetesen mindenki azonnal rávágja, hogy <i>simple past</i>. És mikor azt mondjuk, hogy <i>„I was sitting down, when…\"</i>? A legtöbben azt felelik, hogy <i>past continuous</i>. Pedig ha egy kicsit jobban belegondol, az idő az most is múlt, amit ebben az igei szerkezetben a <i>„be\"</i> múlt idejű alakja a <i>„was\"</i> mutat meg nekünk, míg a cselekvés milyenségét, az ige <i>„ing\"</i> végződése jelzi. Hasonlóan az <i>„I had been sitting down\"</i> esetében is az idő egyszerűen csak múlt, amit a <i>„have\"</i> múlt idejű alakja a <i>„had\"</i> jelez. A befejezettséget (ami nem is az, de most maradjunk ennél) a <i>„been”</i> mutatja, a folyamatosságot pedig ismét az <i>„ing\"</i> végződés."
           },
           {
             "type": "paragraph",
-            "text": "Gondolkodott már azon, hány igeidő van valójában az angolban? Egyáltalán mi az az igeidő? Kétféle meghatározást is adhatunk rá. (A tankönyvekben található igeidő meghatározást nem sorolom ide, mert mint hamarosan látni fogja, alapvetően hibás az a megközelítés.)"
+            "text": "Szóval akkor miért hívjuk ezeket az igei szerkezeteket mégis igeidőnek? A válasz egyszerű: az angol nyelvészek másként gondolkodtak, másként rendszerezték a nyelvüket, mint például a mi nyelvészeink. Az angol igeidők első jelentős rendszerezése <i>Lindley Murray</i> nevéhez fűződik, aki 1795-ben publikálta az <i>„English Grammar Adapted to the Different Classes of Learners”</i> című művét. A ma ismert tizenkét igeidős rendszer viszont csak a 19. század végén, 20. század elején vált általánosan elfogadottá. Vagyis mindössze száz-százötven éve kezdték el használni ezt a rendszert a nyelvészek, azért hogy megértsék és lemodellezzék a nyelvet, nem pedig azért, hogy ezek alapján tanítsák. Mi mégis görcsösen ragaszkodunk ehhez a felosztáshoz az oktatásban."
           },
           {
             "type": "paragraph",
-            "text": "Az egyik a tényleges idő, azaz, hogy a valóságban mikor történik az, amiről beszélünk."
+            "text": "Két másik meghatározást is adhatunk az igeidő fogalmára:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "Az egyik a tényleges idő, azaz, hogy a valóságban mikor történik az, amiről beszélünk"
+              },
+              {
+                "text": "A másik a tisztán nyelvtani értelemben vett igeidő."
+              }
+            ]
           },
           {
             "type": "paragraph",
-            "text": "A másik a tisztán nyelvtani értelemben vett igeidő."
+            "text": "Fontos, hogy különbséget tegyünk a nyelvtani igeidő és a valós világban érzékelt idő között. Sokszor ez nem is olyan egyszerű. Maradjunk annyiban, hogy az igeidő (<i>tense</i>) csak azt határozza meg, milyen alakot vesz fel az ige. És az angol igéknek mindössze két alapvető alakjuk van. Van a múlt (<i>past</i>) és a „nem-múlt” (<i>non-past</i>). Ennyi."
           },
           {
             "type": "paragraph",
-            "text": "Fontos, hogy különbséget tegyünk a nyelvtani igeidő és a valós világban érzékelt idő között. Sokszor ez nem is olyan egyszerű. Otto Jespersen, az egyik legjelentősebb angol nyelvész, egy 1924-es English Journal cikkben („The Teaching of Grammar”) megjegyezte, hogy az angol nyelvben nehéz összekapcsolni az időt és az igeidőt: „Különböző nyelvtani igeidőink vannak, de ezek csak nagyjából felelnek meg a természetes időbeli felosztásnak, és ezért sajnálatos, hogy kénytelenek vagyunk ugyanazokat a kifejezéseket használni mind az igeidőre, mind az időre.”, (p. 167)"
+            "text": "Érdekes megfigyelni, hogy a magyar nyelvben is csak a múlt időnek van jele. A jövő időt mi is segédigével képezzük. <i>(tanul / tanult / tanulni fog)</i> Ha az előző definíciónk alapján nézzük, akkor nekünk is csak kettő igeidőnk van. (Valójában mi három igeidőt tartunk számon.)"
           },
           {
             "type": "paragraph",
-            "text": "Maradjunk annyiban, hogy az igeidő (tense) csak azt határozza meg, milyen alakot vesz fel az ige. És az angol igéknek mindössze két alapvető alakjuk van. Van a jelen (present) és a múlt (past). Ennyi. A legegyszerűbb és legjobb az lenne, ha a megtévesztő past és present elnevezésektől is megszabadulnánk és mondjuk „Form 1” és „Form 2”, néven említenénk őket."
+            "text": "A nyelvészek körében egyre elfogadottabb az az új nézet, hogy az angol valójában mindössze két igeidőt használ, amelyeket különböző aspektusokkal és modális segédigékkel kombinál. Bár sok tanár továbbra is a tizenkét igeidős rendszert tanítja, a modern nyelvészet egyre inkább eltávolodik ettől a modelltől, mert nem tükrözi pontosan az angol nyelv valódi működését."
           },
           {
             "type": "textbox",
             "content": [
               {
                 "type": "text",
-                "text": "1. PÉLDA",
-                "font_weight": "Bold",
-                "text_color": "white"
+                "text": "Amit a tankönyvek igeidőnek neveznek, azok nem igeidők, hanem igei szerkezetek.",
+                "font_weight": "Italic",
+                "text_align": "center"
               }
             ],
-            "background_color": "black",
-            "border_width": 1,
-            "padding_left": 15,
-            "padding_right": 15,
-            "width": "20%"
-          },
-          {
-            "type": "paragraph",
-            "text": "Érdekes megfigyelni, hogy például a magyar nyelvben is csak a múlt időnek van jele. A jövő időt mi is segédigével képezzük. (tanul / tanult / tanulni fog) A magyarban ennek megfelelően csak három igeidő van. Illetve ha az előző definíciónk alapján nézzük, akkor nekünk is csak kettő van."
-          },
-          {
-            "type": "paragraph",
-            "text": "Az angol tankönyvek miért beszélnek tizenkét, esetenként tizenhat igeidőről? Fontos lenne mindenkinek megérteni, hogy amit a tankönyvek igeidőnek neveznek, azok nem igeidők, hanem igei szerkezetek. Milyen időben van például az „I sat down.”? Természetesen mindenki azonnal rávágja, hogy egyszerű múlt. És mikor azt mondjuk, hogy „I was sitting down, when…”,? A legtöbben azt felelik, hogy folyamatos múlt. Pedig ha egy kicsit jobban belegondol, az idő az most is múlt, amit ebben az igei szerkezetben a „be”, múlt idejű alakja a „was”, mutat meg nekünk, míg a cselekvés milyenségét, az ige „ing”, végződése jelzi. Hasonlóan egy befejezett folyamatos múlt (atyaeg, aki ezt kitalálta) – mondjuk az „I had been sitting down”, - esetében az idő az egyszerűen csak múlt, amit a „have”, múlt idejű alakja a „had”, jelez. Megint csak a cselekvés szemléletmódja lesz más. Ezt pedig az igeszerkezet többi része jelöli. A befejezettséget (ami nem is az, de most maradjunk ennél) a „been”, mutatja, a folyamatosságot pedig ismét az „ing”, végződés."
-          },
-          {
-            "type": "paragraph",
-            "text": "Szóval akkor miért hívjuk ezeket az igei szerkezeteket mégis igeidőnek? A válasz egyszerű: az angol nyelvészek másként gondolkodtak, másként rendszerezték a nyelvüket, mint például a mi nyelvészeink. Az angol igeidők első jelentős rendszerezése Lindley Murray nevéhez fűződik, aki 1795-ben publikálta az „English Grammar Adapted to the Different Classes of Learners” című művét. A ma ismert tizenkét igeidős rendszer csak a 19. század végén, 20. század elején vált általánosan elfogadottá. Vagyis mindössze száz-százötven éve kezdték el használni ezt a rendszert a nyelvészek, azért hogy megértsék és lemodellezzék a nyelvet, nem pedig azért, hogy ezek alapján tanítsák. Mi mégis görcsösen ragaszkodunk ehhez a felosztáshoz az oktatásban."
-          },
-          {
-            "type": "paragraph",
-            "text": "Az előbb megmutattam, hogy ez a rendszer valójában csak néhány alapvető időt kombinál különböző aspektusokkal. A nyelvészek körében egyre elfogadottabb ez az új nézet. Yule (2009), valamint Depraetere és Salkie (2015) is amellett érvel, hogy az angol valójában mindössze két igeidőt használ, amelyeket különböző aspektusokkal és modális segédigékkel kombinálhatunk. Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk."
-          },
-          {
-            "type": "paragraph",
-            "text": "Minden igei szerkezet három alapvető nyelvtani építőköve az igeidő (tense), a mód (mood) és az aspektus (aspect). Ezek együttesen határozzák meg egy ige állapotát (state). Sajnos – mint már említettük - a nyelvtankönyvek ezt a három fogalmat egyetlen kategóriába sorolják, amelyet „igeidőnek” neveznek, majd ezt azonosítják a valós világ időfogalmával."
-          },
-          {
-            "type": "paragraph",
-            "text": "Nézzük meg közelebbről ezt a három összetevőt! Nem elvont elméleti konstrukciókról van szó - ezek azok az elemek, amelyekből minden igei szerkezet felépül:"
+            "background_color": "ltgrey",
+            "border_color": "black",
+            "border_width": 1
           },
           {
             "type": "paragraph",
@@ -371,56 +196,172 @@
           },
           {
             "type": "paragraph",
-            "text": "<b>Az idő</b> a cselekvés időbeli elhelyezkedését mutatja meg. Ez a legegyszerűbb a három közül, hiszen - ahogy láttuk - valójában csak két alapvető időnk van: jelen és múlt. A jövő idő már a következő pillérünkhöz, a módhoz kapcsolódik."
+            "text": "Minden igei szerkezet három alapvető nyelvtani építőköve az <i>igeidő (tense)</i>, a <i>mód (mood)</i> és az <i>aspektus (aspect)</i>. Ezek együttesen határozzák meg egy ige állapotát (state). Nézzük meg közelebbről ezt a három összetevőt! Nem elvont elméleti konstrukciókról van szó – ezek azok az elemek, amelyekből minden igei szerkezet felépül:"
           },
           {
-            "type": "speech_bubble",
-            "bubble_type": "left",
-            "avatar_src": "av1.png",
-            "text": "TEST SENTENCE IN A SPEECH BUBBLE!",
-            "height": 150,
-            "background_color": "lightblue",
-            "border_color": "green",
-            "border_width": 2,
-            "border_radius": 10,
-            "alignment": "left"
-          },
-          {
-            "type": "speech_bubble",
-            "bubble_type": "right",
-            "avatar_src": "av2.png",
-            "text": "ANSWER SENTENCE IN A SPEECH BUBBLE!",
-            "height": 150,
-            "background_color": "lightgreen",
-            "border_color": "blue",
-            "border_width": 2,
-            "border_radius": 10,
-            "alignment": "right"
+            "type": "list",
+            "items": [
+              {
+                "text": "Az <i>idő</i> a cselekvés időbeli elhelyezkedését mutatja meg. Ez a legegyszerűbb a három közül, hiszen – ahogy láttuk – valójában csak két alapvető időnk van: múlt és a nem-múlt."
+              },
+              {
+                "text": "Az <i>aspektus</i> a cselekvés lefolyását, belső időszerkezetét írja le. Folyamatban van? Befejezett? Rendszeresen ismétlődik? Időtlen? Két időpont viszonyára utal?"
+              },
+              {
+                "text": "A <i>mód</i> azt árulja el, hogyan viszonyulunk a cselekvéshez. Tény? Lehetőség? Képesség? Kötelezettség? A módot elsősorban a modális segédigék (can, must, should, would) fejezik ki. A jövő idő kifejezésére használt „will” is egy modális segédige."
+              }
+            ]
           },
           {
             "type": "paragraph",
-            "text": ""
+            "text": "Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk. A következő oldalakon részletesen megvizsgáljuk őket. Nem azért, hogy újabb szabályokat tanuljunk, hanem hogy megértsük: minden igei szerkezet, amit valaha hallott vagy használt az angolban, erre a három pillérre épül. És ha ezt megérti, akkor többé nem kell azon gondolkodnia, melyik „igeidőt” használja. Elég, ha végiggondolja, mit akar kifejezni az <i>idő</i>, a <i>mód</i> és az <i>aspektus</i> szempontjából."
           },
           {
             "type": "paragraph",
-            "text": "<b>Az aspektus</b> a cselekvés lefolyását, belső időszerkezetét írja le. Folyamatban van? Befejezett? Rendszeresen ismétlődik?"
+            "text": "<b>2.1 Az igeidő (Tense)</b>"
           },
           {
             "type": "paragraph",
-            "text": ""
+            "text": "Már részletesen kitárgyaltuk az előbb. Az igeidő (tense) csak azt határozza meg, milyen alakot vesz fel az ige. És az angol igéknek mindössze két alapvető alakjuk van. Mindez nem azt jelenti, hogy az angol nyelv ne tudná kifejezni a jövőt vagy más időbeli viszonyokat. Dehogynem tudja! Csak éppen más eszközökkel teszi ezt – például segédigékkel vagy a szövegkörnyezettel ás persze az igei szerkezetekkel."
           },
           {
             "type": "paragraph",
-            "text": "<b>A mód</b> azt árulja el, hogyan viszonyulunk a cselekvéshez. Tény? Lehetőség? Képesség? Kötelezettség? A módot elsősorban a modális segédigék (can, must, should, would) fejezik ki. A jövő idő kifejezésére használt „will” is valójában egy modális segédige."
+            "text": "<b>2.2 Az aspektus (Aspect)</b>"
           },
           {
             "type": "paragraph",
-            "text": ""
+            "text": "Képzeljen el egy kertet! Ha kinéz az ablakon, látja, ahogy a kertész éppen füvet nyír. Ha most valakivel telefonon beszélne, valószínűleg valami ilyesmit mondana:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>„Nem hallom, a kertész éppen nyírja a füvet.\"</i>"
+              },
+              {
+                "text": "Kicsivel később már így fogalmazna: <i>„Csend van. És micsoda illat! A kertész már lenyírta a füvet.\"</i>"
+              },
+              {
+                "text": "Másnap reggel, ha a barátjának mesélne erről: <i>„Tegnap a kertész lenyírta a füvet.\"</i>"
+              },
+              {
+                "text": "Egy kerti partin, amikor valaki megdicsérné a pázsitot: <i>\"A kertészem minden szombaton lenyírja.\"</i>"
+              }
+            ]
           },
           {
             "type": "paragraph",
-            "text": "Ez a megközelítés gyökeresen megváltoztathatja, ahogy az angol nyelvtant tanítjuk és tanuljuk. A következő oldalakon részletesen megvizsgáljuk őket. Nem azért, hogy újabb szabályokat tanuljunk, hanem hogy megértsük: minden igei szerkezet, amit valaha hallott vagy használt az angolban, erre a három pillérre épül. És ha ezt megérti, akkor többé nem kell azon gondolkodnia, melyik „igeidőt” használja - elég, ha végiggondolja, mit akar kifejezni az idő, a mód és az aspektus szempontjából."
+            "text": "Négy különböző mondat, ugyanarról az eseményről – de más nézőpontból. Az elsőben a cselekvés közben látja a kertészt, a másodikban a következményeire utal, a harmadikban egy lezárt eseményt említ, míg az utolsóban a rendszerességre helyezi a hangsúlyt. Ezt a szemléletmódot nevezzük <i>aspektusnak</i>."
+          },
+          {
+            "type": "paragraph",
+            "text": "Az aspektus tehát nem azt mondja meg, hogy <i>mikor</i> történt valami, hanem azt, hogy <i>hogyan</i> látjuk az adott eseményt. Ez egy nagyon fontos különbség. Az időpont (<i>mikor?</i>) és a szemléletmód (<i>hogyan?</i>) két teljesen különböző dolog. Nem győzöm hangsúlyozni, hogy éppen ezért félrevezető az a hagyományos megközelítés, amely az aspektust az igeidő részeként kezeli, mintha a <i>simple present</i>, a <i>present continuous</i> vagy a <i>present perfect</i> különböző időpontokat jelölnének."
+          },
+          {
+            "type": "paragraph",
+            "text": "Az angol nyelv három fő aspektust különböztet meg: az <i>egyszerű (simple)</i>, a <i>folyamatos (progressive/continuous)</i> és a <i>befejezett (perfect)</i> aspektust."
+          },
+          {
+            "type": "paragraph",
+            "text": "<b>2.2.1 A Perfect aspektus természete</b>"
+          },
+          {
+            "type": "paragraph",
+            "text": "Egy esemény néha nem csak önmagában fontos. Ilyenkor nem egyszerűen arról van szó, hogy valami megtörtént, hanem arról is, hogy ennek hatása még most is érezhető. A <i>perfect aspektus</i> nem egy időpontra fókuszál, hanem arra, hogy egy esemény hogyan kapcsolódik egy másik időponthoz. Tetten érhető egy egyszerű logika: Valami történt egy másik időpont előtt, és ennek van jelentősége. A <i>perfect</i> mindig két időpont kapcsolatáról szól, még akkor is, ha elsőre nehéz észrevenni mindkettőt."
+          },
+          {
+            "type": "paragraph",
+            "text": "Vannak helyzetek tehát, amikor nem maga az esemény fontos, hanem az eredménye. Ha elvesztette a kulcsait, az nemcsak azt a tényt jelenti, hogy elvesztette őket, hanem azt is, hogy még most sincsenek meg. Lehet, hogy éppen most ért véget az esemény, de az is lehet, hogy régen. Nem számít."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>I have lost my keys.</i> – még most is keresem őket"
+              },
+              {
+                "text": "<i>She has just finished her homework.</i> – most csukta be a füzetet"
+              },
+              {
+                "text": "<i>Have you seen my phone?</i> – ha látta, akkor talán meg tudja mondani, hol van most"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Máskor az számít, hogy egy esemény valaha megtörtént-e, nem pedig az, hogy pontosan mikor. Ha megkérdezi valakitől, hogy járt-e már Párizsban, a kérdés nem az időpontra vonatkozik, hanem arra, hogy volt-e ilyen tapasztalata. Ezeknek a mondatoknak lényege éppen az, hogy a teljes élettapasztalatra utalnak, ami összeköti a múltat a jelennel."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>Have you ever been to Paris?</i> – az élet bármely pontján szerzett tapasztalatra kérdez rá, és a \"valaha\" időtartamot foglalja magában"
+              },
+              {
+                "text": "<i>I have never eaten oysters.</i> – arra utal, hogy egész életemben, a jelen pillanatig bezárólag soha nem volt ilyen tapasztalatom"
+              },
+              {
+                "text": "<i>She has driven a truck before.</i>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Előfordul olyan is, hogy az esemény a múltban kezdődött, de még most is tart. Ha valaki tíz éve költözött egy városba, és még mindig ott él, akkor ezt nem egy befejezett múltbeli esemény, hanem egy állapot."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>He has lived here for 10 years</i> – múltban kezdődött, de a jelenben is fennálló helyzet"
+              },
+              {
+                "text": "<i>You have known her since childhood.</i>"
+              },
+              {
+                "text": "<i>I have owned this car for years.</i>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "A fenti helyzetekben a közös az, hogy találunk bennük két időpontot és egy eredményt. Az korábbi időpontban valami történt (vagy elkezdődött), ami a későbbi időpontra hatással van. Például kész a lecke, fogalmunk sincsen az osztriga ízéről, évek óta ugyanazzal az autóval járunk. Én ezt <i>„before logikának”</i> hívom."
+          },
+          {
+            "type": "paragraph",
+            "text": "A <i>perfect aspektus</i> kifejezésére mindig ugyanazt a szerkezetet használjuk: a <i>„have” segédige</i> megfelelő alakját és az ige harmadik alakját (<i>past participle</i>) kombináljuk. Az igei szerkezet logikája nagyon egyszerű. A szerkezet első eleme megmutatja az időt, a második pedig a <i>perfect</i> aspektust."
+          },
+          {
+            "type": "paragraph",
+            "text": "<i>have + past participle</i>"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>I have lost my keys.</i>",
+                "sub_items": [
+                  "Az igei szerkezet első tagja a <i>„have\"</i> jelen idejű alakja. – Az igeidő: <i>present</i>",
+                  "A szerkezet második tagja <i>past participle</i> („lost\"). – Az aspektus: <i>perfect</i>",
+                  "A <i>„present perfect\"</i> a tankönyvi igeidő."
+                ]
+              },
+              {
+                "text": "<i>I had already lost my keys, when he asked.</i>",
+                "sub_items": [
+                  "Múlt idő, hiszen a <i>„have\"</i> múlt idejű alakját látjuk („had\"). – Az igeidő: <i>past</i>",
+                  "A szerkezet második tagja most is <i>past participle</i> („lost\"). – Az aspektus: <i>perfect</i>",
+                  "Ha a tankönyvi igeidőt szeretnénk megnevezni, akkor ez <i>„past perfect\"</i>."
+                ]
+              }
+            ]
           }
+        ]
+      },
+      "ch_3": {
+        "title": "",
+        "type": "simple",
+        "content": [
         ]
       }
     }
@@ -431,7 +372,8 @@
       "subtitle": "The Two Tenses Magic"
     },
     "copyright": {
-      "copyright_text": "Copyright © 2025 by BGDS All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.",
+      "copyright_text": "Copyright © 2025 by BGDS All rights reserved.",
+      "copyright_text": "No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.",
       "author_text": "Author",
       "author": "BGDS",
       "design_text": "Cover design and interior layout",
@@ -443,24 +385,259 @@
       "ISBN_print": "ISBN 978 pr...",
       "printing_text": "Release History",
       "printing": [
-        "March 2025: First Edition"
+        "July 2025: First Edition"
       ],
       "email_text": "For permissions requests, please contact BGDS at the following address",
       "email": "gyorgy.bakocs@transprnt.com"
     },
     "dedicate": {
-      "title": "",
-      "content": []
+      "title": "To my son, Alexander",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "You were just one year old when we moved to Malaysia, and by the age of four and a half, you were already reading English texts. Your journey toward multilingualism—mastering Hungarian, English, Malay, and Chinese all at once—stands as an inspiring example for any language learner, proving the remarkable potential of a young mind."
+        },
+        {
+          "type": "paragraph",
+          "text": "Your passion for languages inspired me. Your perseverance is a model for every learner, showing that language learning isn't just a useful skill, but a thrilling adventure filled with discoveries and moments of triumph."
+        },
+        {
+          "type": "paragraph",
+          "text": "This book owes part of its existence to your journey. I hope it brings others as much joy and success in language learning as you've found in the colorful world of languages."
+        },
+        {
+          "type": "paragraph",
+          "text": "I'm proud of you, my son. Thank you."
+        }
+      ]
     },
     "preface": {
-      "title": "",
-      "content": []
+      "title": "Preface",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Dear Reader"
+        },
+        {
+          "type": "paragraph",
+          "text": ""
+        },
+        {
+          "type": "paragraph",
+          "text": "This book is written in clear and simple English, so that beginner and intermediate learners can understand it easily. Don’t worry if you don’t understand every word. Just keep reading — you will improve step by step!"
+        },
+        {
+          "type": "paragraph",
+          "text": ""
+        },
+        {
+          "type": "paragraph",
+          "text": "Have you ever felt that English tenses form an illogical chaos? Then you are in the right place! Have you ever had the feeling that among all the rules and exceptions, you don’t even know when to use a simple past tense? You are not alone – but don’t worry, there is a solution. I wrote this book – even though many books already deal with English tenses – so that you can use tenses without getting stuck on the rules. But before we begin, let me introduce myself."
+        },
+        {
+          "type": "paragraph",
+          "text": "My name is György Bakocs, and I’ve been working as a development engineer for nearly thirty years. During my career, I spent almost ten years in Malaysia, where my passion for the English language really grew. As a result, I started an Instagram and YouTube channel called @aseasyaspie2017. My Instagram page quickly became popular, and I gained more than 100,000 followers. Because of a technical problem, I lost access to the account, but I restarted the project under the name @aseasyaspie2021. Over the years, I also got a TEFL (Teaching English as a Foreign Language) certificate, because I knew: this is my path."
+        },
+        {
+          "type": "paragraph",
+          "text": "When I was young, I had two very different types of English lessons. I had an excellent teacher who had lived in America. In her classes, we translated songs, played role-playing games, and although she sometimes mentioned grammar rules, the focus was always on speaking. The classes were relaxed but effective, and we improved all the time. I loved English and wanted to learn more. I enrolled at IHLS, where native speakers taught us. Because of the language barrier, they didn’t give us grammar explanations; instead, we spoke, listened, and learned from our mistakes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Then came the year of the final exam, and a new teacher. Every lesson, she wrote more and more tables on the board. We had to learn so many rules about using the present simple tense that even two notebook pages were not enough. What happened? Instead of speaking freely, we kept thinking about the rules. “Wait... is this present perfect? Or simple past? And what was that third rule again?” The lessons became boring, and our motivation... well, let’s just say it hit the bottom."
+        },
+        {
+          "type": "paragraph",
+          "text": "Grammar teaching in British schools is very different from the Hungarian system. In Hungary, children learn grammar concepts like subject and predicate already in primary school, and they regularly practise sentence analysis. In British education, there is almost no traditional grammar teaching. The national curriculum includes some grammar elements, but these are taught during writing and reading activities, not as a separate subject. These elements are less structured than the grammar analysis we know from Hungarian schools. Students learn literature and composition, but they don’t get much detailed grammar explanation. Teachers often just correct the mistakes but don’t explain the reasons behind them."
+        },
+        {
+          "type": "paragraph",
+          "text": "However, the “English method” also has its downsides. According to British language teachers, it makes it harder for British people to learn foreign languages, because they don’t understand the structure of their own language. An average British adult cannot explain what a noun or adjective is and has no idea what a phrasal verb means. Ironically, many non-native speakers know English grammar better than the British themselves. Still, native speakers use English naturally and with confidence, while we – who know all the rules – hesitate even with simple sentences. This shows that the point is not to learn all the rules, but to be able to use them!"
+        },
+        {
+          "type": "paragraph",
+          "text": "This realisation made me look for a method that supports language use instead of memorising rules. I found an approach that does not focus on many different tenses or dry grammar explanations. It’s not a revolutionary method, but a simplified and practical version of existing ideas. It builds a bridge between grammar rules and real usage, so tenses will become as natural to you as they are to native speakers."
+        },
+        {
+          "type": "paragraph",
+          "text": ""
+        },
+        {
+          "type": "paragraph",
+          "text": "Are you ready to explore this often-feared part of the English language with me? I promise that when we’re done, you will be able to use tenses with confidence! Let’s get started!"
+        },
+        {
+          "type": "image",
+          "src": "preface.png",
+          "alignment": "center",
+          "width": "auto",
+          "height": "100%",
+          "caption": ""
+        }
+      ]
     },
     "chapters": {
       "ch1": {
+        "title": "1. Beyond the Rules",
+        "type": "simple",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "First, let’s talk about the challenges we all face when learning a language. We can get stuck right at the beginning: which method should we choose? Besides regular school education, there are many different methods. Some of them promise that we can speak English fluently without learning grammar rules — because we can learn everything <i>\"like small children.\"</i> This is probably not true, but these methods are closer to the truth than those that say it is impossible to learn a language without knowing the rules very well."
+          },
+          {
+            "type": "paragraph",
+            "text": "Let’s look at a simple, everyday situation. When a mother asks in the evening, <i>\"What did you have for lunch at kindergarten today?\"</i>, the child answers without thinking: <i>\"I had some broth.\"</i> The child hears the question with \"did\", so they use the <i>simple past tense</i> in the answer. Later, when the mother asks about dinner — <i>\"Have you eaten dinner?\"</i> — the child answers just as naturally with <i>present perfect</i>: <i>\"Yes, I’ve eaten dinner already.\"</i>"
+          },
+          {
+            "type": "paragraph",
+            "text": "The child can feel the difference: lunch at kindergarten is a finished event in the past, but dinner is still important now, in the present. A language learner can also understand this if we show them examples — but they will ask: <i>why?</i> We, as adult learners, like to understand what we are doing. And that is not a weakness — it’s a strength! Logical thinking and seeing patterns are useful skills, and we should use them when learning a language."
+          },
+          {
+            "type": "paragraph",
+            "text": "The real problem is that we often don’t guide learners toward correct language use. We only tell them the rules and expect them to use them. But statistics show that learners often struggle with certain grammar forms. The <i>perfect tenses</i> cause the most problems — more than 60% of learners make mistakes when using them, and 72% of students say they are afraid to speak because they might make grammar mistakes. Why does this happen? <i>Lajtai</i> (2020) explains this problem in detail: sometimes people know the rules, but can’t use them. Maybe we can call this the <i>rule paradox</i>."
+          },
+          {
+            "type": "image",
+            "src": "ch1.png",
+            "alignment": "center",
+            "width": "auto",
+            "height": "100%",
+            "caption": ""
+          }
+        ]
+      },
+      "ch_2": {
+        "title": "2. A New Approach to Tenses",
+        "type": "simple",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Earlier, I promised that we wouldn't struggle with grammar rules, but that we would discover everything we need through examples, almost without noticing. We will understand the language, make useful simplifications, and build our own model. We will respect other models, but by going a slightly different way, we will reach the core of the tense system, which only seems complex. Let’s do this!"
+          },
+          {
+            "type": "paragraph",
+            "text": "How many tenses are there in English, really? And what is a tense anyway? Everyone knows the definition of tense from textbooks. And now I ask you to try to forget that definition, because it is basically incorrect. What textbooks call tenses are actually verb structures. For example, what tense is <i>“I sat down”</i>? Of course, most people will quickly say: <i>simple past</i>. And when we say <i>“I was sitting down, when…”</i>? Most people will answer: <i>past continuous</i>. But if you think about it more, the time is still past. This is shown in this verb structure by the past form of <i>“be”</i> – which is <i>“was”</i>. The type of action is shown by the <i>“-ing”</i> ending of the verb. It is similar with <i>“I had been sitting down”</i> – here the time is also simply past, which we see from the past form of <i>“have”</i> – <i>“had”</i>. The idea of completeness (which is not exactly that, but let’s stay with this word for now) is shown by <i>“been”</i>, and the continuous action again by the <i>“-ing”</i> ending."
+          },
+          {
+            "type": "paragraph",
+            "text": "So why do we still call these verb structures tenses? The answer is simple: English linguists thought differently. They organized their language differently than, for example, our linguists did. The first important system of English tenses was made by <i>Lindley Murray</i>, who published his book <i>“English Grammar Adapted to the Different Classes of Learners”</i> in 1795. The twelve-tense system we know today only became generally accepted at the end of the 19th century and the beginning of the 20th century. This means that linguists have only used this system for about 100–150 years. They created it to understand and describe the language, not to teach it. Still, we strongly stick to this system in education."
+          },
+          {
+            "type": "paragraph",
+            "text": "We can give two other definitions for the word “tense”:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "One is the real time — meaning, when something happens in reality."
+              },
+              {
+                "text": "The other is grammatical tense — how the verb shows time in grammar."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "It is important to make a difference between grammatical tense and the time we feel in the real world. Often, this is not easy. Let’s just say for now that <i>tense</i> only shows what form the verb takes. And English verbs have only two basic forms. There is <i>past</i> and <i>non-past</i>. That’s all."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is interesting to see that in Hungarian, only the past tense has a special ending. We also use an extra verb to show the future (like in <i>“tanul / tanult / tanulni fog”</i>). If we use the same definition as above, then we also have only two tenses in Hungarian. (But we usually say we have three.)"
+          },
+          {
+            "type": "paragraph",
+            "text": "Among linguists, the idea is becoming more popular that English really uses only two tenses, and builds everything else with <i>aspects</i> and <i>modal auxiliary verbs</i>. Even though many teachers still teach the twelve-tense system, modern linguistics is moving away from it — because it does not show how English really works."
+          },
+          {
+            "type": "textbox",
+            "content": [
+              {
+                "type": "text",
+                "text": "What textbooks call tenses are not tenses, but verb structures.",
+                "font_weight": "Italic",
+                "text_align": "center"
+              }
+            ],
+            "background_color": "ltgrey",
+            "border_color": "black",
+            "border_width": 1
+          },
+          {
+            "type": "paragraph",
+            "text": "Every verb structure has three basic grammar parts: <i>tense</i>, <i>mood</i>, and <i>aspect</i>. These three things together show the <i>state</i> of a verb. Let’s look more closely at these three parts! These are not abstract or difficult grammar ideas — they are real tools. These are the pieces that build every verb structure:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>Tense</i> shows when the action happens. This is the easiest of the three. As we said, there are only two basic tenses: past and non-past."
+              },
+              {
+                "text": "<i>Aspect</i> describes how the action happens over time. Is it in progress? Is it finished? Does it happen regularly? Is it timeless? Does it connect two moments in time?"
+              },
+              {
+                "text": "<i>Mood</i> shows how we feel about the action. Is it a fact? A possibility? An ability? A duty? Mood is usually shown with modal verbs (like can, must, should, would). The word “will”, which we use to show future, is also a modal verb."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "This way of thinking can completely change how we teach and learn English grammar. In the next pages, we will look at these parts in detail. Not to learn more rules, but to understand this: every verb structure you have ever heard or used in English is built on these three pillars. And if you understand them, you will not have to worry about which “tense” to use. It will be enough to think about what you want to express in terms of <i>tense, mood, and aspect</i>."
+          },
+          {
+            "type": "paragraph",
+            "text": "<b>2.1 Tense</b>"
+          },
+          {
+            "type": "paragraph",
+            "text": "We already talked about this in detail earlier. Tense only shows what form the verb takes. And English verbs have only two basic forms. This doesn’t mean that the English language cannot express the future or other time relationships. Of course it can! It just uses different tools to do this – for example, auxiliary verbs, the context, and of course verb structures."
+          },
+          {
+            "type": "paragraph",
+            "text": "<b>2.2 Aspect</b>"
+          },
+          {
+            "type": "paragraph",
+            "text": "Imagine a garden! If you look out the window, you see the gardener cutting the grass. If you were talking to someone on the phone right now, you would probably say something like:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "text": "<i>“I can't hear you, the gardener is cutting the grass right now.”</i>"
+              },
+              {
+                "text": "A little later, you would say it this way: <i>“It’s quiet. And what a smell! The gardener has already cut the grass.”</i>"
+              },
+              {
+                "text": "The next morning, if you were telling your friend about it: <i>“Yesterday the gardener cut the grass.”</i>"
+              },
+              {
+                "text": "At a garden party, when someone compliments the lawn: <i>“My gardener cuts it every Saturday.”</i>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Four different sentences about the same event – but from different points of view. In the first, you see the gardener in the middle of the action. In the second, you talk about the result. In the third, you mention a finished event. In the last one, you focus on how often it happens. This way of thinking is what we call <i>aspect</i>."
+          },
+          {
+            "type": "paragraph",
+            "text": "So <i>aspect</i> does not tell us when something happened, but how we see the event. This is a very important difference. The time (<i>when?</i>) and the way we see it (<i>how?</i>) are two completely different things. I want to make it very clear that this is why the traditional method – which treats <i>aspect</i> as part of <i>tense</i> – is not correct. It makes it look like <i>simple present</i>, <i>present continuous</i>, or <i>present perfect</i> talk about different times."
+          },
+          {
+            "type": "paragraph",
+            "text": "The English language shows three main aspects: the <i>simple</i>, the <i>progressive/continuous</i>, and the <i>perfect aspect</i>."
+          }
+        ]
+      },
+      "ch_3": {
         "title": "",
         "type": "simple",
-        "content": []
+        "content": [
+        ]
       }
     }
   }
