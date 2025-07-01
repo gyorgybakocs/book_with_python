@@ -172,16 +172,7 @@ class ChapterBuilder(BasePageBuilder):
                 logger.debug(f"Speech Bubble height needed: {required_height:.1f}, available: {available_height:.1f}")
 
                 if required_height > available_height:
-                    # Need page break
-                    logger.debug("Speech Bubble doesn't fit, doing page break")
-                    if has_headers_footers:
-                        self.content.add_footer(chapter_title)
-                        self.content.new_page()
-                        self.content.start_from(self.config.get("common.padding.vertical"))
-                        self.content.add_header(f'<span>{chapter_title}</span>')
-                    else:
-                        self.content.new_page()
-                        self.content.start_from(self.config.get("common.padding.vertical"))
+                    self._handle_page_break(chapter_title, has_headers_footers)
 
                 # Add the speech bubble
                 self.content.add_speech_bubble(item)
@@ -196,16 +187,7 @@ class ChapterBuilder(BasePageBuilder):
                 logger.debug(f"TextBox height needed: {required_height:.1f}, available: {available_height:.1f}")
 
                 if required_height > available_height:
-                    # Need page break
-                    logger.debug("TextBox doesn't fit, doing page break")
-                    if has_headers_footers:
-                        self.content.add_footer(chapter_title)
-                        self.content.new_page()
-                        self.content.start_from(self.config.get("common.padding.vertical"))
-                        self.content.add_header(f'<span>{chapter_title}</span>')
-                    else:
-                        self.content.new_page()
-                        self.content.start_from(self.config.get("common.padding.vertical"))
+                    self._handle_page_break(chapter_title, has_headers_footers)
 
                 # Add the textbox
                 self.content.add_textbox(item)
@@ -220,17 +202,7 @@ class ChapterBuilder(BasePageBuilder):
                 logger.debug(f"Image height needed: {required_height:.1f}, available: {available_height:.1f}")
 
                 if required_height > available_height:
-                    # Need page break
-                    logger.debug("Image doesn't fit, doing page break")
-                    if has_headers_footers:
-                        self.content.add_footer(chapter_title)
-                        self.content.new_page()
-                        self.content.start_from(self.config.get("common.padding.vertical"))
-                        self.content.add_header(f'<span>{chapter_title}</span>')
-                    else:
-                        logger.debug(f"--------> NEW PAGE WOTHOUT HEADER OR FOOTER!!!! start from: {self.config.get('common.padding.vertical')}")
-                        self.content.new_page()
-                        self.content.start_from(self.config.get("common.padding.vertical"))
+                    self._handle_page_break(chapter_title, has_headers_footers)
 
                 # Add the image
                 self.content.add_image(
@@ -252,11 +224,34 @@ class ChapterBuilder(BasePageBuilder):
                     block_column_widths=item.get('block_column_widths', None)
                 )
             elif item.get('type') == 'list':
-                self.content.add_list(**item)
+                logger.debug(f"List {i+1}: Unpacking {len(item.get('items', []))} items for page breaking.")
+                list_items = item.get('items', [])
+                for list_item_data in list_items:
+                    # For each item in the list, perform the estimate -> check -> draw cycle
+                    li_req_height = self.content.list_builder.estimate_list_item_height(list_item_data)
+                    available_height = self.content.layout_service.calculate_available_space(self.content.current_pos)
+                    logger.debug(f"  List item height needed: {li_req_height:.1f}, available: {available_height:.1f}")
+
+                    if li_req_height > available_height:
+                        self._handle_page_break(chapter_title, has_headers_footers)
+
+                    # Draw this single list item
+                    self.content.add_list_item(list_item_data)
             else:
                 logger.warning(f"Unknown content type: {item.get('type')} - skipping")
 
         logger.info(f"Finished processing all {len(content_items)} content items with smart breaks")
+
+    def _handle_page_break(self, chapter_title: str, has_headers_footers: bool):
+        logger.debug("Item doesn't fit, performing page break")
+        if has_headers_footers:
+            self.content.add_footer(chapter_title)
+            self.content.new_page()
+            self.content.start_from(self.config.get("common.padding.vertical"))
+            self.content.add_header(f'<span>{chapter_title}</span>')
+        else:
+            self.content.new_page()
+            self.content.start_from(self.config.get("common.padding.vertical"))
 
     def _add_paragraph_with_simple_breaks(self, text: str, chapter_title: str):
         """

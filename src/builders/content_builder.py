@@ -37,9 +37,9 @@ class ContentBuilder:
     # PUBLIC API - DELEGATE TO SPECIALIZED BUILDERS
     # ==========================================
 
-    def add_list(self, **kwargs):
-        """Add a bulleted or dashed list."""
-        self.current_pos = self.list_builder.add_list(current_pos=self.current_pos, **kwargs)
+    def add_list_item(self, item: dict):
+        """Adds a single list item, used by ChapterBuilder's smart break logic."""
+        self.current_pos = self.list_builder.add_list_item(item, self.current_pos)
         return self
 
     def start_from(self, pos: float):

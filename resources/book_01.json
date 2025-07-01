@@ -3,7 +3,7 @@
   "book_hu": {
     "title": {
       "title": "Az igazság az angol igeidőkről",
-      "subtitle": "A \"két igeidő\" módszer"
+      "subtitle": "A „két igeidő” módszer"
     },
     "copyright": {
       "copyright": "Copyright © 2025 BGDS Minden jog fenntartva.",
@@ -70,7 +70,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. \"Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály?\" Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került."
+          "text": "Aztán jött az érettségi éve, és vele egy új tanár. Minden órán újabb és újabb táblázatokat írt a táblára. A present simple használatáról annyi szabályt kellett megtanulnunk, hogy két oldal sem volt elég a füzetben. Mi történt? Ahelyett, hogy spontán beszéltünk volna, folyamatosan a szabályokon agyaltunk. „Várj... ez most befejezett múlt? Vagy egyszerű? És mi is volt az a harmadik szabály?” Az órák unalmassá váltak, a lelkesedésünk pedig... nos, mondjuk úgy, hogy mélypontra került."
         },
         {
           "type": "paragraph",
@@ -78,7 +78,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Az „angol módszer\" azonban hátrányokkal is járhat. Brit nyelvtanárok szerint megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs olyan fogalmakról, mint például a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban tudja az angol nyelvtant, mint maguk a britek. Mégis ők természetesen és magabiztosan használják az angolt, mi pedig – akik a szabályokat kívülről fújjuk – még egy egyszerű mondatnál is elbizonytalanodunk. Ebből is látható, hogy nem az a lényeg, hogy megtanuljuk a szabályokat, hanem az, hogy használni tudjuk őket!"
+          "text": "Az „angol módszer” azonban hátrányokkal is járhat. Brit nyelvtanárok szerint megnehezíti a britek számára az idegen nyelvek tanulását, hiszen a saját anyanyelvük szerkezetét sem értik. Egy átlagos brit felnőtt nem tudja elmagyarázni, mi az a főnév vagy melléknév, és fogalma sincs olyan fogalmakról, mint például a phrasal verb. Ironikus módon sok nem angol anyanyelvű jobban tudja az angol nyelvtant, mint maguk a britek. Mégis ők természetesen és magabiztosan használják az angolt, mi pedig – akik a szabályokat kívülről fújjuk – még egy egyszerű mondatnál is elbizonytalanodunk. Ebből is látható, hogy nem az a lényeg, hogy megtanuljuk a szabályokat, hanem az, hogy használni tudjuk őket!"
         },
         {
           "type": "paragraph",
@@ -143,7 +143,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Hány igeidő van valójában az angolban? Egyáltalán mi az az igeidő? A tankönyvekben található igeidő meghatározást mindenki ismeri. És most azt kérem, próbálja ezt elfelejteni, mert ez a meghatározás alapvetően hibás. Amit a tankönyvek igeidőnek neveznek, azok valójában igei szerkezetek. Milyen időben van például az <i>„I sat down.\"</i>? Természetesen mindenki azonnal rávágja, hogy <i>simple past</i>. És mikor azt mondjuk, hogy <i>„I was sitting down, when…\"</i>? A legtöbben azt felelik, hogy <i>past continuous</i>. Pedig ha egy kicsit jobban belegondol, az idő az most is múlt, amit ebben az igei szerkezetben a <i>„be\"</i> múlt idejű alakja a <i>„was\"</i> mutat meg nekünk, míg a cselekvés milyenségét, az ige <i>„ing\"</i> végződése jelzi. Hasonlóan az <i>„I had been sitting down\"</i> esetében is az idő egyszerűen csak múlt, amit a <i>„have\"</i> múlt idejű alakja a <i>„had\"</i> jelez. A befejezettséget (ami nem is az, de most maradjunk ennél) a <i>„been”</i> mutatja, a folyamatosságot pedig ismét az <i>„ing\"</i> végződés."
+            "text": "Hány igeidő van valójában az angolban? Egyáltalán mi az az igeidő? A tankönyvekben található igeidő meghatározást mindenki ismeri. És most azt kérem, próbálja ezt elfelejteni, mert ez a meghatározás alapvetően hibás. Amit a tankönyvek igeidőnek neveznek, azok valójában igei szerkezetek. Milyen időben van például az <i>„I sat down.”</i>? Természetesen mindenki azonnal rávágja, hogy <i>simple past</i>. És mikor azt mondjuk, hogy <i>„I was sitting down, when…”</i>? A legtöbben azt felelik, hogy <i>past continuous</i>. Pedig ha egy kicsit jobban belegondol, az idő az most is múlt, amit ebben az igei szerkezetben a <i>„be”</i> múlt idejű alakja a <i>„was”</i> mutat meg nekünk, míg a cselekvés milyenségét, az ige <i>„ing”</i> végződése jelzi. Hasonlóan az <i>„I had been sitting down”</i> esetében is az idő egyszerűen csak múlt, amit a <i>„have”</i> múlt idejű alakja a <i>„had”</i> jelez. A befejezettséget (ami nem is az, de most maradjunk ennél) a <i>„been”</i> mutatja, a folyamatosságot pedig ismét az <i>„ing”</i> végződés."
           },
           {
             "type": "paragraph",
@@ -236,16 +236,16 @@
             "type": "list",
             "items": [
               {
-                "text": "<i>„Nem hallom, a kertész éppen nyírja a füvet.\"</i>"
+                "text": "<i>„Nem hallom, a kertész éppen nyírja a füvet.”</i>"
               },
               {
-                "text": "Kicsivel később már így fogalmazna: <i>„Csend van. És micsoda illat! A kertész már lenyírta a füvet.\"</i>"
+                "text": "Kicsivel később már így fogalmazna: <i>„Csend van. És micsoda illat! A kertész már lenyírta a füvet.”</i>"
               },
               {
-                "text": "Másnap reggel, ha a barátjának mesélne erről: <i>„Tegnap a kertész lenyírta a füvet.\"</i>"
+                "text": "Másnap reggel, ha a barátjának mesélne erről: <i>„Tegnap a kertész lenyírta a füvet.”</i>"
               },
               {
-                "text": "Egy kerti partin, amikor valaki megdicsérné a pázsitot: <i>\"A kertészem minden szombaton lenyírja.\"</i>"
+                "text": "Egy kerti partin, amikor valaki megdicsérné a pázsitot: <i>„A kertészem minden szombaton lenyírja.”</i>"
               }
             ]
           },
@@ -274,54 +274,72 @@
             "text": "Vannak helyzetek tehát, amikor nem maga az esemény fontos, hanem az eredménye. Ha elvesztette a kulcsait, az nemcsak azt a tényt jelenti, hogy elvesztette őket, hanem azt is, hogy még most sincsenek meg. Lehet, hogy éppen most ért véget az esemény, de az is lehet, hogy régen. Nem számít."
           },
           {
-            "type": "list",
-            "items": [
+            "type": "textbox",
+            "content": [
               {
-                "text": "<i>I have lost my keys.</i> – még most is keresem őket"
+                "type": "text",
+                "text": "• <i>I have lost my keys.</i> - még most is keresem őket"
               },
               {
-                "text": "<i>She has just finished her homework.</i> – most csukta be a füzetet"
+                "type": "text",
+                "text": "• <i>She has just finished her homework.</i> - most csukta be a füzetet"
               },
               {
-                "text": "<i>Have you seen my phone?</i> – ha látta, akkor talán meg tudja mondani, hol van most"
+                "type": "text",
+                "text": "• <i>Have you seen my phone?</i> - ha látta, akkor talán meg tudja mondani, hol van most"
               }
-            ]
+            ],
+            "background_color": "white",
+            "border_color": "black",
+            "border_width": 1
           },
           {
             "type": "paragraph",
             "text": "Máskor az számít, hogy egy esemény valaha megtörtént-e, nem pedig az, hogy pontosan mikor. Ha megkérdezi valakitől, hogy járt-e már Párizsban, a kérdés nem az időpontra vonatkozik, hanem arra, hogy volt-e ilyen tapasztalata. Ezeknek a mondatoknak lényege éppen az, hogy a teljes élettapasztalatra utalnak, ami összeköti a múltat a jelennel."
           },
           {
-            "type": "list",
-            "items": [
+            "type": "textbox",
+            "content": [
               {
-                "text": "<i>Have you ever been to Paris?</i> – az élet bármely pontján szerzett tapasztalatra kérdez rá, és a \"valaha\" időtartamot foglalja magában"
+                "type": "text",
+                "text": "• <i>Have you ever been to Paris?</i> – az élet bármely pontján szerzett tapasztalatra kérdez rá, és a „valaha” időtartamot foglalja magában"
               },
               {
-                "text": "<i>I have never eaten oysters.</i> – arra utal, hogy egész életemben, a jelen pillanatig bezárólag soha nem volt ilyen tapasztalatom"
+                "type": "text",
+                "text": "• <i>I have never eaten oysters.</i> – arra utal, hogy egész életemben, a jelen pillanatig bezárólag soha nem volt ilyen tapasztalatom"
               },
               {
-                "text": "<i>She has driven a truck before.</i>"
+                "type": "text",
+                "text": "• <i>She has driven a truck before.</i>"
               }
-            ]
+            ],
+            "background_color": "white",
+            "border_color": "black",
+            "border_width": 1
           },
           {
             "type": "paragraph",
             "text": "Előfordul olyan is, hogy az esemény a múltban kezdődött, de még most is tart. Ha valaki tíz éve költözött egy városba, és még mindig ott él, akkor ezt nem egy befejezett múltbeli esemény, hanem egy állapot."
           },
           {
-            "type": "list",
-            "items": [
+            "type": "textbox",
+            "content": [
               {
-                "text": "<i>He has lived here for 10 years</i> – múltban kezdődött, de a jelenben is fennálló helyzet"
+                "type": "text",
+                "text": "• <i>He has lived here for 10 years</i> – múltban kezdődött, de a jelenben is fennálló helyzet"
               },
               {
-                "text": "<i>You have known her since childhood.</i>"
+                "type": "text",
+                "text": "• <i>You have known her since childhood.</i>"
               },
               {
-                "text": "<i>I have owned this car for years.</i>"
+                "type": "text",
+                "text": "• <i>I have owned this car for years.</i>"
               }
-            ]
+            ],
+            "background_color": "white",
+            "border_color": "black",
+            "border_width": 1
           },
           {
             "type": "paragraph",
@@ -341,17 +359,17 @@
               {
                 "text": "<i>I have lost my keys.</i>",
                 "sub_items": [
-                  "Az igei szerkezet első tagja a <i>„have\"</i> jelen idejű alakja. – Az igeidő: <i>present</i>",
-                  "A szerkezet második tagja <i>past participle</i> („lost\"). – Az aspektus: <i>perfect</i>",
-                  "A <i>„present perfect\"</i> a tankönyvi igeidő."
+                  "Az igei szerkezet első tagja a <i>„have”</i> jelen idejű alakja. – Az igeidő: <i>present</i>",
+                  "A szerkezet második tagja <i>past participle</i> („lost”). – Az aspektus: <i>perfect</i>",
+                  "A <i>„present perfect”</i> a tankönyvi igeidő."
                 ]
               },
               {
                 "text": "<i>I had already lost my keys, when he asked.</i>",
                 "sub_items": [
-                  "Múlt idő, hiszen a <i>„have\"</i> múlt idejű alakját látjuk („had\"). – Az igeidő: <i>past</i>",
-                  "A szerkezet második tagja most is <i>past participle</i> („lost\"). – Az aspektus: <i>perfect</i>",
-                  "Ha a tankönyvi igeidőt szeretnénk megnevezni, akkor ez <i>„past perfect\"</i>."
+                  "Múlt idő, hiszen a <i>„have”</i> múlt idejű alakját látjuk („had”). – Az igeidő: <i>past</i>",
+                  "A szerkezet második tagja most is <i>past participle</i> („lost”). – Az aspektus: <i>perfect</i>",
+                  "Ha a tankönyvi igeidőt szeretnénk megnevezni, akkor ez <i>„past perfect”</i>."
                 ]
               }
             ]
@@ -483,11 +501,11 @@
         "content": [
           {
             "type": "paragraph",
-            "text": "First, let’s talk about the challenges we all face when learning a language. We can get stuck right at the beginning: which method should we choose? Besides regular school education, there are many different methods. Some of them promise that we can speak English fluently without learning grammar rules — because we can learn everything <i>\"like small children.\"</i> This is probably not true, but these methods are closer to the truth than those that say it is impossible to learn a language without knowing the rules very well."
+            "text": "First, let’s talk about the challenges we all face when learning a language. We can get stuck right at the beginning: which method should we choose? Besides regular school education, there are many different methods. Some of them promise that we can speak English fluently without learning grammar rules — because we can learn everything <i>\"like small children.”</i> This is probably not true, but these methods are closer to the truth than those that say it is impossible to learn a language without knowing the rules very well."
           },
           {
             "type": "paragraph",
-            "text": "Let’s look at a simple, everyday situation. When a mother asks in the evening, <i>\"What did you have for lunch at kindergarten today?\"</i>, the child answers without thinking: <i>\"I had some broth.\"</i> The child hears the question with \"did\", so they use the <i>simple past tense</i> in the answer. Later, when the mother asks about dinner — <i>\"Have you eaten dinner?\"</i> — the child answers just as naturally with <i>present perfect</i>: <i>\"Yes, I’ve eaten dinner already.\"</i>"
+            "text": "Let’s look at a simple, everyday situation. When a mother asks in the evening, <i>\"What did you have for lunch at kindergarten today?”</i>, the child answers without thinking: <i>\"I had some broth.”</i> The child hears the question with \"did”, so they use the <i>simple past tense</i> in the answer. Later, when the mother asks about dinner — <i>\"Have you eaten dinner?”</i> — the child answers just as naturally with <i>present perfect</i>: <i>\"Yes, I’ve eaten dinner already.”</i>"
           },
           {
             "type": "paragraph",

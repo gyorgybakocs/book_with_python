@@ -3,6 +3,7 @@ from reportlab.lib import colors
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.styles import ParagraphStyle
 from src.logger import logger
+from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT, TA_JUSTIFY # <-- THIS IMPORT WAS MISSING
 import os
 
 class TextBoxBuilder:
@@ -113,19 +114,50 @@ class TextBoxBuilder:
                 total_height += element['height'] + 3 # Add spacing
         return total_height, content_elements
 
-    def _create_text_element(self, text, width, style_data):
-        alignment_map = {'left': 0, 'center': 1, 'right': 2, 'justify': 4}
-        size = style_data.get('font_size', 12)
-        font_name = f'{self.config.get("fonts.main")}-{style_data.get("font_weight", "Regular")}'
+    def _create_text_element(self, text: str, width: float, style_data: dict) -> dict:
+        """
+        Creates a Paragraph. If text starts with a bullet, it applies special styling
+        to make the bullet smaller and properly indented.
+        """
+        alignment_map = {'left': TA_LEFT, 'center': TA_CENTER, 'right': TA_RIGHT, 'justify': TA_JUSTIFY}
 
-        style = self.style_manager.prepare_style('paragraph_default',
-                                                 fontSize=size,
-                                                 leading=style_data.get('leading', size * 1.2),
-                                                 alignment=alignment_map.get(style_data.get('text_align', 'left'), 0),
-                                                 textColor=self._parse_color(style_data.get('text_color', 'black')),
-                                                 fontName=font_name
-                                                 )
-        paragraph = Paragraph(text, style)
+        # Get the default style first (e.g., with 12.5pt font size)
+        base_style = self.style_manager.get_style('paragraph_default')
+
+        # Override with values from JSON if they exist for the textbox
+        style_kwargs = {
+            'fontSize': style_data.get('font_size', base_style.fontSize),
+            'leading': style_data.get('leading', base_style.leading),
+            'alignment': alignment_map.get(style_data.get('text_align', 'left'), base_style.alignment),
+            'textColor': self._parse_color(style_data.get('text_color', 'black')),
+            'fontName': f'{self.config.get("fonts.main")}-{style_data.get("font_weight", "Regular")}'
+        }
+
+        # This is the final style for the text inside the box
+        final_style = self.style_manager.prepare_style('paragraph_default', **style_kwargs)
+
+        # --- NEW LOGIC FOR BULLET HANDLING ---
+        if text.strip().startswith('•'):
+            # It's a list item. Apply special bullet styling.
+            clean_text = text.strip()[1:].lstrip()  # Remove bullet and any leading space
+
+            # Create a specific style for list items inside a textbox
+            item_style = ParagraphStyle(
+                name='textbox-list-item',
+                parent=final_style,
+                leftIndent=15,       # Indent the entire paragraph
+                firstLineIndent=0,   # Ensure first line starts at the same place
+                bulletIndent=5,      # Position the bullet before the text
+                bulletText='•',      # The bullet character
+                # Make the bullet smaller, proportional to the text font size
+                bulletFontSize=final_style.fontSize * 0.8,
+            )
+            paragraph = Paragraph(clean_text, item_style)
+        else:
+            # It's a regular paragraph without a bullet.
+            paragraph = Paragraph(text, final_style)
+        # --- END OF NEW LOGIC ---
+
         _, height = paragraph.wrapOn(self.canvas, width, 10000)
         return {'type': 'text', 'object': paragraph, 'height': height}
 
